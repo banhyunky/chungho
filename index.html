@@ -3,355 +3,612 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<meta name="theme-color" content="#ffffff">
 <title>청호나이스 렌탈 상담</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif;background:#f0f2f5;color:#1a1a1a;font-size:16px}
-.page{max-width:440px;margin:0 auto;background:#f0f2f5;min-height:100vh;padding-bottom:2rem}
-.hero{background:#fff;padding:1.75rem 1.25rem 1.5rem;text-align:center;margin-bottom:10px}
-.badge{display:inline-block;background:#e8f0fe;color:#1a56db;font-size:11px;font-weight:600;padding:4px 12px;border-radius:99px;margin-bottom:12px}
-.hero h1{font-size:22px;font-weight:700;color:#1a1a1a;margin-bottom:6px;line-height:1.3}
+.page{max-width:440px;margin:0 auto;min-height:100vh;padding-bottom:2rem}
+
+/* 스크린 전환 */
+.screen{display:none}.screen.active{display:block}
+
+/* 공통 */
+.hero{background:#fff;padding:1.5rem 1.25rem 1.25rem;text-align:center;margin-bottom:10px}
+.badge{display:inline-block;background:#e8f0fe;color:#1a56db;font-size:11px;font-weight:600;padding:4px 12px;border-radius:99px;margin-bottom:10px}
+.hero h1{font-size:21px;font-weight:700;color:#1a1a1a;margin-bottom:4px}
 .hero p{font-size:13px;color:#777}
-.planner-card{background:#fff;margin:0 0 10px;padding:16px 20px;display:flex;align-items:center;gap:14px}
-.avatar{width:50px;height:50px;border-radius:50%;background:#e8f0fe;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#1a56db;flex-shrink:0}
-.p-name{font-size:16px;font-weight:700;color:#1a1a1a}
-.p-sub{font-size:12px;color:#999;margin-top:3px}
-.verified-badge{background:#ecfdf5;color:#166534;font-size:11px;font-weight:600;padding:3px 8px;border-radius:99px;margin-top:5px;display:inline-block}
+.planner-card{background:#fff;margin:0 0 10px;padding:14px 18px;display:flex;align-items:center;gap:12px}
+.avatar{width:46px;height:46px;border-radius:50%;background:#e8f0fe;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;color:#1a56db;flex-shrink:0}
+.p-name{font-size:15px;font-weight:700;color:#1a1a1a}
+.p-sub{font-size:12px;color:#999;margin-top:2px}
+.v-badge{background:#ecfdf5;color:#166534;font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;margin-top:4px;display:inline-block}
 .cta-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 14px 14px;background:#fff;margin-bottom:10px}
-.btn-call{background:#1a56db;color:#fff;border:none;border-radius:14px;padding:16px 8px;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}
-.btn-call:active{opacity:0.88;transform:scale(0.97)}
-.btn-sms{background:#fff;color:#1a1a1a;border:1.5px solid #dde3f0;border-radius:14px;padding:16px 8px;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}
-.btn-sms:active{background:#f5f7ff;transform:scale(0.97)}
-.consult-modal{display:none;margin:0 0 10px}
-.consult-modal.open{display:block}
-.consult-card{background:#fff;padding:1.5rem 1.25rem}
-.consult-title{font-size:16px;font-weight:700;color:#1a1a1a;margin-bottom:1.25rem}
-.field{margin-bottom:14px}
-.field label{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:6px}
-.field input,.field textarea{width:100%;border:1.5px solid #e5e7eb;border-radius:12px;padding:12px 14px;font-size:14px;font-family:inherit;color:#1a1a1a;background:#fff;outline:none;-webkit-appearance:none}
+.btn-call{background:#1a56db;color:#fff;border:none;border-radius:12px;padding:15px 8px;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer}
+.btn-call:active{opacity:0.88}
+.btn-sms{background:#fff;color:#1a1a1a;border:1.5px solid #dde3f0;border-radius:12px;padding:15px 8px;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer}
+.btn-sms:active{background:#f5f7ff}
+
+/* 상담 폼 */
+.consult-wrap{display:none;margin:0 0 10px}.consult-wrap.open{display:block}
+.consult-card{background:#fff;padding:1.25rem}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px}
+.field input,.field textarea{width:100%;border:1.5px solid #e5e7eb;border-radius:10px;padding:11px 13px;font-size:14px;font-family:inherit;color:#1a1a1a;background:#fff;outline:none;-webkit-appearance:none}
 .field input:focus,.field textarea:focus{border-color:#1a56db}
-.field textarea{min-height:90px;resize:none;line-height:1.6}
-.btn-send{width:100%;background:#1a56db;color:#fff;border:none;border-radius:12px;padding:15px;font-size:15px;font-weight:700;cursor:pointer;margin-top:6px}
-.btn-cancel{width:100%;background:none;border:none;color:#aaa;font-size:13px;cursor:pointer;padding:12px}
-.sec-header{padding:16px 16px 10px;display:flex;align-items:center;justify-content:space-between}
-.sec-title{font-size:16px;font-weight:700;color:#1a1a1a}
+.field textarea{min-height:80px;resize:none;line-height:1.6}
+.btn-send{width:100%;background:#1a56db;color:#fff;border:none;border-radius:10px;padding:14px;font-size:14px;font-weight:700;cursor:pointer;margin-top:4px}
+.btn-x{width:100%;background:none;border:none;color:#aaa;font-size:13px;cursor:pointer;padding:10px}
+
+/* 섹션 */
+.sec-hd{padding:14px 16px 10px;display:flex;align-items:center;justify-content:space-between}
+.sec-title{font-size:15px;font-weight:700;color:#1a1a1a}
 .sec-sub{font-size:12px;color:#aaa}
-.prod-list{display:flex;flex-direction:column;gap:10px}
+
+/* 이달의 행사상품 */
+.featured-list{display:flex;flex-direction:column;gap:10px;margin-bottom:10px}
+
+/* 찾으시는 상품보기 버튼 */
+.find-btn{margin:0 14px 10px;background:#fff;border:1.5px solid #1a56db;border-radius:14px;padding:16px;text-align:center;cursor:pointer;color:#1a56db;font-size:15px;font-weight:700}
+.find-btn:active{background:#f0f4ff}
+
+/* 카테고리 화면 */
+.cat-header{background:#fff;padding:14px 16px;display:flex;align-items:center;gap:10px;margin-bottom:10px;border-bottom:1px solid #f0f2f5}
+.back-btn{background:none;border:none;font-size:22px;cursor:pointer;color:#1a1a1a;padding:0;line-height:1}
+.cat-title{font-size:16px;font-weight:700;color:#1a1a1a}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 14px 14px}
+.cat-card{background:#fff;border-radius:14px;padding:20px 14px;text-align:center;cursor:pointer;border:1.5px solid #eee}
+.cat-card:active{background:#f5f7ff;border-color:#1a56db}
+.cat-icon{font-size:28px;margin-bottom:8px}
+.cat-name{font-size:14px;font-weight:700;color:#1a1a1a}
+.cat-count{font-size:11px;color:#aaa;margin-top:3px}
+
+/* 서브카테고리 */
+.subcat-list{display:flex;flex-wrap:wrap;gap:8px;padding:0 14px 14px}
+.subcat-btn{background:#fff;border:1.5px solid #eee;border-radius:99px;padding:8px 16px;font-size:13px;font-weight:600;color:#444;cursor:pointer}
+.subcat-btn.active,.subcat-btn:active{background:#1a56db;border-color:#1a56db;color:#fff}
 
 /* 제품 카드 */
+.prod-list{display:flex;flex-direction:column;gap:10px;padding:0 0 4px}
 .prod-card{background:#fff;overflow:hidden;cursor:pointer}
 .prod-card:active{opacity:0.95}
-.prod-img-wrap{width:100%;background:#f8f9fa;position:relative;display:flex;align-items:center;justify-content:center;height:200px}
-.prod-img-wrap img{max-width:100%;max-height:100%;object-fit:contain;padding:16px}
-.prod-tag-wrap{position:absolute;top:10px;left:10px;display:flex;gap:6px}
-.tag{font-size:10px;font-weight:700;padding:3px 9px;border-radius:99px}
-.tag-hot{background:#1a56db;color:#fff}
-.tag-new{background:#f59e0b;color:#fff}
-.tag-promo{background:#ef4444;color:#fff}
-.tag-good{background:#10b981;color:#fff}
-.prod-summary{padding:14px 16px 16px}
-.prod-name{font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:3px;line-height:1.4}
-.prod-model{font-size:11px;color:#bbb;margin-bottom:10px}
-.prod-price-row{display:flex;align-items:baseline;gap:6px;margin-bottom:3px}
-.price-val{font-size:21px;font-weight:800;color:#1a1a1a;line-height:1}
-.price-unit{font-size:12px;font-weight:400;color:#999}
-.price-card{font-size:13px;color:#1a56db;font-weight:600;margin-bottom:10px}
-.prod-hint{font-size:12px;color:#aaa;display:flex;align-items:center;gap:4px}
+.prod-img-wrap{width:100%;background:#f8f9fa;position:relative;display:flex;align-items:center;justify-content:center;height:190px}
+.prod-img-wrap img{max-width:100%;max-height:100%;object-fit:contain;padding:14px}
+.prod-tags{position:absolute;top:8px;left:8px;display:flex;gap:5px}
+.tag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:99px}
+.t-hot{background:#1a56db;color:#fff}
+.t-new{background:#f59e0b;color:#fff}
+.t-promo{background:#ef4444;color:#fff}
+.t-good{background:#10b981;color:#fff}
+.t-feat{background:#8b5cf6;color:#fff}
+.prod-body{padding:12px 14px 14px}
+.prod-name{font-size:14px;font-weight:700;color:#1a1a1a;margin-bottom:2px;line-height:1.4}
+.prod-model{font-size:11px;color:#ccc;margin-bottom:8px}
+.prod-price{font-size:20px;font-weight:800;color:#1a1a1a;line-height:1}
+.prod-price span{font-size:12px;font-weight:400;color:#999}
+.prod-card-p{font-size:13px;color:#1a56db;font-weight:600;margin-top:3px;margin-bottom:8px}
+.prod-hint{font-size:11px;color:#ccc}
 
 /* 상세 팝업 */
-.detail-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:100;justify-content:flex-end;flex-direction:column}
-.detail-overlay.open{display:flex}
-.detail-sheet{background:#fff;border-radius:20px 20px 0 0;max-height:88vh;overflow-y:auto;animation:slideUp 0.3s ease}
-@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.detail-handle{width:40px;height:4px;background:#e5e7eb;border-radius:99px;margin:12px auto 0}
-.detail-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;background:#f3f4f6;border:none;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#666}
-.detail-img{width:100%;height:220px;background:#f8f9fa;display:flex;align-items:center;justify-content:center}
-.detail-img img{max-width:100%;max-height:100%;object-fit:contain;padding:20px}
-.detail-body{padding:20px}
-.detail-tags{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
-.detail-name{font-size:18px;font-weight:700;color:#1a1a1a;margin-bottom:4px;line-height:1.4}
-.detail-model{font-size:12px;color:#bbb;margin-bottom:16px}
-.promo-box{background:#fff8f0;border:1px solid #fde8c8;border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:13px;color:#b45309;line-height:1.8}
-.promo-box strong{font-weight:700}
-.price-section{background:#f8f9ff;border-radius:12px;padding:14px 16px;margin-bottom:16px}
-.price-section-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
-.price-section-row:last-child{margin-bottom:0}
-.price-section-label{font-size:13px;color:#666}
-.price-section-val{font-size:16px;font-weight:700;color:#1a1a1a}
-.price-section-val.blue{color:#1a56db}
-.spec-section{margin-bottom:16px}
-.spec-section-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:10px}
-.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.spec-item{background:#f8f9fa;border-radius:10px;padding:10px 12px}
-.spec-label{font-size:10px;color:#aaa;margin-bottom:3px}
-.spec-val{font-size:13px;font-weight:600;color:#333}
-.detail-cta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px;padding-bottom:8px}
-.detail-btn-call{background:#1a56db;color:#fff;border:none;border-radius:12px;padding:15px;font-size:14px;font-weight:700;cursor:pointer}
-.detail-btn-sms{background:#fff;color:#1a1a1a;border:1.5px solid #dde3f0;border-radius:12px;padding:15px;font-size:14px;font-weight:700;cursor:pointer}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;flex-direction:column;justify-content:flex-end}
+.overlay.open{display:flex}
+.sheet{background:#fff;border-radius:20px 20px 0 0;max-height:90vh;overflow-y:auto;animation:up 0.28s ease}
+@keyframes up{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.handle{width:38px;height:4px;background:#e5e7eb;border-radius:99px;margin:12px auto 0}
+.sheet-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;background:#f3f4f6;border:none;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#666}
+.sheet-img{width:100%;height:210px;background:#f8f9fa;display:flex;align-items:center;justify-content:center}
+.sheet-img img{max-width:100%;max-height:100%;object-fit:contain;padding:18px}
+.sheet-body{padding:18px}
+.sheet-tags{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.sheet-name{font-size:17px;font-weight:700;color:#1a1a1a;margin-bottom:3px;line-height:1.4}
+.sheet-model{font-size:12px;color:#bbb;margin-bottom:14px}
+.promo-box{background:#fff8f0;border:1px solid #fde8c8;border-radius:10px;padding:11px 13px;margin-bottom:14px;font-size:12px;color:#b45309;line-height:1.8}
+.price-box{background:#f0f4ff;border-radius:12px;padding:14px 16px;margin-bottom:14px}
+.price-row2{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.price-row2:last-child{margin-bottom:0}
+.plabel{font-size:13px;color:#666}
+.pval{font-size:16px;font-weight:700;color:#1a1a1a}
+.pval.blue{color:#1a56db}
+.spec-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:8px}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:16px}
+.spec-item{background:#f8f9fa;border-radius:9px;padding:9px 11px}
+.slabel{font-size:10px;color:#aaa;margin-bottom:2px}
+.sval{font-size:12px;font-weight:600;color:#333}
+.sheet-cta{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-bottom:4px}
+.s-call{background:#1a56db;color:#fff;border:none;border-radius:11px;padding:14px;font-size:14px;font-weight:700;cursor:pointer}
+.s-sms{background:#fff;color:#1a1a1a;border:1.5px solid #dde3f0;border-radius:11px;padding:14px;font-size:14px;font-weight:700;cursor:pointer}
 
-.bottom-hint{font-size:12px;color:#ccc;text-align:center;padding:1.5rem 1rem 0.5rem}
+/* 관리자 */
+.admin-screen{background:#f0f2f5;min-height:100vh;padding-bottom:2rem}
+.admin-header{background:#1a56db;color:#fff;padding:16px 18px;display:flex;align-items:center;gap:10px}
+.admin-header h2{font-size:16px;font-weight:700}
+.admin-section{background:#fff;margin:10px 0;padding:16px}
+.admin-section h3{font-size:14px;font-weight:700;color:#1a1a1a;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #f0f2f5}
+.admin-prod-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f9f9f9}
+.admin-prod-item:last-child{border-bottom:none}
+.admin-chk{width:20px;height:20px;accent-color:#1a56db;cursor:pointer;flex-shrink:0}
+.admin-prod-name{font-size:13px;color:#1a1a1a;flex:1}
+.admin-prod-price{font-size:12px;color:#888}
+.admin-note{font-size:12px;color:#1a56db;margin-top:8px;padding:8px 10px;background:#e8f0fe;border-radius:8px}
+.btn-admin-save{width:100%;background:#1a56db;color:#fff;border:none;border-radius:10px;padding:14px;font-size:14px;font-weight:700;cursor:pointer;margin-top:10px}
+.planner-item{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f9f9f9}
+.planner-item:last-child{border-bottom:none}
+.pi-info{font-size:13px;color:#1a1a1a}
+.pi-sub{font-size:11px;color:#aaa;margin-top:2px}
+
+.bottom-hint{font-size:12px;color:#ccc;text-align:center;padding:1.25rem 1rem 0.5rem}
 </style>
 </head>
 <body>
-<div class="page">
 
+<!-- 메인 화면 -->
+<div class="screen active" id="mainScreen">
+<div class="page">
   <div class="hero">
     <div class="badge">청호나이스 공식 플래너</div>
     <h1>깨끗한 물, 건강한 일상</h1>
     <p>정수기 · 비데 · 공기청정기 렌탈 상담</p>
   </div>
-
   <div class="planner-card">
     <div class="avatar" id="avatarEl">반</div>
     <div style="flex:1">
       <div class="p-name" id="plannerName">반현기 플래너</div>
       <div class="p-sub" id="plannerSub">사번 10200366 · 대전 중구지사</div>
-      <span class="verified-badge">✓ 공식 인증 플래너</span>
+      <span class="v-badge">✓ 공식 인증 플래너</span>
     </div>
   </div>
-
   <div class="cta-row">
     <button class="btn-call" id="callBtn">📞 전화 상담</button>
     <button class="btn-sms" id="smsBtn">💬 상담 신청</button>
   </div>
-
-  <div class="consult-modal" id="smsModal">
+  <div class="consult-wrap" id="consultWrap">
     <div class="consult-card">
-      <div class="consult-title">상담 신청</div>
-      <div class="field">
-        <label>이름</label>
-        <input type="text" id="custName" placeholder="고객 성함을 입력해주세요" autocomplete="name">
-      </div>
-      <div class="field">
-        <label>문의 내용</label>
-        <textarea id="custMsg" placeholder="관심 제품이나 궁금한 점을 적어주세요&#10;예) 얼음정수기 렌탈 문의드립니다"></textarea>
-      </div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:14px">상담 신청</div>
+      <div class="field"><label>이름</label><input type="text" id="custName" placeholder="고객 성함"></div>
+      <div class="field"><label>문의 내용</label><textarea id="custMsg" placeholder="관심 제품이나 궁금한 점을 적어주세요"></textarea></div>
       <button class="btn-send" id="sendBtn">문자로 상담 신청 →</button>
-      <button class="btn-cancel" id="cancelBtn">취소</button>
+      <button class="btn-x" id="cancelBtn">취소</button>
     </div>
   </div>
 
-  <div class="sec-header">
-    <span class="sec-title">인기 제품</span>
-    <span class="sec-sub">터치하면 상세보기</span>
+  <div class="sec-hd">
+    <span class="sec-title">🎯 이달의 행사상품</span>
+    <span class="sec-sub">수수료 우수 제품</span>
   </div>
+  <div class="featured-list" id="featuredList"></div>
 
+  <div class="find-btn" id="findProdBtn">🔍 찾으시는 상품보기</div>
+  <p class="bottom-hint">더 많은 제품은 상품보기에서 확인하세요</p>
+</div>
+</div>
+
+<!-- 카테고리 화면 -->
+<div class="screen" id="catScreen">
+<div class="page">
+  <div class="cat-header">
+    <button class="back-btn" id="catBack">←</button>
+    <span class="cat-title">상품 카테고리</span>
+  </div>
+  <div class="cat-grid" id="catGrid"></div>
+</div>
+</div>
+
+<!-- 제품 목록 화면 -->
+<div class="screen" id="listScreen">
+<div class="page">
+  <div class="cat-header">
+    <button class="back-btn" id="listBack">←</button>
+    <span class="cat-title" id="listTitle">제품 목록</span>
+  </div>
+  <div class="subcat-list" id="subcatList"></div>
   <div class="prod-list" id="prodList"></div>
-  <p class="bottom-hint">더 많은 제품은 상담 문의 주세요</p>
+  <p class="bottom-hint">상담 신청은 제품 터치 후 버튼을 눌러주세요</p>
+</div>
 </div>
 
 <!-- 상세 팝업 -->
-<div class="detail-overlay" id="detailOverlay">
-  <div class="detail-sheet" id="detailSheet">
-    <div class="detail-handle"></div>
-    <button class="detail-close" id="detailClose">✕</button>
-    <div class="detail-img"><img id="detailImg" src="" alt=""></div>
-    <div class="detail-body">
-      <div class="detail-tags" id="detailTags"></div>
-      <div class="detail-name" id="detailName"></div>
-      <div class="detail-model" id="detailModel"></div>
-      <div class="promo-box" id="detailPromo" style="display:none"></div>
-      <div class="price-section">
-        <div class="price-section-row">
-          <span class="price-section-label">월 렌탈료</span>
-          <span class="price-section-val" id="detailPrice"></span>
-        </div>
-        <div class="price-section-row">
-          <span class="price-section-label">제휴카드 적용 시</span>
-          <span class="price-section-val blue" id="detailCardPrice"></span>
-        </div>
+<div class="overlay" id="overlay">
+  <div class="sheet" id="sheet">
+    <div class="handle"></div>
+    <button class="sheet-close" id="sheetClose">✕</button>
+    <div class="sheet-img"><img id="sImg" src="" alt=""></div>
+    <div class="sheet-body">
+      <div class="sheet-tags" id="sTags"></div>
+      <div class="sheet-name" id="sName"></div>
+      <div class="sheet-model" id="sModel"></div>
+      <div class="promo-box" id="sPromo" style="display:none"></div>
+      <div class="price-box">
+        <div class="price-row2"><span class="plabel">월 렌탈료</span><span class="pval" id="sPrice"></span></div>
+        <div class="price-row2"><span class="plabel">제휴카드 최대할인 시</span><span class="pval blue" id="sCard"></span></div>
       </div>
-      <div class="spec-section">
-        <div class="spec-section-title">제품 사양</div>
-        <div class="spec-grid" id="detailSpecs"></div>
-      </div>
-      <div class="detail-cta">
-        <button class="detail-btn-call" id="detailCallBtn">📞 전화 상담</button>
-        <button class="detail-btn-sms" id="detailSmsBtn">💬 상담 신청</button>
+      <div class="spec-title">제품 사양</div>
+      <div class="spec-grid" id="sSpecs"></div>
+      <div class="sheet-cta">
+        <button class="s-call" id="sCallBtn">📞 전화 상담</button>
+        <button class="s-sms" id="sSmsBtn">💬 상담 신청</button>
       </div>
     </div>
   </div>
+</div>
+
+<!-- 관리자 화면 (URL에 ?admin=1 붙이면 접근) -->
+<div class="screen" id="adminScreen">
+<div class="admin-screen">
+  <div class="admin-header">
+    <button class="back-btn" id="adminBack" style="color:#fff">←</button>
+    <h2>관리자 페이지</h2>
+  </div>
+  <div class="admin-section">
+    <h3>🎯 이달의 행사상품 선택 (최대 5개)</h3>
+    <div id="adminProdList"></div>
+    <div class="admin-note">체크한 제품이 메인 화면 상단에 표시됩니다</div>
+    <button class="btn-admin-save" id="saveFeatured">저장하기</button>
+  </div>
+  <div class="admin-section">
+    <h3>👥 플래너 목록</h3>
+    <div id="adminPlannerList"></div>
+    <div class="admin-note">플래너 추가/수정은 담당자에게 문의하세요</div>
+  </div>
+</div>
 </div>
 
 <script>
 const PLANNERS = {
-  '10200366': { name:'반현기', branch:'대전 중구지사', phone:'01030413282', avatar:'반' }
+  '10200366': {name:'반현기', branch:'대전 중구지사', phone:'01030413282', avatar:'반'}
 };
 
 const PRODUCTS = [
-  {
-    name: '더 엠 얼음정수기 The M',
-    model: 'WI-37C90720N',
-    img: 'https://chunghonice-mall.com/web/product/medium/202604/ffe11c81dac09b2a955fa9dbe5554164.webp',
-    tags: [{label:'신제품', cls:'tag-new'}],
-    price: '36,900원/월',
-    cardPrice: '20,900원/월',
-    promo: '5년 약정 9개월 반값할인\n6년 약정 15개월 반값할인',
-    specs: [
-      {label:'기능', val:'얼음·냉온·정수'},
-      {label:'약정', val:'5년 / 6년'},
-      {label:'관리방식', val:'방문 케어'},
-      {label:'등록비', val:'무료'},
-      {label:'살균', val:'안심살균'},
-      {label:'필터', val:'슈퍼멤브레인'}
-    ]
-  },
-  {
-    name: '직수얼음냉온정수기 뉴 아이스트리',
-    model: 'WI-36C90620N',
-    img: 'https://chunghonice-mall.com/web/product/medium/202507/a4b872c09f563dba76a358f5fe49eefe.webp',
-    tags: [{label:'인기', cls:'tag-hot'},{label:'반값', cls:'tag-promo'}],
-    price: '39,900원/월',
-    cardPrice: '23,900원/월',
-    promo: '반값렌탈료 19,950원\n5년 6개월 · 6년 12개월 반값할인',
-    specs: [
-      {label:'기능', val:'얼음·냉온·직수'},
-      {label:'약정', val:'5년 / 6년'},
-      {label:'살균', val:'직수살균'},
-      {label:'등록비', val:'무료'},
-      {label:'관리방식', val:'방문 케어'},
-      {label:'필터', val:'직수형'}
-    ]
-  },
-  {
-    name: '얼음냉온정수기 옴니 PLUS',
-    model: 'WI-53C9600M · 오트밀베이지',
-    img: 'https://chunghonice-mall.com/web/product/medium/202604/3c934ef56d8412663006ddc77ab8f635.jpg',
-    tags: [{label:'베스트', cls:'tag-hot'}],
-    price: '31,900원/월',
-    cardPrice: '15,900원/월',
-    promo: '2천원 추가할인 프로모션',
-    specs: [
-      {label:'기능', val:'얼음·냉온·정수'},
-      {label:'약정', val:'5년'},
-      {label:'컬러', val:'오트밀베이지'},
-      {label:'등록비', val:'무료'},
-      {label:'관리방식', val:'방문 케어'},
-      {label:'제빙량', val:'일반형'}
-    ]
-  },
-  {
-    name: '냉온정수기 뉴 러블리트리',
-    model: 'WP-50C90621N',
-    img: 'https://chunghonice-mall.com/web/product/medium/202504/be35775231f8a8f612128cd6f5acc5fb.webp',
-    tags: [{label:'가성비', cls:'tag-good'},{label:'반값', cls:'tag-promo'}],
-    price: '26,900원/월',
-    cardPrice: '10,900원/월',
-    promo: '반값렌탈료 13,450원\n5·6년 약정 6개월 반값할인',
-    specs: [
-      {label:'기능', val:'냉온·정수'},
-      {label:'약정', val:'5년 / 6년'},
-      {label:'관리방식', val:'방문 케어'},
-      {label:'등록비', val:'무료'},
-      {label:'살균', val:'전해수살균'},
-      {label:'필터', val:'나노필터'}
-    ]
-  },
-  {
-    name: '자가관리 냉온정수기',
-    model: 'WP-30C9560N',
-    img: 'https://chunghonice-mall.com/web/product/medium/202503/43f10589c38c1ff33f8f36a419c513f4.webp',
-    tags: [{label:'최저가', cls:'tag-good'}],
-    price: '24,900원/월',
-    cardPrice: '8,900원/월',
-    promo: '',
-    specs: [
-      {label:'기능', val:'냉온·정수'},
-      {label:'관리방식', val:'방문·셀프 선택'},
-      {label:'필터', val:'자가교체 가능'},
-      {label:'등록비', val:'무료'},
-      {label:'약정', val:'5년'},
-      {label:'특징', val:'저렴한 관리비'}
-    ]
-  }
+  // ===== 얼음정수기 =====
+  {id:'p01', cat:'정수기', subcat:'얼음', name:'더 엠 얼음정수기 The M', model:'WI-37C90720N',
+   img:'https://chunghonice-mall.com/web/product/medium/202604/ffe11c81dac09b2a955fa9dbe5554164.webp',
+   tags:[{l:'신제품',c:'t-new'}], price:'36,900원/월', card:'20,900원/월',
+   promo:'5년 약정 9개월 반값할인\n6년 약정 15개월 반값할인',
+   specs:[{l:'기능',v:'얼음·냉온·정수'},{l:'약정',v:'5년/6년'},{l:'관리',v:'방문케어'},{l:'등록비',v:'무료'}]},
+  {id:'p02', cat:'정수기', subcat:'얼음', name:'직수얼음냉온정수기 뉴 아이스트리', model:'WI-36C90620N',
+   img:'https://chunghonice-mall.com/web/product/medium/202507/a4b872c09f563dba76a358f5fe49eefe.webp',
+   tags:[{l:'인기',c:'t-hot'},{l:'반값',c:'t-promo'}], price:'39,900원/월', card:'23,900원/월',
+   promo:'반값렌탈료 19,950원\n5년 6개월·6년 12개월 반값할인',
+   specs:[{l:'기능',v:'얼음·냉온·직수'},{l:'약정',v:'5년/6년'},{l:'살균',v:'직수살균'},{l:'등록비',v:'무료'}]},
+  {id:'p03', cat:'정수기', subcat:'얼음', name:'얼음냉온정수기 아이스트리 플리', model:'WI-60C90511M',
+   img:'https://chunghonice-mall.com/web/product/medium/202510/3603e0ccd9e6a756e0884f3e0edd9795.webp',
+   tags:[{l:'반값',c:'t-promo'}], price:'38,900원/월', card:'22,900원/월',
+   promo:'반값렌탈료 19,950원\n5년 6개월 반값할인 / 3년 2천원·5년 5천원 할인',
+   specs:[{l:'기능',v:'얼음·냉온·정수'},{l:'약정',v:'3년/5년'},{l:'관리',v:'방문케어'},{l:'등록비',v:'무료'}]},
+  {id:'p04', cat:'정수기', subcat:'얼음', name:'얼음냉정수기 아이스트리 플리', model:'WI-60C80511M',
+   img:'https://chunghonice-mall.com/web/product/medium/202410/c3d4ebf205e1c34c5215262f04709f96.webp',
+   tags:[], price:'37,900원/월', card:'21,900원/월',
+   promo:'3년 2천원·5년 4천원 할인',
+   specs:[{l:'기능',v:'얼음·냉정수'},{l:'약정',v:'3년/5년'},{l:'관리',v:'방문케어'},{l:'등록비',v:'무료'}]},
+  {id:'p05', cat:'정수기', subcat:'얼음', name:'얼음냉온정수기 옴니 PLUS', model:'WI-53C9600M',
+   img:'https://chunghonice-mall.com/web/product/medium/202604/3c934ef56d8412663006ddc77ab8f635.jpg',
+   tags:[{l:'베스트',c:'t-hot'}], price:'31,900원/월', card:'15,900원/월',
+   promo:'2천원 추가할인 프로모션',
+   specs:[{l:'기능',v:'얼음·냉온·정수'},{l:'약정',v:'5년'},{l:'컬러',v:'오트밀베이지'},{l:'등록비',v:'무료'}]},
+  {id:'p06', cat:'정수기', subcat:'얼음', name:'얼음냉정수기 옴니 PLUS', model:'WI-53C8600M',
+   img:'https://chunghonice-mall.com/web/product/medium/202506/29fb9f6e7201b4d142caaf71575fa648.jpg',
+   tags:[], price:'29,900원/월', card:'13,900원/월',
+   promo:'2천원 추가할인 프로모션',
+   specs:[{l:'기능',v:'얼음·냉정수'},{l:'약정',v:'5년'},{l:'컬러',v:'오트밀베이지'},{l:'등록비',v:'무료'}]},
+  {id:'p07', cat:'정수기', subcat:'얼음', name:'얼음냉온정수기 슈퍼 아이스트리', model:'WI-80S9P510M',
+   img:'https://chunghonice-mall.com/web/product/medium/202410/e855adbbf2517186e84a4683c4f42c33.webp',
+   tags:[{l:'대용량',c:'t-good'}], price:'47,900원/월', card:'31,900원/월',
+   promo:'3년 2천원·5년 4천원 할인 프로모션',
+   specs:[{l:'기능',v:'얼음·냉온·정수'},{l:'제빙량',v:'4kg'},{l:'약정',v:'3년/5년'},{l:'등록비',v:'무료'}]},
+  {id:'p08', cat:'정수기', subcat:'얼음', name:'얼음냉온정수기 NEW 700', model:'WI-70S90010M',
+   img:'https://chunghonice-mall.com/web/product/medium/202410/43049f8e28b01ada709fd7f0d1a32723.webp',
+   tags:[], price:'43,900원/월', card:'27,900원/월',
+   promo:'2천원 할인 프로모션',
+   specs:[{l:'기능',v:'얼음·냉온·정수'},{l:'약정',v:'5년'},{l:'관리',v:'방문케어'},{l:'등록비',v:'무료'}]},
+  {id:'p09', cat:'정수기', subcat:'얼음', name:'얼음냉온정수기 NEW 700P', model:'WI-70S9P010M',
+   img:'https://chunghonice-mall.com/web/product/medium/202410/7823b0426c2151c6dfc461b09600b6a6.webp',
+   tags:[], price:'44,900원/월', card:'28,900원/월',
+   promo:'4천원 할인 프로모션',
+   specs:[{l:'기능',v:'얼음·냉온·정수'},{l:'특징',v:'펌프형'},{l:'약정',v:'5년'},{l:'등록비',v:'무료'}]},
+  {id:'p10', cat:'정수기', subcat:'얼음', name:'얼음냉온정수기 550P', model:'WI-55S9P510M',
+   img:'https://chunghonice-mall.com/web/product/medium/202410/11e25df41e4ea4701fb5ad32ed146955.webp',
+   tags:[], price:'40,900원/월', card:'24,900원/월',
+   promo:'4천원 할인 프로모션',
+   specs:[{l:'기능',v:'얼음·냉온·정수'},{l:'특징',v:'펌프형'},{l:'약정',v:'5년'},{l:'등록비',v:'무료'}]},
+  {id:'p11', cat:'정수기', subcat:'얼음', name:'얼음냉온정수기 550', model:'WI-55S90510M',
+   img:'https://chunghonice-mall.com/web/product/medium/202410/f32dbe8126fa794ad501c7e1e9635f01.webp',
+   tags:[], price:'39,900원/월', card:'23,900원/월',
+   promo:'3천원 할인 프로모션',
+   specs:[{l:'기능',v:'얼음·냉온·정수'},{l:'약정',v:'5년'},{l:'관리',v:'방문케어'},{l:'등록비',v:'무료'}]},
+
+  // ===== 커피정수기 =====
+  {id:'p12', cat:'정수기', subcat:'커피', name:'커피머신 얼음정수기 에스프레카페', model:'WF-60C90010M',
+   img:'https://chunghonice-mall.com/web/product/medium/202505/a5ac4f3d06b4c9f79fd9d5221309be26.webp',
+   tags:[{l:'커피+얼음',c:'t-hot'}], price:'39,900원/월', card:'23,900원/월', promo:'',
+   specs:[{l:'기능',v:'커피·얼음·냉온'},{l:'약정',v:'5년'},{l:'커피',v:'에스프레소'},{l:'등록비',v:'무료'}]},
+  {id:'p13', cat:'정수기', subcat:'커피', name:'커피얼음정수기 에스프레카페 슈퍼', model:'WF-80S9600M',
+   img:'https://chunghonice-mall.com/web/product/medium/202502/989caf77733e2acd7a50e9c3f80deda9.webp',
+   tags:[{l:'대용량',c:'t-good'}], price:'57,900원/월', card:'41,900원/월', promo:'',
+   specs:[{l:'기능',v:'커피·얼음·냉온'},{l:'제빙량',v:'대용량'},{l:'약정',v:'5년'},{l:'등록비',v:'무료'}]},
+
+  // ===== 냉온정수기 =====
+  {id:'p14', cat:'정수기', subcat:'냉온', name:'냉온정수기 뉴 러블리트리', model:'WP-50C90621N',
+   img:'https://chunghonice-mall.com/web/product/medium/202504/be35775231f8a8f612128cd6f5acc5fb.webp',
+   tags:[{l:'가성비',c:'t-good'},{l:'반값',c:'t-promo'}], price:'26,900원/월', card:'10,900원/월',
+   promo:'반값렌탈료 13,450원\n5·6년 약정 6개월 반값할인',
+   specs:[{l:'기능',v:'냉온·정수'},{l:'약정',v:'5년/6년'},{l:'살균',v:'전해수살균'},{l:'등록비',v:'무료'}]},
+  {id:'p15', cat:'정수기', subcat:'냉온', name:'냉온정수기 아이스트리 플리', model:'WP-60C90511M',
+   img:'https://chunghonice-mall.com/web/product/medium/202510/65f59592d0abb141ceb1e71bbff2578c.webp',
+   tags:[{l:'반값',c:'t-promo'}], price:'27,900원/월', card:'11,900원/월',
+   promo:'반값렌탈료 18,950원\n5년 6개월 반값할인 / 3년 2천원·5년 5천원 할인',
+   specs:[{l:'기능',v:'냉온·정수'},{l:'약정',v:'3년/5년'},{l:'관리',v:'방문케어'},{l:'등록비',v:'무료'}]},
+  {id:'p16', cat:'정수기', subcat:'냉온', name:'냉온정수기 450-L', model:'WP-45C90020M',
+   img:'https://chunghonice-mall.com/web/product/medium/202601/42e43c934e62c0b3e38786636bf8d22d.png',
+   tags:[{l:'최저가',c:'t-good'}], price:'21,900원/월', card:'5,900원/월', promo:'',
+   specs:[{l:'기능',v:'냉온·정수'},{l:'약정',v:'5년'},{l:'관리',v:'방문케어'},{l:'등록비',v:'무료'}]},
+  {id:'p17', cat:'정수기', subcat:'냉온', name:'냉온정수기 TOTA S', model:'WP-50S90010U',
+   img:'https://chunghonice-mall.com/web/product/medium/202410/acdadf70618c5ca78753f1cd96288f24.gif',
+   tags:[], price:'22,900원/월', card:'6,900원/월', promo:'',
+   specs:[{l:'기능',v:'냉온·정수'},{l:'약정',v:'5년'},{l:'관리',v:'방문케어'},{l:'등록비',v:'무료'}]},
+  {id:'p18', cat:'정수기', subcat:'냉온', name:'자가관리 냉온정수기', model:'WP-30C9560N',
+   img:'https://chunghonice-mall.com/web/product/medium/202503/43f10589c38c1ff33f8f36a419c513f4.webp',
+   tags:[{l:'셀프관리',c:'t-good'}], price:'24,900원/월', card:'8,900원/월', promo:'',
+   specs:[{l:'기능',v:'냉온·정수'},{l:'관리',v:'방문·셀프 선택'},{l:'필터',v:'자가교체'},{l:'등록비',v:'무료'}]},
+
+  // ===== 냉정수기 =====
+  {id:'p19', cat:'정수기', subcat:'냉정', name:'냉정수기 아이스트리 플리', model:'WP-60C80511M',
+   img:'https://chunghonice-mall.com/web/product/medium/202410/a472c9022d97723ae7e180d16992e5cd.webp',
+   tags:[], price:'25,900원/월', card:'9,900원/월',
+   promo:'3년 2천원·5년 5천원 할인',
+   specs:[{l:'기능',v:'냉정수'},{l:'약정',v:'3년/5년'},{l:'관리',v:'방문케어'},{l:'등록비',v:'무료'}]},
+  {id:'p20', cat:'정수기', subcat:'냉정', name:'냉정수기 옴니 PLUS', model:'WP-53C80020M',
+   img:'https://chunghonice-mall.com/web/product/medium/202410/56b8ad280874125fbc8a74480f734db4.jpg',
+   tags:[], price:'27,900원/월', card:'11,900원/월',
+   promo:'1천원 할인 프로모션',
+   specs:[{l:'기능',v:'냉정수'},{l:'약정',v:'5년'},{l:'관리',v:'방문케어'},{l:'등록비',v:'무료'}]},
+  {id:'p21', cat:'정수기', subcat:'냉정', name:'자가관리 셀프형 냉정수기', model:'WP-30C8460N',
+   img:'https://chunghonice-mall.com/web/product/medium/202412/1d77441398aeba5b708d98fec8be4d59.jpg',
+   tags:[{l:'최저가',c:'t-good'}], price:'17,900원/월', card:'1원/월', promo:'',
+   specs:[{l:'기능',v:'냉정수'},{l:'관리',v:'셀프형'},{l:'필터',v:'자가교체'},{l:'등록비',v:'무료'}]},
+
+  // ===== 일반정수기 =====
+  {id:'p22', cat:'정수기', subcat:'일반', name:'자가관리 셀프형 냉온정수기', model:'WP-30C9460BN',
+   img:'https://chunghonice-mall.com/web/product/medium/202412/b3d53cc865b92e4230fc87cc57108892.jpg',
+   tags:[{l:'최저가',c:'t-good'}], price:'19,900원/월', card:'1원/월', promo:'',
+   specs:[{l:'기능',v:'냉온·정수'},{l:'관리',v:'셀프형'},{l:'컬러',v:'오트밀베이지'},{l:'등록비',v:'무료'}]},
+  {id:'p23', cat:'정수기', subcat:'일반', name:'빌트인 냉온정수기 블리스', model:'WP-30B90620N',
+   img:'https://chunghonice-mall.com/web/product/medium/202505/001c803b55793ff856a2893ad5c26857.jpg',
+   tags:[{l:'빌트인',c:'t-new'}], price:'33,900원/월', card:'17,900원/월', promo:'',
+   specs:[{l:'기능',v:'냉온·정수'},{l:'타입',v:'빌트인'},{l:'약정',v:'5년'},{l:'등록비',v:'무료'}]},
+
+  // ===== 공기청정기 =====
+  {id:'p24', cat:'공기청정기', subcat:'20~30평', name:'공기청정기 서밋 타워 (25평)', model:'AP-25H8150',
+   img:'https://chunghonice-mall.com/web/product/medium/202605/eeab50613d20e4d3ed168077f1d93ba0.png',
+   tags:[{l:'전략상품',c:'t-feat'}], price:'32,900원/월', card:'16,900원/월', promo:'',
+   specs:[{l:'적용면적',v:'25평'},{l:'약정',v:'5년'},{l:'필터',v:'헤파필터'},{l:'등록비',v:'무료'}]},
+  {id:'p25', cat:'공기청정기', subcat:'20~30평', name:'공기청정기 클린업 (30평)', model:'AP-30H8350',
+   img:'https://chunghonice-mall.com/web/product/medium/202511/af10f8fadcc03f74b8331cc9e8f0d380.jpg',
+   tags:[], price:'28,900원/월', card:'12,900원/월', promo:'',
+   specs:[{l:'적용면적',v:'30평'},{l:'약정',v:'5년'},{l:'필터',v:'헤파필터'},{l:'등록비',v:'무료'}]},
+  {id:'p26', cat:'공기청정기', subcat:'10~20평', name:'항균 공기청정기 A600S (14평)', model:'AP-14H',
+   img:'https://chunghonice-mall.com/web/product/medium/202304/f1c0f5431e1f7592e22b587bd4d682c4.jpg',
+   tags:[{l:'가성비',c:'t-good'}], price:'18,900원/월', card:'4,900원/월', promo:'',
+   specs:[{l:'적용면적',v:'14평'},{l:'약정',v:'5년'},{l:'관리',v:'방문케어'},{l:'등록비',v:'무료'}]},
+
+  // ===== 비데 =====
+  {id:'p27', cat:'비데', subcat:'비데', name:'에어버블 비데', model:'BD-35D51',
+   img:'https://www.chunghonais-mall.co.kr/web/product/big/202312/6f2b5b3a7c8d9e1f2a3b4c5d6e7f8a9b.jpg',
+   tags:[{l:'누적1위',c:'t-hot'}], price:'13,900원/월', card:'0원/월', promo:'95만건 판매돌파',
+   specs:[{l:'타입',v:'스탠드형'},{l:'약정',v:'5년'},{l:'살균',v:'에어버블'},{l:'등록비',v:'무료'}]},
+  {id:'p28', cat:'비데', subcat:'비데', name:'쾌변 비데 B350 PLUS', model:'BD-35D52',
+   img:'https://www.chunghonais-mall.co.kr/web/product/big/202312/abcd1234.jpg',
+   tags:[], price:'11,900원/월', card:'0원/월', promo:'',
+   specs:[{l:'타입',v:'스탠드형'},{l:'약정',v:'5년'},{l:'관리',v:'방문케어'},{l:'등록비',v:'무료'}]},
+
+  // ===== 매트리스 =====
+  {id:'p29', cat:'매트리스', subcat:'K', name:'청호나이스 매트리스 K사이즈', model:'매트리스-K',
+   img:'https://chunghonice-mall.com/web/upload/share-image-1-0f21a91e15017bbdcb0549534ba55ef8.jpg',
+   tags:[], price:'상담 문의', card:'상담 문의', promo:'',
+   specs:[{l:'사이즈',v:'K (킹)'},{l:'약정',v:'5년'},{l:'관리',v:'방문케어'},{l:'등록비',v:'무료'}]},
 ];
 
+const CATEGORIES = [
+  {name:'정수기', icon:'💧', subcats:['얼음','커피','냉온','냉정','일반']},
+  {name:'공기청정기', icon:'🌬️', subcats:['10~20평','20~30평','30~40평']},
+  {name:'비데', icon:'🚿', subcats:['비데']},
+  {name:'매트리스', icon:'🛏️', subcats:['LK','K','Q','SS','S']},
+];
+
+// 저장된 행사상품 (localStorage)
+function getFeatured(){
+  try{ return JSON.parse(localStorage.getItem('featured')||'["p02","p05","p14","p24"]'); }
+  catch(e){ return ['p02','p05','p14','p24']; }
+}
+function saveFeatured(ids){ localStorage.setItem('featured', JSON.stringify(ids)); }
+
+// 플래너 정보
 const params = new URLSearchParams(window.location.search);
 const pid = params.get('p') || '10200366';
 const pl = PLANNERS[pid] || PLANNERS['10200366'];
-
 document.getElementById('plannerName').textContent = pl.name + ' 플래너';
 document.getElementById('plannerSub').textContent = '사번 ' + pid + ' · ' + pl.branch;
 document.getElementById('avatarEl').textContent = pl.avatar;
 
-function callPlanner(){ window.location.href = 'tel:' + pl.phone; }
-function smsPlanner(prodName){
-  document.getElementById('detailOverlay').classList.remove('open');
-  const modal = document.getElementById('smsModal');
-  modal.classList.add('open');
-  if(prodName) document.getElementById('custMsg').value = prodName + ' 렌탈 문의드립니다.';
-  setTimeout(function(){ document.getElementById('custName').focus(); }, 150);
+// 화면 전환
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
 }
 
+// 관리자 모드
+if(params.get('admin')==='1'){ showScreen('adminScreen'); }
+
+// CTA
+function callPlanner(){ window.location.href = 'tel:' + pl.phone; }
+function openConsult(prefill){
+  document.getElementById('consultWrap').classList.add('open');
+  if(prefill) document.getElementById('custMsg').value = prefill + ' 렌탈 문의드립니다.';
+  setTimeout(function(){ document.getElementById('custName').focus(); },150);
+}
 document.getElementById('callBtn').addEventListener('click', callPlanner);
-document.getElementById('smsBtn').addEventListener('click', function(){ smsPlanner(''); });
-document.getElementById('cancelBtn').addEventListener('click', function(){ document.getElementById('smsModal').classList.remove('open'); });
+document.getElementById('smsBtn').addEventListener('click', function(){ openConsult(''); });
+document.getElementById('cancelBtn').addEventListener('click', function(){ document.getElementById('consultWrap').classList.remove('open'); });
 document.getElementById('sendBtn').addEventListener('click', function(){
-  const name = document.getElementById('custName').value.trim();
-  const msg = document.getElementById('custMsg').value.trim();
+  var name = document.getElementById('custName').value.trim();
+  var msg = document.getElementById('custMsg').value.trim();
   if(!name){ alert('이름을 입력해주세요'); return; }
-  const body = '[청호나이스 상담신청]\n고객명: ' + name + '\n\n' + (msg || '상담 문의드립니다.');
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-  const sep = isIOS ? '&' : '?';
-  window.location.href = 'sms:' + pl.phone + sep + 'body=' + encodeURIComponent(body);
+  var body = '[청호나이스 상담신청]\n고객명: ' + name + '\n\n' + (msg||'상담 문의드립니다.');
+  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  window.location.href = 'sms:' + pl.phone + (isIOS?'&':'?') + 'body=' + encodeURIComponent(body);
 });
 
-// 제품 목록 렌더링
-const prodList = document.getElementById('prodList');
-PRODUCTS.forEach(function(p, i){
-  const card = document.createElement('div');
-  card.className = 'prod-card';
-  const tagHTML = p.tags.map(function(t){ return '<span class="tag '+t.cls+'">'+t.label+'</span>'; }).join('');
-  card.innerHTML =
+// 제품 카드 렌더
+function renderProdCard(p){
+  var div = document.createElement('div');
+  div.className = 'prod-card';
+  var tagHTML = p.tags.map(function(t){ return '<span class="tag '+t.c+'">'+t.l+'</span>'; }).join('');
+  div.innerHTML =
     '<div class="prod-img-wrap">' +
       '<img src="'+p.img+'" alt="'+p.name+'" loading="lazy">' +
-      '<div class="prod-tag-wrap">'+tagHTML+'</div>' +
+      '<div class="prod-tags">'+tagHTML+'</div>' +
     '</div>' +
-    '<div class="prod-summary">' +
+    '<div class="prod-body">' +
       '<div class="prod-name">'+p.name+'</div>' +
       '<div class="prod-model">'+p.model+'</div>' +
-      '<div class="prod-price-row"><span class="price-val">'+p.price.replace('원/월','')+'</span><span class="price-unit">원/월</span></div>' +
-      '<div class="price-card">제휴카드 '+p.cardPrice+'</div>' +
+      '<div class="prod-price">'+p.price.replace('원/월','')+'<span>원/월</span></div>' +
+      '<div class="prod-card-p">제휴카드 최대 '+p.card+'</div>' +
       '<div class="prod-hint">👆 터치하면 상세보기</div>' +
     '</div>';
-  card.addEventListener('click', function(){ openDetail(i); });
-  prodList.appendChild(card);
-});
-
-// 상세 팝업
-function openDetail(i){
-  const p = PRODUCTS[i];
-  document.getElementById('detailImg').src = p.img;
-  document.getElementById('detailImg').alt = p.name;
-  document.getElementById('detailName').textContent = p.name;
-  document.getElementById('detailModel').textContent = p.model;
-  document.getElementById('detailPrice').textContent = p.price;
-  document.getElementById('detailCardPrice').textContent = p.cardPrice;
-  const tagsEl = document.getElementById('detailTags');
-  tagsEl.innerHTML = p.tags.map(function(t){ return '<span class="tag '+t.cls+'">'+t.label+'</span>'; }).join('');
-  const promoEl = document.getElementById('detailPromo');
-  if(p.promo){
-    promoEl.innerHTML = '<strong>🎁 특별혜택</strong> · ' + p.promo.replace(/\n/g,'<br>');
-    promoEl.style.display = 'block';
-  } else {
-    promoEl.style.display = 'none';
-  }
-  const specsEl = document.getElementById('detailSpecs');
-  specsEl.innerHTML = p.specs.map(function(s){
-    return '<div class="spec-item"><div class="spec-label">'+s.label+'</div><div class="spec-val">'+s.val+'</div></div>';
-  }).join('');
-  document.getElementById('detailCallBtn').onclick = callPlanner;
-  document.getElementById('detailSmsBtn').onclick = function(){ smsPlanner(p.name); };
-  document.getElementById('detailOverlay').classList.add('open');
-  document.getElementById('detailSheet').scrollTop = 0;
+  div.addEventListener('click', function(){ openDetail(p); });
+  return div;
 }
 
-document.getElementById('detailClose').addEventListener('click', function(){
-  document.getElementById('detailOverlay').classList.remove('open');
-});
-document.getElementById('detailOverlay').addEventListener('click', function(e){
-  if(e.target === this) this.classList.remove('open');
+// 행사상품 렌더
+function renderFeatured(){
+  var ids = getFeatured();
+  var list = document.getElementById('featuredList');
+  list.innerHTML = '';
+  ids.forEach(function(id){
+    var p = PRODUCTS.find(function(x){ return x.id===id; });
+    if(p){ list.appendChild(renderProdCard(p)); }
+  });
+}
+renderFeatured();
+
+// 카테고리 화면
+document.getElementById('findProdBtn').addEventListener('click', function(){ showCatScreen(); });
+document.getElementById('catBack').addEventListener('click', function(){ showScreen('mainScreen'); });
+document.getElementById('listBack').addEventListener('click', function(){ showScreen('catScreen'); });
+
+function showCatScreen(){
+  var grid = document.getElementById('catGrid');
+  grid.innerHTML = '';
+  CATEGORIES.forEach(function(c){
+    var count = PRODUCTS.filter(function(p){ return p.cat===c.name; }).length;
+    var div = document.createElement('div');
+    div.className = 'cat-card';
+    div.innerHTML = '<div class="cat-icon">'+c.icon+'</div><div class="cat-name">'+c.name+'</div><div class="cat-count">'+count+'개 제품</div>';
+    div.addEventListener('click', function(){ showListScreen(c); });
+    grid.appendChild(div);
+  });
+  showScreen('catScreen');
+}
+
+var currentSubcat = '';
+function showListScreen(cat){
+  document.getElementById('listTitle').textContent = cat.icon + ' ' + cat.name;
+  currentSubcat = cat.subcats[0];
+
+  // 서브카테고리 버튼
+  var subEl = document.getElementById('subcatList');
+  subEl.innerHTML = '';
+  cat.subcats.forEach(function(s, i){
+    var btn = document.createElement('button');
+    btn.className = 'subcat-btn' + (i===0?' active':'');
+    btn.textContent = s;
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.subcat-btn').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      currentSubcat = s;
+      renderProdList(cat.name, s);
+    });
+    subEl.appendChild(btn);
+  });
+  renderProdList(cat.name, cat.subcats[0]);
+  showScreen('listScreen');
+}
+
+function renderProdList(catName, subcat){
+  var list = document.getElementById('prodList');
+  list.innerHTML = '';
+  var filtered = PRODUCTS.filter(function(p){ return p.cat===catName && p.subcat===subcat; });
+  if(filtered.length===0){
+    list.innerHTML = '<p style="text-align:center;padding:2rem;color:#aaa;font-size:13px">해당 카테고리 제품을 준비 중입니다</p>';
+    return;
+  }
+  filtered.forEach(function(p){ list.appendChild(renderProdCard(p)); });
+}
+
+// 상세 팝업
+function openDetail(p){
+  document.getElementById('sImg').src = p.img;
+  document.getElementById('sName').textContent = p.name;
+  document.getElementById('sModel').textContent = p.model;
+  document.getElementById('sPrice').textContent = p.price;
+  document.getElementById('sCard').textContent = p.card;
+  document.getElementById('sTags').innerHTML = p.tags.map(function(t){ return '<span class="tag '+t.c+'">'+t.l+'</span>'; }).join('');
+  var promoEl = document.getElementById('sPromo');
+  if(p.promo){ promoEl.innerHTML = '<strong>🎁 특별혜택</strong> · '+p.promo.replace(/\n/g,'<br>'); promoEl.style.display='block'; }
+  else{ promoEl.style.display='none'; }
+  document.getElementById('sSpecs').innerHTML = p.specs.map(function(s){
+    return '<div class="spec-item"><div class="slabel">'+s.l+'</div><div class="sval">'+s.v+'</div></div>';
+  }).join('');
+  document.getElementById('sCallBtn').onclick = callPlanner;
+  document.getElementById('sSmsBtn').onclick = function(){ openConsult(p.name); };
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('sheet').scrollTop = 0;
+}
+document.getElementById('sheetClose').addEventListener('click', function(){ document.getElementById('overlay').classList.remove('open'); });
+document.getElementById('overlay').addEventListener('click', function(e){ if(e.target===this) this.classList.remove('open'); });
+
+// 관리자 화면
+document.getElementById('adminBack').addEventListener('click', function(){ showScreen('mainScreen'); });
+function renderAdminProdList(){
+  var saved = getFeatured();
+  var el = document.getElementById('adminProdList');
+  el.innerHTML = '';
+  PRODUCTS.forEach(function(p){
+    var div = document.createElement('div');
+    div.className = 'admin-prod-item';
+    var checked = saved.indexOf(p.id) !== -1;
+    div.innerHTML =
+      '<input type="checkbox" class="admin-chk feat-chk" data-id="'+p.id+'" '+(checked?'checked':'')+'>'+
+      '<div style="flex:1"><div class="admin-prod-name">'+p.name+'</div>'+
+      '<div style="font-size:11px;color:#aaa">'+p.cat+' · '+p.subcat+'</div></div>'+
+      '<div class="admin-prod-price">'+p.price+'</div>';
+    el.appendChild(div);
+  });
+}
+function renderAdminPlannerList(){
+  var el = document.getElementById('adminPlannerList');
+  el.innerHTML = '';
+  Object.keys(PLANNERS).forEach(function(pid){
+    var p = PLANNERS[pid];
+    var div = document.createElement('div');
+    div.className = 'planner-item';
+    div.innerHTML =
+      '<div><div class="pi-info">'+p.name+' ('+pid+')</div>'+
+      '<div class="pi-sub">'+p.branch+' · '+p.phone+'</div></div>';
+    el.appendChild(div);
+  });
+}
+renderAdminProdList();
+renderAdminPlannerList();
+
+document.getElementById('saveFeatured').addEventListener('click', function(){
+  var checked = document.querySelectorAll('.feat-chk:checked');
+  if(checked.length > 5){ alert('최대 5개까지 선택 가능합니다'); return; }
+  if(checked.length === 0){ alert('최소 1개 이상 선택해주세요'); return; }
+  var ids = [];
+  checked.forEach(function(c){ ids.push(c.dataset.id); });
+  saveFeatured(ids);
+  renderFeatured();
+  alert('저장됐어요! 메인화면에서 확인하세요.');
+  showScreen('mainScreen');
 });
 </script>
 </body>
