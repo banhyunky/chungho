@@ -23,10 +23,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .btn-call:active{opacity:0.88;transform:scale(0.97)}
 .btn-sms{background:#fff;color:#1a1a1a;border:1.5px solid #dde3f0;border-radius:14px;padding:16px 8px;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}
 .btn-sms:active{background:#f5f7ff;transform:scale(0.97)}
-.modal-wrap{display:none;margin:0 0 10px}
-.modal-wrap.open{display:block}
-.modal-card{background:#fff;padding:1.5rem 1.25rem}
-.modal-title{font-size:16px;font-weight:700;color:#1a1a1a;margin-bottom:1.25rem}
+.consult-modal{display:none;margin:0 0 10px}
+.consult-modal.open{display:block}
+.consult-card{background:#fff;padding:1.5rem 1.25rem}
+.consult-title{font-size:16px;font-weight:700;color:#1a1a1a;margin-bottom:1.25rem}
 .field{margin-bottom:14px}
 .field label{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:6px}
 .field input,.field textarea{width:100%;border:1.5px solid #e5e7eb;border-radius:12px;padding:12px 14px;font-size:14px;font-family:inherit;color:#1a1a1a;background:#fff;outline:none;-webkit-appearance:none}
@@ -38,8 +38,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .sec-title{font-size:16px;font-weight:700;color:#1a1a1a}
 .sec-sub{font-size:12px;color:#aaa}
 .prod-list{display:flex;flex-direction:column;gap:10px}
-.prod-card{background:#fff;overflow:hidden}
-.prod-img-wrap{width:100%;background:#f8f9fa;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;height:220px}
+
+/* 제품 카드 */
+.prod-card{background:#fff;overflow:hidden;cursor:pointer}
+.prod-card:active{opacity:0.95}
+.prod-img-wrap{width:100%;background:#f8f9fa;position:relative;display:flex;align-items:center;justify-content:center;height:200px}
 .prod-img-wrap img{max-width:100%;max-height:100%;object-fit:contain;padding:16px}
 .prod-tag-wrap{position:absolute;top:10px;left:10px;display:flex;gap:6px}
 .tag{font-size:10px;font-weight:700;padding:3px 9px;border-radius:99px}
@@ -47,21 +50,46 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .tag-new{background:#f59e0b;color:#fff}
 .tag-promo{background:#ef4444;color:#fff}
 .tag-good{background:#10b981;color:#fff}
-.prod-body{padding:14px 16px 18px}
+.prod-summary{padding:14px 16px 16px}
 .prod-name{font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:3px;line-height:1.4}
-.prod-model{font-size:11px;color:#bbb;margin-bottom:12px}
-.promo-box{background:#fff8f0;border:1px solid #fde8c8;border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:12px;color:#b45309;line-height:1.7}
-.promo-box strong{font-weight:700}
-.price-row{display:flex;align-items:baseline;gap:6px;margin-bottom:4px}
-.price-label{font-size:11px;color:#999;min-width:46px}
+.prod-model{font-size:11px;color:#bbb;margin-bottom:10px}
+.prod-price-row{display:flex;align-items:baseline;gap:6px;margin-bottom:3px}
 .price-val{font-size:21px;font-weight:800;color:#1a1a1a;line-height:1}
 .price-unit{font-size:12px;font-weight:400;color:#999}
-.price-card-row{display:flex;align-items:baseline;gap:6px;margin-bottom:14px}
-.price-card-val{font-size:15px;font-weight:700;color:#1a56db}
-.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;border-top:1px solid #f3f4f6;padding-top:12px}
-.spec-item{background:#f8f9fa;border-radius:8px;padding:9px 10px}
+.price-card{font-size:13px;color:#1a56db;font-weight:600;margin-bottom:10px}
+.prod-hint{font-size:12px;color:#aaa;display:flex;align-items:center;gap:4px}
+
+/* 상세 팝업 */
+.detail-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:100;justify-content:flex-end;flex-direction:column}
+.detail-overlay.open{display:flex}
+.detail-sheet{background:#fff;border-radius:20px 20px 0 0;max-height:88vh;overflow-y:auto;animation:slideUp 0.3s ease}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.detail-handle{width:40px;height:4px;background:#e5e7eb;border-radius:99px;margin:12px auto 0}
+.detail-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;background:#f3f4f6;border:none;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#666}
+.detail-img{width:100%;height:220px;background:#f8f9fa;display:flex;align-items:center;justify-content:center}
+.detail-img img{max-width:100%;max-height:100%;object-fit:contain;padding:20px}
+.detail-body{padding:20px}
+.detail-tags{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.detail-name{font-size:18px;font-weight:700;color:#1a1a1a;margin-bottom:4px;line-height:1.4}
+.detail-model{font-size:12px;color:#bbb;margin-bottom:16px}
+.promo-box{background:#fff8f0;border:1px solid #fde8c8;border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:13px;color:#b45309;line-height:1.8}
+.promo-box strong{font-weight:700}
+.price-section{background:#f8f9ff;border-radius:12px;padding:14px 16px;margin-bottom:16px}
+.price-section-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.price-section-row:last-child{margin-bottom:0}
+.price-section-label{font-size:13px;color:#666}
+.price-section-val{font-size:16px;font-weight:700;color:#1a1a1a}
+.price-section-val.blue{color:#1a56db}
+.spec-section{margin-bottom:16px}
+.spec-section-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:10px}
+.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.spec-item{background:#f8f9fa;border-radius:10px;padding:10px 12px}
 .spec-label{font-size:10px;color:#aaa;margin-bottom:3px}
-.spec-val{font-size:12px;font-weight:600;color:#333}
+.spec-val{font-size:13px;font-weight:600;color:#333}
+.detail-cta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px;padding-bottom:8px}
+.detail-btn-call{background:#1a56db;color:#fff;border:none;border-radius:12px;padding:15px;font-size:14px;font-weight:700;cursor:pointer}
+.detail-btn-sms{background:#fff;color:#1a1a1a;border:1.5px solid #dde3f0;border-radius:12px;padding:15px;font-size:14px;font-weight:700;cursor:pointer}
+
 .bottom-hint{font-size:12px;color:#ccc;text-align:center;padding:1.5rem 1rem 0.5rem}
 </style>
 </head>
@@ -88,9 +116,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
     <button class="btn-sms" id="smsBtn">💬 상담 신청</button>
   </div>
 
-  <div class="modal-wrap" id="smsModal">
-    <div class="modal-card">
-      <div class="modal-title">상담 신청</div>
+  <div class="consult-modal" id="smsModal">
+    <div class="consult-card">
+      <div class="consult-title">상담 신청</div>
       <div class="field">
         <label>이름</label>
         <input type="text" id="custName" placeholder="고객 성함을 입력해주세요" autocomplete="name">
@@ -106,177 +134,224 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 
   <div class="sec-header">
     <span class="sec-title">인기 제품</span>
-    <span class="sec-sub">5년 약정 기준</span>
+    <span class="sec-sub">터치하면 상세보기</span>
   </div>
 
-  <div class="prod-list">
-
-    <div class="prod-card">
-      <div class="prod-img-wrap">
-        <img src="https://chunghonice-mall.com/web/product/medium/202604/ffe11c81dac09b2a955fa9dbe5554164.webp" alt="더 엠 얼음정수기" loading="lazy">
-        <div class="prod-tag-wrap"><span class="tag tag-new">신제품</span></div>
-      </div>
-      <div class="prod-body">
-        <div class="prod-name">더 엠 얼음정수기 The M</div>
-        <div class="prod-model">WI-37C90720N</div>
-        <div class="promo-box"><strong>🎁 특별혜택</strong> · 5년 약정 9개월 반값할인<br>6년 약정 15개월 반값할인</div>
-        <div class="price-row">
-          <span class="price-label">렌탈료</span>
-          <span class="price-val">36,900</span>
-          <span class="price-unit">원/월</span>
-        </div>
-        <div class="price-card-row">
-          <span class="price-label">제휴카드</span>
-          <span class="price-card-val">20,900원/월</span>
-        </div>
-        <div class="spec-grid">
-          <div class="spec-item"><div class="spec-label">기능</div><div class="spec-val">얼음·냉온·정수</div></div>
-          <div class="spec-item"><div class="spec-label">약정</div><div class="spec-val">5년 / 6년</div></div>
-          <div class="spec-item"><div class="spec-label">관리방식</div><div class="spec-val">방문 케어</div></div>
-          <div class="spec-item"><div class="spec-label">등록비</div><div class="spec-val">무료</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="prod-card">
-      <div class="prod-img-wrap">
-        <img src="https://chunghonice-mall.com/web/product/medium/202507/a4b872c09f563dba76a358f5fe49eefe.webp" alt="뉴 아이스트리 직수얼음냉온" loading="lazy">
-        <div class="prod-tag-wrap"><span class="tag tag-hot">인기</span><span class="tag tag-promo">반값</span></div>
-      </div>
-      <div class="prod-body">
-        <div class="prod-name">직수얼음냉온정수기 뉴 아이스트리</div>
-        <div class="prod-model">WI-36C90620N</div>
-        <div class="promo-box"><strong>🎁 특별혜택</strong> · 반값렌탈료 19,950원<br>5년 6개월 · 6년 12개월 반값할인</div>
-        <div class="price-row">
-          <span class="price-label">렌탈료</span>
-          <span class="price-val">39,900</span>
-          <span class="price-unit">원/월</span>
-        </div>
-        <div class="price-card-row">
-          <span class="price-label">제휴카드</span>
-          <span class="price-card-val">23,900원/월</span>
-        </div>
-        <div class="spec-grid">
-          <div class="spec-item"><div class="spec-label">기능</div><div class="spec-val">얼음·냉온·직수</div></div>
-          <div class="spec-item"><div class="spec-label">약정</div><div class="spec-val">5년 / 6년</div></div>
-          <div class="spec-item"><div class="spec-label">살균</div><div class="spec-val">직수살균</div></div>
-          <div class="spec-item"><div class="spec-label">등록비</div><div class="spec-val">무료</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="prod-card">
-      <div class="prod-img-wrap">
-        <img src="https://chunghonice-mall.com/web/product/medium/202604/3c934ef56d8412663006ddc77ab8f635.jpg" alt="옴니 PLUS 얼음냉온정수기" loading="lazy">
-        <div class="prod-tag-wrap"><span class="tag tag-hot">베스트</span></div>
-      </div>
-      <div class="prod-body">
-        <div class="prod-name">얼음냉온정수기 옴니 PLUS</div>
-        <div class="prod-model">WI-53C9600M · 오트밀베이지</div>
-        <div class="promo-box"><strong>🎁 특별혜택</strong> · 2천원 추가할인 프로모션</div>
-        <div class="price-row">
-          <span class="price-label">렌탈료</span>
-          <span class="price-val">31,900</span>
-          <span class="price-unit">원/월</span>
-        </div>
-        <div class="price-card-row">
-          <span class="price-label">제휴카드</span>
-          <span class="price-card-val">15,900원/월</span>
-        </div>
-        <div class="spec-grid">
-          <div class="spec-item"><div class="spec-label">기능</div><div class="spec-val">얼음·냉온·정수</div></div>
-          <div class="spec-item"><div class="spec-label">약정</div><div class="spec-val">5년</div></div>
-          <div class="spec-item"><div class="spec-label">관리방식</div><div class="spec-val">방문 케어</div></div>
-          <div class="spec-item"><div class="spec-label">등록비</div><div class="spec-val">무료</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="prod-card">
-      <div class="prod-img-wrap">
-        <img src="https://chunghonice-mall.com/web/product/medium/202504/be35775231f8a8f612128cd6f5acc5fb.webp" alt="뉴 러블리트리 냉온정수기" loading="lazy">
-        <div class="prod-tag-wrap"><span class="tag tag-good">가성비</span><span class="tag tag-promo">반값</span></div>
-      </div>
-      <div class="prod-body">
-        <div class="prod-name">냉온정수기 뉴 러블리트리</div>
-        <div class="prod-model">WP-50C90621N</div>
-        <div class="promo-box"><strong>🎁 특별혜택</strong> · 반값렌탈료 13,450원<br>5·6년 약정 6개월 반값할인</div>
-        <div class="price-row">
-          <span class="price-label">렌탈료</span>
-          <span class="price-val">26,900</span>
-          <span class="price-unit">원/월</span>
-        </div>
-        <div class="price-card-row">
-          <span class="price-label">제휴카드</span>
-          <span class="price-card-val">10,900원/월</span>
-        </div>
-        <div class="spec-grid">
-          <div class="spec-item"><div class="spec-label">기능</div><div class="spec-val">냉온·정수</div></div>
-          <div class="spec-item"><div class="spec-label">약정</div><div class="spec-val">5년 / 6년</div></div>
-          <div class="spec-item"><div class="spec-label">관리방식</div><div class="spec-val">방문 케어</div></div>
-          <div class="spec-item"><div class="spec-label">등록비</div><div class="spec-val">무료</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="prod-card">
-      <div class="prod-img-wrap">
-        <img src="https://chunghonice-mall.com/web/product/medium/202503/43f10589c38c1ff33f8f36a419c513f4.webp" alt="자가관리 냉온정수기" loading="lazy">
-        <div class="prod-tag-wrap"><span class="tag tag-good">최저가</span></div>
-      </div>
-      <div class="prod-body">
-        <div class="prod-name">자가관리 냉온정수기</div>
-        <div class="prod-model">WP-30C9560N</div>
-        <div class="price-row">
-          <span class="price-label">렌탈료</span>
-          <span class="price-val">24,900</span>
-          <span class="price-unit">원/월</span>
-        </div>
-        <div class="price-card-row">
-          <span class="price-label">제휴카드</span>
-          <span class="price-card-val">8,900원/월</span>
-        </div>
-        <div class="spec-grid">
-          <div class="spec-item"><div class="spec-label">기능</div><div class="spec-val">냉온·정수</div></div>
-          <div class="spec-item"><div class="spec-label">관리방식</div><div class="spec-val">방문·셀프 선택</div></div>
-          <div class="spec-item"><div class="spec-label">필터</div><div class="spec-val">자가교체 가능</div></div>
-          <div class="spec-item"><div class="spec-label">등록비</div><div class="spec-val">무료</div></div>
-        </div>
-      </div>
-    </div>
-
-  </div>
+  <div class="prod-list" id="prodList"></div>
   <p class="bottom-hint">더 많은 제품은 상담 문의 주세요</p>
+</div>
+
+<!-- 상세 팝업 -->
+<div class="detail-overlay" id="detailOverlay">
+  <div class="detail-sheet" id="detailSheet">
+    <div class="detail-handle"></div>
+    <button class="detail-close" id="detailClose">✕</button>
+    <div class="detail-img"><img id="detailImg" src="" alt=""></div>
+    <div class="detail-body">
+      <div class="detail-tags" id="detailTags"></div>
+      <div class="detail-name" id="detailName"></div>
+      <div class="detail-model" id="detailModel"></div>
+      <div class="promo-box" id="detailPromo" style="display:none"></div>
+      <div class="price-section">
+        <div class="price-section-row">
+          <span class="price-section-label">월 렌탈료</span>
+          <span class="price-section-val" id="detailPrice"></span>
+        </div>
+        <div class="price-section-row">
+          <span class="price-section-label">제휴카드 적용 시</span>
+          <span class="price-section-val blue" id="detailCardPrice"></span>
+        </div>
+      </div>
+      <div class="spec-section">
+        <div class="spec-section-title">제품 사양</div>
+        <div class="spec-grid" id="detailSpecs"></div>
+      </div>
+      <div class="detail-cta">
+        <button class="detail-btn-call" id="detailCallBtn">📞 전화 상담</button>
+        <button class="detail-btn-sms" id="detailSmsBtn">💬 상담 신청</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
 const PLANNERS = {
   '10200366': { name:'반현기', branch:'대전 중구지사', phone:'01030413282', avatar:'반' }
 };
+
+const PRODUCTS = [
+  {
+    name: '더 엠 얼음정수기 The M',
+    model: 'WI-37C90720N',
+    img: 'https://chunghonice-mall.com/web/product/medium/202604/ffe11c81dac09b2a955fa9dbe5554164.webp',
+    tags: [{label:'신제품', cls:'tag-new'}],
+    price: '36,900원/월',
+    cardPrice: '20,900원/월',
+    promo: '5년 약정 9개월 반값할인\n6년 약정 15개월 반값할인',
+    specs: [
+      {label:'기능', val:'얼음·냉온·정수'},
+      {label:'약정', val:'5년 / 6년'},
+      {label:'관리방식', val:'방문 케어'},
+      {label:'등록비', val:'무료'},
+      {label:'살균', val:'안심살균'},
+      {label:'필터', val:'슈퍼멤브레인'}
+    ]
+  },
+  {
+    name: '직수얼음냉온정수기 뉴 아이스트리',
+    model: 'WI-36C90620N',
+    img: 'https://chunghonice-mall.com/web/product/medium/202507/a4b872c09f563dba76a358f5fe49eefe.webp',
+    tags: [{label:'인기', cls:'tag-hot'},{label:'반값', cls:'tag-promo'}],
+    price: '39,900원/월',
+    cardPrice: '23,900원/월',
+    promo: '반값렌탈료 19,950원\n5년 6개월 · 6년 12개월 반값할인',
+    specs: [
+      {label:'기능', val:'얼음·냉온·직수'},
+      {label:'약정', val:'5년 / 6년'},
+      {label:'살균', val:'직수살균'},
+      {label:'등록비', val:'무료'},
+      {label:'관리방식', val:'방문 케어'},
+      {label:'필터', val:'직수형'}
+    ]
+  },
+  {
+    name: '얼음냉온정수기 옴니 PLUS',
+    model: 'WI-53C9600M · 오트밀베이지',
+    img: 'https://chunghonice-mall.com/web/product/medium/202604/3c934ef56d8412663006ddc77ab8f635.jpg',
+    tags: [{label:'베스트', cls:'tag-hot'}],
+    price: '31,900원/월',
+    cardPrice: '15,900원/월',
+    promo: '2천원 추가할인 프로모션',
+    specs: [
+      {label:'기능', val:'얼음·냉온·정수'},
+      {label:'약정', val:'5년'},
+      {label:'컬러', val:'오트밀베이지'},
+      {label:'등록비', val:'무료'},
+      {label:'관리방식', val:'방문 케어'},
+      {label:'제빙량', val:'일반형'}
+    ]
+  },
+  {
+    name: '냉온정수기 뉴 러블리트리',
+    model: 'WP-50C90621N',
+    img: 'https://chunghonice-mall.com/web/product/medium/202504/be35775231f8a8f612128cd6f5acc5fb.webp',
+    tags: [{label:'가성비', cls:'tag-good'},{label:'반값', cls:'tag-promo'}],
+    price: '26,900원/월',
+    cardPrice: '10,900원/월',
+    promo: '반값렌탈료 13,450원\n5·6년 약정 6개월 반값할인',
+    specs: [
+      {label:'기능', val:'냉온·정수'},
+      {label:'약정', val:'5년 / 6년'},
+      {label:'관리방식', val:'방문 케어'},
+      {label:'등록비', val:'무료'},
+      {label:'살균', val:'전해수살균'},
+      {label:'필터', val:'나노필터'}
+    ]
+  },
+  {
+    name: '자가관리 냉온정수기',
+    model: 'WP-30C9560N',
+    img: 'https://chunghonice-mall.com/web/product/medium/202503/43f10589c38c1ff33f8f36a419c513f4.webp',
+    tags: [{label:'최저가', cls:'tag-good'}],
+    price: '24,900원/월',
+    cardPrice: '8,900원/월',
+    promo: '',
+    specs: [
+      {label:'기능', val:'냉온·정수'},
+      {label:'관리방식', val:'방문·셀프 선택'},
+      {label:'필터', val:'자가교체 가능'},
+      {label:'등록비', val:'무료'},
+      {label:'약정', val:'5년'},
+      {label:'특징', val:'저렴한 관리비'}
+    ]
+  }
+];
+
 const params = new URLSearchParams(window.location.search);
 const pid = params.get('p') || '10200366';
 const pl = PLANNERS[pid] || PLANNERS['10200366'];
+
 document.getElementById('plannerName').textContent = pl.name + ' 플래너';
 document.getElementById('plannerSub').textContent = '사번 ' + pid + ' · ' + pl.branch;
 document.getElementById('avatarEl').textContent = pl.avatar;
-document.getElementById('callBtn').addEventListener('click', function() {
-  window.location.href = 'tel:' + pl.phone;
-});
-document.getElementById('smsBtn').addEventListener('click', function() {
-  document.getElementById('smsModal').classList.add('open');
+
+function callPlanner(){ window.location.href = 'tel:' + pl.phone; }
+function smsPlanner(prodName){
+  document.getElementById('detailOverlay').classList.remove('open');
+  const modal = document.getElementById('smsModal');
+  modal.classList.add('open');
+  if(prodName) document.getElementById('custMsg').value = prodName + ' 렌탈 문의드립니다.';
   setTimeout(function(){ document.getElementById('custName').focus(); }, 150);
-});
-document.getElementById('cancelBtn').addEventListener('click', function() {
-  document.getElementById('smsModal').classList.remove('open');
-});
-document.getElementById('sendBtn').addEventListener('click', function() {
+}
+
+document.getElementById('callBtn').addEventListener('click', callPlanner);
+document.getElementById('smsBtn').addEventListener('click', function(){ smsPlanner(''); });
+document.getElementById('cancelBtn').addEventListener('click', function(){ document.getElementById('smsModal').classList.remove('open'); });
+document.getElementById('sendBtn').addEventListener('click', function(){
   const name = document.getElementById('custName').value.trim();
   const msg = document.getElementById('custMsg').value.trim();
-  if (!name) { alert('이름을 입력해주세요'); return; }
+  if(!name){ alert('이름을 입력해주세요'); return; }
   const body = '[청호나이스 상담신청]\n고객명: ' + name + '\n\n' + (msg || '상담 문의드립니다.');
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
   const sep = isIOS ? '&' : '?';
   window.location.href = 'sms:' + pl.phone + sep + 'body=' + encodeURIComponent(body);
+});
+
+// 제품 목록 렌더링
+const prodList = document.getElementById('prodList');
+PRODUCTS.forEach(function(p, i){
+  const card = document.createElement('div');
+  card.className = 'prod-card';
+  const tagHTML = p.tags.map(function(t){ return '<span class="tag '+t.cls+'">'+t.label+'</span>'; }).join('');
+  card.innerHTML =
+    '<div class="prod-img-wrap">' +
+      '<img src="'+p.img+'" alt="'+p.name+'" loading="lazy">' +
+      '<div class="prod-tag-wrap">'+tagHTML+'</div>' +
+    '</div>' +
+    '<div class="prod-summary">' +
+      '<div class="prod-name">'+p.name+'</div>' +
+      '<div class="prod-model">'+p.model+'</div>' +
+      '<div class="prod-price-row"><span class="price-val">'+p.price.replace('원/월','')+'</span><span class="price-unit">원/월</span></div>' +
+      '<div class="price-card">제휴카드 '+p.cardPrice+'</div>' +
+      '<div class="prod-hint">👆 터치하면 상세보기</div>' +
+    '</div>';
+  card.addEventListener('click', function(){ openDetail(i); });
+  prodList.appendChild(card);
+});
+
+// 상세 팝업
+function openDetail(i){
+  const p = PRODUCTS[i];
+  document.getElementById('detailImg').src = p.img;
+  document.getElementById('detailImg').alt = p.name;
+  document.getElementById('detailName').textContent = p.name;
+  document.getElementById('detailModel').textContent = p.model;
+  document.getElementById('detailPrice').textContent = p.price;
+  document.getElementById('detailCardPrice').textContent = p.cardPrice;
+  const tagsEl = document.getElementById('detailTags');
+  tagsEl.innerHTML = p.tags.map(function(t){ return '<span class="tag '+t.cls+'">'+t.label+'</span>'; }).join('');
+  const promoEl = document.getElementById('detailPromo');
+  if(p.promo){
+    promoEl.innerHTML = '<strong>🎁 특별혜택</strong> · ' + p.promo.replace(/\n/g,'<br>');
+    promoEl.style.display = 'block';
+  } else {
+    promoEl.style.display = 'none';
+  }
+  const specsEl = document.getElementById('detailSpecs');
+  specsEl.innerHTML = p.specs.map(function(s){
+    return '<div class="spec-item"><div class="spec-label">'+s.label+'</div><div class="spec-val">'+s.val+'</div></div>';
+  }).join('');
+  document.getElementById('detailCallBtn').onclick = callPlanner;
+  document.getElementById('detailSmsBtn').onclick = function(){ smsPlanner(p.name); };
+  document.getElementById('detailOverlay').classList.add('open');
+  document.getElementById('detailSheet').scrollTop = 0;
+}
+
+document.getElementById('detailClose').addEventListener('click', function(){
+  document.getElementById('detailOverlay').classList.remove('open');
+});
+document.getElementById('detailOverlay').addEventListener('click', function(e){
+  if(e.target === this) this.classList.remove('open');
 });
 </script>
 </body>
