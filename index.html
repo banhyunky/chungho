@@ -162,6 +162,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 
 .bottom-hint{font-size:12px;color:#ccc;text-align:center;padding:1.25rem 1rem 0.5rem}
+.btn-on{background:#10b981;color:#fff;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer}
+
+.btn-off{background:#e5e7eb;color:#888;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer}
+
+  
 </style>
 </head>
 <body>
@@ -398,8 +403,11 @@ async function loadData(){
     const data = await gasGet({action:'getData'});
     ALL_PRODUCTS = data.products || [];
     ALL_FEATURED = data.featured || [];
+    if(isAdmin){
+      ALL_PRODUCTS = data.allProducts || [];
+      renderAdminAll();
+    }
     renderFeatured();
-    if(isAdmin) renderAdminAll();
   } catch(e) {
     document.getElementById('featuredList').innerHTML = '<p style="text-align:center;padding:2rem;color:#aaa;font-size:13px">데이터를 불러올 수 없어요.<br>잠시 후 다시 시도해주세요.</p>';
   }
@@ -576,17 +584,18 @@ function renderAdminProducts(){
       '<img class="admin-prod-img" src="'+p.img+'" alt="" onerror="this.src=\'\'">'+
       '<div class="admin-prod-info">'+
         '<div class="admin-prod-name">'+p.name+'</div>'+
-        '<div class="admin-prod-meta">'+p.cat+' · '+p.subcat+' · '+p.model+'</div>'+
+        '<div class="admin-prod-meta">'+p.cat+' · '+p.subcat+'</div>'+
         '<div class="admin-prod-price">'+p.price+'</div>'+
       '</div>'+
       '<div class="admin-prod-actions">'+
         '<button class="btn-edit" onclick="openEditPop(\''+p.id+'\')">수정</button>'+
+        '<button class="btn-toggle '+(p.visible==='N'?'btn-off':'btn-on')+'" onclick="toggleProd(\''+p.id+'\',\''+p.visible+'\')">'+(p.visible==='N'?'비노출':'노출')+'</button>'+
         '<button class="btn-danger" onclick="deleteProd(\''+p.id+'\',\''+p.name+'\')">삭제</button>'+
       '</div>';
     el.appendChild(div);
   });
 }
-
+  
 // 행사상품 저장
 document.getElementById('saveFeatBtn').addEventListener('click', async ()=>{
   const checked = [...document.querySelectorAll('.feat-chk:checked')];
@@ -671,6 +680,11 @@ async function deleteProd(id, name){
   await loadData();
   alert('삭제됐어요!');
 }
+async function toggleProd(id, current){
+  const next = current === 'N' ? 'Y' : 'N';
+  await gasPost({action:'toggleProduct', id, visible: next==='Y'});
+  await loadData();
+}  
 
 // 초기 로드
 loadPlanner();
