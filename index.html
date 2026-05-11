@@ -9,33 +9,23 @@
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif;background:#f0f2f5;color:#1a1a1a;font-size:16px}
 .page{max-width:440px;margin:0 auto;min-height:100vh;padding-bottom:2rem}
 .screen{display:none}.screen.active{display:block}
-
-/* 로딩 */
 .loading{text-align:center;padding:3rem 1rem;color:#aaa;font-size:14px}
 .spin{display:inline-block;width:28px;height:28px;border:3px solid #e5e7eb;border-top-color:#1a56db;border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:10px}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* 히어로 */
 .hero{background:#fff;padding:1.5rem 1.25rem 1.25rem;text-align:center;margin-bottom:10px}
 .badge{display:inline-block;background:#e8f0fe;color:#1a56db;font-size:11px;font-weight:600;padding:4px 12px;border-radius:99px;margin-bottom:10px}
 .hero h1{font-size:21px;font-weight:700;color:#1a1a1a;margin-bottom:4px}
 .hero p{font-size:13px;color:#777}
-
-/* 플래너 카드 */
 .planner-card{background:#fff;margin:0 0 10px;padding:14px 18px;display:flex;align-items:center;gap:12px}
 .avatar{width:46px;height:46px;border-radius:50%;background:#e8f0fe;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;color:#1a56db;flex-shrink:0}
 .p-name{font-size:15px;font-weight:700;color:#1a1a1a}
 .p-sub{font-size:12px;color:#999;margin-top:2px}
 .v-badge{background:#ecfdf5;color:#166534;font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;margin-top:4px;display:inline-block}
-
-/* CTA */
 .cta-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 14px 14px;background:#fff;margin-bottom:10px}
 .btn-call{background:#1a56db;color:#fff;border:none;border-radius:12px;padding:15px 8px;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer}
 .btn-call:active{opacity:0.88}
 .btn-sms{background:#fff;color:#1a1a1a;border:1.5px solid #dde3f0;border-radius:12px;padding:15px 8px;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer}
 .btn-sms:active{background:#f5f7ff}
-
-/* 상담폼 */
 .consult-wrap{display:none;margin:0 0 10px}.consult-wrap.open{display:block}
 .consult-card{background:#fff;padding:1.25rem}
 .field{margin-bottom:12px}
@@ -45,15 +35,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .field textarea{min-height:80px;resize:none;line-height:1.6}
 .btn-send{width:100%;background:#1a56db;color:#fff;border:none;border-radius:10px;padding:14px;font-size:14px;font-weight:700;cursor:pointer;margin-top:4px}
 .btn-x{width:100%;background:none;border:none;color:#aaa;font-size:13px;cursor:pointer;padding:10px}
-
-/* 섹션 */
 .sec-hd{padding:14px 16px 10px;display:flex;align-items:center;justify-content:space-between}
 .sec-title{font-size:15px;font-weight:700;color:#1a1a1a}
 .sec-sub{font-size:12px;color:#aaa}
 .find-btn{margin:0 14px 10px;background:#fff;border:1.5px solid #1a56db;border-radius:14px;padding:16px;text-align:center;cursor:pointer;color:#1a56db;font-size:15px;font-weight:700}
 .find-btn:active{background:#f0f4ff}
-
-/* 카테고리 */
 .cat-header{background:#fff;padding:14px 16px;display:flex;align-items:center;gap:10px;margin-bottom:10px}
 .back-btn{background:none;border:none;font-size:22px;cursor:pointer;color:#1a1a1a;padding:0;line-height:1}
 .cat-title{font-size:16px;font-weight:700;color:#1a1a1a}
@@ -63,13 +49,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .cat-icon{font-size:28px;margin-bottom:8px}
 .cat-name{font-size:14px;font-weight:700;color:#1a1a1a}
 .cat-count{font-size:11px;color:#aaa;margin-top:3px}
-
-/* 서브카테고리 */
 .subcat-list{display:flex;flex-wrap:wrap;gap:8px;padding:0 14px 14px}
 .subcat-btn{background:#fff;border:1.5px solid #eee;border-radius:99px;padding:8px 16px;font-size:13px;font-weight:600;color:#444;cursor:pointer}
 .subcat-btn.active{background:#1a56db;border-color:#1a56db;color:#fff}
-
-/* 제품카드 */
 .prod-list{display:flex;flex-direction:column;gap:10px}
 .prod-card{background:#fff;overflow:hidden;cursor:pointer}
 .prod-card:active{opacity:0.95}
@@ -89,8 +71,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .prod-price span{font-size:12px;font-weight:400;color:#999}
 .prod-card-p{font-size:13px;color:#1a56db;font-weight:600;margin-top:3px;margin-bottom:6px}
 .prod-hint{font-size:11px;color:#ccc}
-
-/* 상세 팝업 */
+.prod-price-origin{font-size:13px;color:#aaa;text-decoration:line-through;margin-bottom:2px}
+.promo-price{color:#ef4444 !important}
+.prod-promo-badge{font-size:11px;font-weight:700;color:#ef4444;margin-top:4px}
+.promo-pulse{animation:pulse 1.5s ease-in-out infinite;color:#1a56db}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;flex-direction:column;justify-content:flex-end}
 .overlay.open{display:flex}
 .sheet{background:#fff;border-radius:20px 20px 0 0;max-height:90vh;overflow-y:auto;animation:up 0.28s ease}
@@ -119,8 +104,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .sheet-cta{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-bottom:4px}
 .s-call{background:#1a56db;color:#fff;border:none;border-radius:11px;padding:14px;font-size:14px;font-weight:700;cursor:pointer}
 .s-sms{background:#fff;color:#1a1a1a;border:1.5px solid #dde3f0;border-radius:11px;padding:14px;font-size:14px;font-weight:700;cursor:pointer}
-
-/* ===== 관리자 ===== */
 .admin-wrap{background:#f0f2f5;min-height:100vh;padding-bottom:2rem}
 .admin-header{background:#1a56db;color:#fff;padding:16px 18px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:10}
 .admin-header h2{font-size:16px;font-weight:700;flex:1}
@@ -134,8 +117,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .btn-primary{background:#1a56db;color:#fff;border:none;border-radius:10px;padding:13px 20px;font-size:14px;font-weight:700;cursor:pointer}
 .btn-danger{background:#ef4444;color:#fff;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer}
 .btn-edit{background:#f3f4f6;color:#444;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:600;cursor:pointer;margin-right:4px}
-
-/* 관리자 제품 목록 */
 .admin-prod-row{background:#fff;border-radius:10px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:10px}
 .admin-prod-img{width:44px;height:44px;object-fit:contain;border-radius:6px;background:#f8f9fa;flex-shrink:0}
 .admin-prod-info{flex:1;min-width:0}
@@ -143,15 +124,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .admin-prod-meta{font-size:11px;color:#aaa;margin-top:2px}
 .admin-prod-price{font-size:12px;color:#1a56db;font-weight:600;margin-top:2px}
 .admin-prod-actions{display:flex;flex-direction:column;gap:4px;flex-shrink:0}
-
-/* 행사상품 체크 */
 .feat-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #f9f9f9}
 .feat-row:last-child{border-bottom:none}
 .feat-chk{width:20px;height:20px;accent-color:#1a56db;cursor:pointer;flex-shrink:0}
 .feat-name{font-size:13px;color:#1a1a1a;flex:1}
 .feat-sub{font-size:11px;color:#aaa}
-
-/* 제품 추가 폼 */
 .add-form{background:#fff;border-radius:12px;padding:16px;margin-bottom:12px}
 .add-form h3{font-size:14px;font-weight:700;margin-bottom:14px}
 .form-row{margin-bottom:10px}
@@ -160,18 +137,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:#1a56db}
 .form-row textarea{min-height:60px;resize:none}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-
 .bottom-hint{font-size:12px;color:#ccc;text-align:center;padding:1.25rem 1rem 0.5rem}
-.prod-promo-badge{font-size:11px;font-weight:700;color:#ef4444;margin-top:4px}
-.promo-pulse{animation:pulse 1.5s ease-in-out infinite;color:#1a56db}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
 .btn-on{background:#10b981;color:#fff;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer}
-
 .btn-off{background:#e5e7eb;color:#888;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer}
-.btn-off{background:#e5e7eb;color:#888;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer}
-.prod-price-origin{font-size:13px;color:#aaa;text-decoration:line-through;margin-bottom:2px}
-.promo-price{color:#ef4444 !important}
-  
 </style>
 </head>
 <body>
@@ -188,8 +156,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
     <div class="loading"><div class="spin"></div></div>
   </div>
   <div id="adminBtnWrap" style="display:none;padding:0 14px 10px">
-  <button id="adminEntryBtn" style="width:100%;background:#f0f2f5;border:1px solid #dde3f0;border-radius:10px;padding:10px;font-size:12px;color:#aaa;cursor:pointer">⚙️ 관리자</button>
-</div>
+    <button id="adminEntryBtn" style="width:100%;background:#f0f2f5;border:1px solid #dde3f0;border-radius:10px;padding:10px;font-size:12px;color:#aaa;cursor:pointer">⚙️ 관리자</button>
+  </div>
   <div class="cta-row">
     <button class="btn-call" id="callBtn">📞 전화 상담</button>
     <button class="btn-sms" id="smsBtn">💬 상담 신청</button>
@@ -250,11 +218,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
       <div class="sheet-name" id="sName"></div>
       <div class="sheet-model" id="sModel"></div>
       <div class="promo-box" id="sPromo" style="display:none"></div>
-      <div class="price-box">
-        <div class="price-row2"><span class="plabel">월 렌탈료</span><span class="pval" id="sPrice"></span></div>
-        <div class="price-row2"><span class="plabel">제휴카드 적용 시</span><span class="pval blue" id="sCard"></span></div>
-        <div class="card-note">※ 제휴카드 실적 조건 충족 시 최대 할인 기준</div>
-      </div>
+      <div class="price-box" id="priceBox"></div>
       <div class="spec-title">제품 사양</div>
       <div class="spec-grid" id="sSpecs"></div>
       <div class="sheet-cta">
@@ -277,8 +241,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
     <div class="admin-tab" data-tab="products">📦 제품관리</div>
     <div class="admin-tab" data-tab="add">➕ 제품추가</div>
   </div>
-
-  <!-- 행사상품 탭 -->
   <div class="admin-panel active" id="tab-featured">
     <div class="admin-section">
       <h3>이달의 행사상품 선택 (최대 5개)</h3>
@@ -287,13 +249,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
       <button class="btn-primary" style="width:100%;margin-top:10px" id="saveFeatBtn">저장하기</button>
     </div>
   </div>
-
-  <!-- 제품관리 탭 -->
   <div class="admin-panel" id="tab-products">
     <div id="adminProdList"><div class="loading"><div class="spin"></div></div></div>
   </div>
-
-  <!-- 제품추가 탭 -->
   <div class="admin-panel" id="tab-add">
     <div class="add-form">
       <h3>새 제품 추가</h3>
@@ -370,12 +328,14 @@ const params = new URLSearchParams(window.location.search);
 const pid = params.get('p') || '10200366';
 const isAdmin = params.get('admin') === '1';
 
-// 화면 전환
-function showScreen(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0,0); }
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
 
-// GAS 호출
-async function gasGet(params){
-  const url = GAS_URL + '?' + new URLSearchParams(params).toString();
+async function gasGet(p){
+  const url = GAS_URL + '?' + new URLSearchParams(p).toString();
   const r = await fetch(url);
   return r.json();
 }
@@ -384,13 +344,10 @@ async function gasPost(data){
   return r.json();
 }
 
-// 플래너 정보 로드
 async function loadPlanner(){
   try {
     const data = await gasGet({action:'getPlanner', pid});
-    if(data) {
-      PLANNER = {...data, avatar: data.name[0]};
-    }
+    if(data) PLANNER = {...data, avatar: data.name[0]};
   } catch(e) {}
   renderPlannerCard();
 }
@@ -408,29 +365,31 @@ function renderPlannerCard(){
     document.getElementById('adminEntryBtn').onclick = ()=>showScreen('adminScreen');
   }
 }
-// 전체 데이터 로드
+
 async function loadData(){
   try {
     const data = await gasGet({action:'getData'});
     ALL_PRODUCTS = data.products || [];
     ALL_FEATURED = data.featured || [];
     if(isAdmin){
-      ALL_PRODUCTS = data.allProducts || [];
+      ALL_PRODUCTS = data.allProducts || ALL_PRODUCTS;
       renderAdminAll();
     }
     renderFeatured();
   } catch(e) {
-    document.getElementById('featuredList').innerHTML = '<p style="text-align:center;padding:2rem;color:#aaa;font-size:13px">데이터를 불러올 수 없어요.<br>잠시 후 다시 시도해주세요.</p>';
+    document.getElementById('featuredList').innerHTML =
+      '<p style="text-align:center;padding:2rem;color:#aaa;font-size:13px">데이터를 불러올 수 없어요.<br>잠시 후 다시 시도해주세요.</p>';
   }
 }
 
-// CTA
 function callPlanner(){ window.location.href = 'tel:'+PLANNER.phone; }
+
 function openConsult(prefill){
   document.getElementById('consultWrap').classList.add('open');
   if(prefill) document.getElementById('custMsg').value = prefill+' 렌탈 문의드립니다.';
   setTimeout(()=>document.getElementById('custName').focus(), 150);
 }
+
 document.getElementById('callBtn').addEventListener('click', callPlanner);
 document.getElementById('smsBtn').addEventListener('click', ()=>openConsult(''));
 document.getElementById('cancelBtn').addEventListener('click', ()=>document.getElementById('consultWrap').classList.remove('open'));
@@ -443,40 +402,33 @@ document.getElementById('sendBtn').addEventListener('click', ()=>{
   window.location.href = 'sms:'+PLANNER.phone+(isIOS?'&':'?')+'body='+encodeURIComponent(body);
 });
 
-// 태그 HTML
 function tagHTML(tags){
   if(!tags || !tags.length) return '';
   return tags.map(t=>'<span class="tag '+(TAG_CLASS[t]||'t-good')+'">'+t+'</span>').join('');
 }
 
-// 제품 카드 렌더
 function makeProdCard(p){
   const div = document.createElement('div');
   div.className = 'prod-card';
-  
   const displayPrice = p.autoPrice || p.price;
   const isConsult = displayPrice === '상담 문의';
-  
   let priceHTML = '';
   if(isConsult){
     priceHTML = '<div class="prod-price" style="font-size:16px;color:#1a56db">💬 상담 문의</div>';
   } else if(p.hasDiscount && p.autoPromoPrice){
-    // 취소선 + 프로모션 가격
-    priceHTML = 
+    priceHTML =
       '<div class="prod-price-origin">'+displayPrice+'</div>'+
       '<div class="prod-price promo-price">'+p.autoPromoPrice+'</div>'+
       (p.autoPromoNote ? '<div class="prod-promo-badge">🎁 '+p.autoPromoNote+'</div>' : '');
   } else if(p.autoPromoPrice){
-    // 취소선 없이 프로모션 가격만
-    priceHTML = 
+    priceHTML =
       '<div class="prod-price promo-price">'+p.autoPromoPrice+'</div>'+
       (p.autoPromoNote ? '<div class="prod-promo-badge promo-pulse">✨ '+p.autoPromoNote+'</div>' : '');
   } else {
-    priceHTML = 
+    priceHTML =
       '<div class="prod-price">'+displayPrice.replace('원/월','')+'<span>원/월</span></div>'+
       '<div class="prod-card-p">제휴카드 최대 '+p.card+'</div>';
   }
-
   div.innerHTML =
     '<div class="prod-img-wrap">'+
       '<img src="'+p.img+'" alt="'+p.name+'" loading="lazy">'+
@@ -492,16 +444,17 @@ function makeProdCard(p){
   return div;
 }
 
-// 행사상품 렌더
 function renderFeatured(){
   const el = document.getElementById('featuredList');
   el.innerHTML = '';
   const list = ALL_FEATURED.map(id=>ALL_PRODUCTS.find(p=>p.id===id)).filter(Boolean);
-  if(!list.length){ el.innerHTML='<p style="text-align:center;padding:2rem;color:#aaa;font-size:13px">행사상품을 준비 중입니다</p>'; return; }
+  if(!list.length){
+    el.innerHTML='<p style="text-align:center;padding:2rem;color:#aaa;font-size:13px">행사상품을 준비 중입니다</p>';
+    return;
+  }
   list.forEach(p=>el.appendChild(makeProdCard(p)));
 }
 
-// 카테고리
 document.getElementById('findProdBtn').addEventListener('click', showCatScreen);
 document.getElementById('catBack').addEventListener('click', ()=>showScreen('mainScreen'));
 document.getElementById('listBack').addEventListener('click', ()=>showScreen('catScreen'));
@@ -543,75 +496,89 @@ function renderProdList(catName, subcat){
   const el = document.getElementById('prodList');
   el.innerHTML = '';
   const list = ALL_PRODUCTS.filter(p=>p.cat===catName && p.subcat===subcat);
-  if(!list.length){ el.innerHTML='<p style="text-align:center;padding:2rem;color:#aaa;font-size:13px">해당 카테고리 제품을 준비 중입니다</p>'; return; }
+  if(!list.length){
+    el.innerHTML='<p style="text-align:center;padding:2rem;color:#aaa;font-size:13px">해당 카테고리 제품을 준비 중입니다</p>';
+    return;
+  }
   list.forEach(p=>el.appendChild(makeProdCard(p)));
 }
 
-// 상세 팝업
+// ===== 상세 팝업 =====
 function openDetail(p){
   document.getElementById('sImg').src = p.img;
   document.getElementById('sName').textContent = p.name;
   document.getElementById('sModel').textContent = p.model || '';
   document.getElementById('sTags').innerHTML = tagHTML(p.tags);
-  const isConsult = p.price === '상담 문의';
+
+  // 프로모션 박스
   const promoEl = document.getElementById('sPromo');
+  const isConsult = (p.price === '상담 문의');
   if(isConsult){
     promoEl.innerHTML = '✨ <strong>프로모션 진행중!</strong> 정확한 렌탈료는 플래너에게 문의해주세요.';
-    promoEl.style.display = 'block';
-    promoEl.style.background = '#eff6ff';
-    promoEl.style.borderColor = '#bfdbfe';
-    promoEl.style.color = '#1d4ed8';
+    promoEl.style.cssText = 'display:block;background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8';
   } else if(p.promo){
-    promoEl.innerHTML='<strong>🎁 특별혜택</strong> · '+p.promo.replace(/\n/g,'<br>');
-    promoEl.style.display='block';
-    promoEl.style.background='#fff8f0';
-    promoEl.style.borderColor='#fde8c8';
-    promoEl.style.color='#b45309';
+    promoEl.innerHTML = '<strong>🎁 특별혜택</strong> · '+p.promo.replace(/\n/g,'<br>');
+    promoEl.style.cssText = 'display:block;background:#fff8f0;border-color:#fde8c8;color:#b45309';
   } else {
-    promoEl.style.display='none';
+    promoEl.style.display = 'none';
   }
-  const priceBox = document.querySelector('.price-box');
-  priceBox.style.display = 'block';
+
+  // 가격 박스 — id 기반으로 접근 (querySelector 대신)
+  const priceBox = document.getElementById('priceBox');
+  const CARD_NOTE = '<div class="card-note">※ 제휴카드 실적 조건 충족 시 최대 할인 기준</div>';
+
   if(isConsult){
     priceBox.style.display = 'none';
+    priceBox.innerHTML = '';
   } else if(p.autoPrice){
+    priceBox.style.display = 'block';
     const baseLabel = p.baseYears ? p.baseYears+'년 약정 기준가' : '월 렌탈료';
     if(p.hasDiscount && p.autoPromoPrice){
+      // 취소선 기준가 + 빨간 프로모션가
       priceBox.innerHTML =
         '<div class="price-row2"><span class="plabel">'+baseLabel+'</span><span class="pval" style="text-decoration:line-through;color:#aaa">'+p.autoPrice+'</span></div>'+
         '<div class="price-row2"><span class="plabel">프로모션 할인가 ('+p.autoPromoNote+')</span><span class="pval" style="color:#ef4444">'+p.autoPromoPrice+'</span></div>'+
         '<div class="price-row2"><span class="plabel">제휴카드 적용 시</span><span class="pval blue">'+p.card+'</span></div>'+
-        '<div class="card-note">※ 제휴카드 실적 조건 충족 시 최대 할인 기준</div>';
+        CARD_NOTE;
     } else if(p.autoPromoPrice){
+      // 취소선 없이 기준가 + 빨간 프로모션가
       priceBox.innerHTML =
         '<div class="price-row2"><span class="plabel">'+baseLabel+'</span><span class="pval">'+p.autoPrice+'</span></div>'+
         '<div class="price-row2"><span class="plabel">프로모션 할인가 ('+p.autoPromoNote+')</span><span class="pval" style="color:#ef4444">'+p.autoPromoPrice+'</span></div>'+
         '<div class="price-row2"><span class="plabel">제휴카드 적용 시</span><span class="pval blue">'+p.card+'</span></div>'+
-        '<div class="card-note">※ 제휴카드 실적 조건 충족 시 최대 할인 기준</div>';
+        CARD_NOTE;
     } else {
+      // 프로모션 없음
       priceBox.innerHTML =
         '<div class="price-row2"><span class="plabel">'+baseLabel+'</span><span class="pval">'+p.autoPrice+'</span></div>'+
         '<div class="price-row2"><span class="plabel">제휴카드 적용 시</span><span class="pval blue">'+p.card+'</span></div>'+
-        '<div class="card-note">※ 제휴카드 실적 조건 충족 시 최대 할인 기준</div>';
+        CARD_NOTE;
     }
   } else {
+    // autoPrice 없음 — 시트 가격 fallback
+    priceBox.style.display = 'block';
     priceBox.innerHTML =
       '<div class="price-row2"><span class="plabel">월 렌탈료</span><span class="pval">'+p.price+'</span></div>'+
       '<div class="price-row2"><span class="plabel">제휴카드 적용 시</span><span class="pval blue">'+p.card+'</span></div>'+
-      '<div class="card-note">※ 제휴카드 실적 조건 충족 시 최대 할인 기준</div>';
+      CARD_NOTE;
   }
+
   document.getElementById('sSpecs').innerHTML =
     '<div class="spec-item"><div class="slabel">카테고리</div><div class="sval">'+p.cat+'</div></div>'+
     '<div class="spec-item"><div class="slabel">분류</div><div class="sval">'+p.subcat+'</div></div>'+
     (p.model ? '<div class="spec-item"><div class="slabel">모델</div><div class="sval">'+p.model+'</div></div>' : '')+
     '<div class="spec-item"><div class="slabel">약정</div><div class="sval">5년 기준</div></div>';
+
   document.getElementById('sCallBtn').onclick = callPlanner;
   document.getElementById('sSmsBtn').onclick = ()=>openConsult(p.name);
   document.getElementById('overlay').classList.add('open');
   document.getElementById('sheet').scrollTop = 0;
 }
+
 document.getElementById('sheetClose').addEventListener('click', ()=>document.getElementById('overlay').classList.remove('open'));
-document.getElementById('overlay').addEventListener('click', e=>{ if(e.target===document.getElementById('overlay')) document.getElementById('overlay').classList.remove('open'); });
+document.getElementById('overlay').addEventListener('click', e=>{
+  if(e.target===document.getElementById('overlay')) document.getElementById('overlay').classList.remove('open');
+});
 
 // ===== 관리자 =====
 if(isAdmin) showScreen('adminScreen');
@@ -664,14 +631,13 @@ function renderAdminProducts(){
       '</div>'+
       '<div class="admin-prod-actions">'+
         '<button class="btn-edit" onclick="openEditPop(\''+p.id+'\')">수정</button>'+
-        '<button class="btn-toggle '+(p.visible==='N'?'btn-off':'btn-on')+'" onclick="toggleProd(\''+p.id+'\',\''+p.visible+'\')">'+(p.visible==='N'?'비노출':'노출')+'</button>'+
+        '<button class="'+(p.visible==='N'?'btn-off':'btn-on')+'" onclick="toggleProd(\''+p.id+'\',\''+p.visible+'\')">'+(p.visible==='N'?'비노출':'노출')+'</button>'+
         '<button class="btn-danger" onclick="deleteProd(\''+p.id+'\',\''+p.name+'\')">삭제</button>'+
       '</div>';
     el.appendChild(div);
   });
 }
-  
-// 행사상품 저장
+
 document.getElementById('saveFeatBtn').addEventListener('click', async ()=>{
   const checked = [...document.querySelectorAll('.feat-chk:checked')];
   if(checked.length>5){ alert('최대 5개까지 선택 가능합니다'); return; }
@@ -685,7 +651,6 @@ document.getElementById('saveFeatBtn').addEventListener('click', async ()=>{
   alert('저장됐어요! ✓');
 });
 
-// 제품 추가
 document.getElementById('addProdBtn').addEventListener('click', async ()=>{
   const name = document.getElementById('addName').value.trim();
   if(!name){ alert('제품명을 입력해주세요'); return; }
@@ -709,7 +674,6 @@ document.getElementById('addProdBtn').addEventListener('click', async ()=>{
   document.getElementById('addProdBtn').textContent = '제품 추가하기';
 });
 
-// 제품 수정 팝업
 function openEditPop(id){
   const p = ALL_PRODUCTS.find(x=>x.id===id);
   if(!p) return;
@@ -723,6 +687,7 @@ function openEditPop(id){
   document.getElementById('editTags').value = (p.tags||[]).join('|');
   document.getElementById('editOverlay').classList.add('open');
 }
+
 document.getElementById('editClose').addEventListener('click', ()=>document.getElementById('editOverlay').classList.remove('open'));
 document.getElementById('saveEditBtn').addEventListener('click', async ()=>{
   const id = document.getElementById('editId').value;
@@ -748,18 +713,18 @@ document.getElementById('saveEditBtn').addEventListener('click', async ()=>{
   document.getElementById('saveEditBtn').textContent = '수정 저장';
 });
 
-// 제품 삭제
 async function deleteProd(id, name){
   if(!confirm('"'+name+'" 을(를) 삭제할까요?')) return;
   await gasPost({action:'deleteProduct', id});
   await loadData();
   alert('삭제됐어요!');
 }
+
 async function toggleProd(id, current){
   const next = current === 'N' ? 'Y' : 'N';
   await gasPost({action:'toggleProduct', id, visible: next==='Y'});
   await loadData();
-}  
+}
 
 // 초기 로드
 loadPlanner();
