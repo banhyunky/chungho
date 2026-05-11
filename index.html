@@ -162,6 +162,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 
 .bottom-hint{font-size:12px;color:#ccc;text-align:center;padding:1.25rem 1rem 0.5rem}
+.prod-promo-badge{font-size:11px;font-weight:700;color:#ef4444;margin-top:4px}
+.promo-pulse{animation:pulse 1.5s ease-in-out infinite;color:#1a56db}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
 .btn-on{background:#10b981;color:#fff;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer}
 
 .btn-off{background:#e5e7eb;color:#888;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer}
@@ -448,7 +451,15 @@ function tagHTML(tags){
 function makeProdCard(p){
   const div = document.createElement('div');
   div.className = 'prod-card';
-  const priceNum = p.price.replace('원/월','').replace(/,/g,'');
+  const isConsult = p.price === '상담 문의';
+  const priceNum = isConsult ? '상담 문의' : p.price.replace('원/월','').replace(/,/g,'');
+  const priceHTML = isConsult
+    ? '<div class="prod-price" style="font-size:16px;color:#1a56db">💬 상담 문의</div>'
+    : '<div class="prod-price">'+priceNum+'<span>원/월</span></div>'+
+      '<div class="prod-card-p">제휴카드 최대 '+p.card+'</div>';
+  const promoHTML = p.promo && !isConsult
+    ? '<div class="prod-promo-badge">🎁 '+p.promo.split('\n')[0]+'</div>'
+    : isConsult ? '<div class="prod-promo-badge promo-pulse">✨ 프로모션 진행중</div>' : '';
   div.innerHTML =
     '<div class="prod-img-wrap">'+
       '<img src="'+p.img+'" alt="'+p.name+'" loading="lazy">'+
@@ -457,8 +468,8 @@ function makeProdCard(p){
     '<div class="prod-body">'+
       '<div class="prod-name">'+p.name+'</div>'+
       '<div class="prod-model">'+p.model+'</div>'+
-      '<div class="prod-price">'+priceNum+'<span>원/월</span></div>'+
-      '<div class="prod-card-p">제휴카드 최대 '+p.card+'</div>'+
+      priceHTML+
+      promoHTML+
       '<div class="prod-hint">👆 터치하면 상세보기</div>'+
     '</div>';
   div.addEventListener('click', ()=>openDetail(p));
@@ -524,17 +535,37 @@ function renderProdList(catName, subcat){
 function openDetail(p){
   document.getElementById('sImg').src = p.img;
   document.getElementById('sName').textContent = p.name;
-  document.getElementById('sModel').textContent = p.model;
-  document.getElementById('sPrice').textContent = p.price;
-  document.getElementById('sCard').textContent = p.card;
+  document.getElementById('sModel').textContent = p.model || '';
   document.getElementById('sTags').innerHTML = tagHTML(p.tags);
+  const isConsult = p.price === '상담 문의';
   const promoEl = document.getElementById('sPromo');
-  if(p.promo){ promoEl.innerHTML='<strong>🎁 특별혜택</strong> · '+p.promo.replace(/\n/g,'<br>'); promoEl.style.display='block'; }
-  else promoEl.style.display='none';
+  if(isConsult){
+    promoEl.innerHTML = '✨ <strong>프로모션 진행중!</strong> 정확한 렌탈료는 플래너에게 문의해주세요.';
+    promoEl.style.display = 'block';
+    promoEl.style.background = '#eff6ff';
+    promoEl.style.borderColor = '#bfdbfe';
+    promoEl.style.color = '#1d4ed8';
+  } else if(p.promo){
+    promoEl.innerHTML='<strong>🎁 특별혜택</strong> · '+p.promo.replace(/\n/g,'<br>');
+    promoEl.style.display='block';
+    promoEl.style.background='#fff8f0';
+    promoEl.style.borderColor='#fde8c8';
+    promoEl.style.color='#b45309';
+  } else {
+    promoEl.style.display='none';
+  }
+  const priceBox = document.getElementById('sPrice').closest('.price-box');
+  if(isConsult){
+    priceBox.style.display = 'none';
+  } else {
+    priceBox.style.display = 'block';
+    document.getElementById('sPrice').textContent = p.price;
+    document.getElementById('sCard').textContent = p.card;
+  }
   document.getElementById('sSpecs').innerHTML =
     '<div class="spec-item"><div class="slabel">카테고리</div><div class="sval">'+p.cat+'</div></div>'+
     '<div class="spec-item"><div class="slabel">분류</div><div class="sval">'+p.subcat+'</div></div>'+
-    '<div class="spec-item"><div class="slabel">모델</div><div class="sval">'+p.model+'</div></div>'+
+    (p.model ? '<div class="spec-item"><div class="slabel">모델</div><div class="sval">'+p.model+'</div></div>' : '')+
     '<div class="spec-item"><div class="slabel">약정</div><div class="sval">5년 기준</div></div>';
   document.getElementById('sCallBtn').onclick = callPlanner;
   document.getElementById('sSmsBtn').onclick = ()=>openConsult(p.name);
