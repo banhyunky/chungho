@@ -583,12 +583,13 @@ if(isConsult){
       '<div class="price-row2"><span class="plabel">프로모션 할인가 ('+p.autoPromoNote+')</span><span class="pval" style="color:#ef4444">'+p.autoPromoPrice+'</span></div>'+
       '<div class="price-row2"><span class="plabel">제휴카드 적용 시</span><span class="pval blue">'+p.card+'</span></div>'+
       '<div class="card-note">※ 제휴카드 실적 조건 충족 시 최대 할인 기준</div>';
-  } else if(p.autoPromoPrice){
+ } else if(p.autoPromoPrice){
     priceBox.innerHTML =
       '<div class="price-row2"><span class="plabel">'+baseLabel+'</span><span class="pval">'+p.autoPrice+'</span></div>'+
-      '<div class="price-row2"><span class="plabel">프로모션 할인가</span><span class="pval" style="color:#ef4444">'+p.autoPromoPrice+'</span></div>'+
+      '<div class="price-row2"><span class="plabel">프로모션 할인가 ('+p.autoPromoNote+')</span><span class="pval" style="color:#ef4444">'+p.autoPromoPrice+'</span></div>'+
       '<div class="price-row2"><span class="plabel">제휴카드 적용 시</span><span class="pval blue">'+p.card+'</span></div>'+
       '<div class="card-note">※ 제휴카드 실적 조건 충족 시 최대 할인 기준</div>';
+  }
   } else {
     priceBox.innerHTML =
       '<div class="price-row2"><span class="plabel">'+baseLabel+'</span><span class="pval">'+p.autoPrice+'</span></div>'+
