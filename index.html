@@ -19,6 +19,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .planner-card{background:#fff;margin:0 0 10px;padding:14px 18px;display:flex;align-items:center;gap:12px}
 .avatar{width:46px;height:46px;border-radius:50%;background:#e8f0fe;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;color:#1a56db;flex-shrink:0}
 .p-name{font-size:15px;font-weight:700;color:#1a1a1a}
+.p-title{display:inline-block;font-size:11px;font-weight:600;color:#1a56db;background:#e8f0fe;padding:2px 7px;border-radius:99px;margin-left:5px;vertical-align:middle}
 .p-sub{font-size:12px;color:#999;margin-top:2px}
 .v-badge{background:#ecfdf5;color:#166534;font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;margin-top:4px;display:inline-block}
 .cta-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 14px 14px;background:#fff;margin-bottom:10px}
@@ -322,7 +323,9 @@ const TAG_CLASS = {
 
 let ALL_PRODUCTS = [];
 let ALL_FEATURED = [];
-let PLANNER = {name:'반현기', branch:'대전 중구지사', phone:'01030413282', avatar:'반'};
+
+// ★ 수정1: PLANNER 기본값에 title(직급) 추가
+let PLANNER = {name:'반현기', title:'팀장', branch:'대전 중구지사', phone:'01030413282', avatar:'반'};
 
 const params = new URLSearchParams(window.location.search);
 const pid = params.get('p') || '10200366';
@@ -347,16 +350,27 @@ async function gasPost(data){
 async function loadPlanner(){
   try {
     const data = await gasGet({action:'getPlanner', pid});
-    if(data) PLANNER = {...data, avatar: data.name[0]};
+    // ★ 수정2: GAS 응답에서 title 포함해서 반영
+    if(data) PLANNER = {
+      name: data.name || PLANNER.name,
+      title: data.title || '',       // 직급 (팀장, 지사장 등)
+      branch: data.branch || PLANNER.branch,
+      phone: data.phone || PLANNER.phone,
+      avatar: (data.name || PLANNER.name)[0]
+    };
   } catch(e) {}
   renderPlannerCard();
 }
 
+// ★ 수정3: renderPlannerCard — 직급 배지 추가
 function renderPlannerCard(){
+  const titleBadge = PLANNER.title
+    ? '<span class="p-title">'+PLANNER.title+'</span>'
+    : '';
   document.getElementById('plannerCard').innerHTML =
     '<div class="avatar">'+PLANNER.avatar+'</div>'+
     '<div style="flex:1">'+
-      '<div class="p-name">'+PLANNER.name+' 플래너</div>'+
+      '<div class="p-name">'+PLANNER.name+titleBadge+'</div>'+
       '<div class="p-sub">사번 '+pid+' · '+PLANNER.branch+'</div>'+
       '<span class="v-badge">✓ 공식 인증 플래너</span>'+
     '</div>';
@@ -510,7 +524,6 @@ function openDetail(p){
   document.getElementById('sModel').textContent = p.model || '';
   document.getElementById('sTags').innerHTML = tagHTML(p.tags);
 
-  // 프로모션 박스
   const promoEl = document.getElementById('sPromo');
   const isConsult = (p.price === '상담 문의');
   if(isConsult){
@@ -523,7 +536,6 @@ function openDetail(p){
     promoEl.style.display = 'none';
   }
 
-  // 가격 박스 — id 기반으로 접근 (querySelector 대신)
   const priceBox = document.getElementById('priceBox');
   const CARD_NOTE = '<div class="card-note">※ 제휴카드 실적 조건 충족 시 최대 할인 기준</div>';
 
@@ -534,28 +546,24 @@ function openDetail(p){
     priceBox.style.display = 'block';
     const baseLabel = p.baseYears ? p.baseYears+'년 약정 기준가' : '월 렌탈료';
     if(p.hasDiscount && p.autoPromoPrice){
-      // 취소선 기준가 + 빨간 프로모션가
       priceBox.innerHTML =
         '<div class="price-row2"><span class="plabel">'+baseLabel+'</span><span class="pval" style="text-decoration:line-through;color:#aaa">'+p.autoPrice+'</span></div>'+
         '<div class="price-row2"><span class="plabel">프로모션 할인가 ('+p.autoPromoNote+')</span><span class="pval" style="color:#ef4444">'+p.autoPromoPrice+'</span></div>'+
         '<div class="price-row2"><span class="plabel">제휴카드 적용 시</span><span class="pval blue">'+p.card+'</span></div>'+
         CARD_NOTE;
     } else if(p.autoPromoPrice){
-      // 취소선 없이 기준가 + 빨간 프로모션가
       priceBox.innerHTML =
         '<div class="price-row2"><span class="plabel">'+baseLabel+'</span><span class="pval">'+p.autoPrice+'</span></div>'+
         '<div class="price-row2"><span class="plabel">프로모션 할인가 ('+p.autoPromoNote+')</span><span class="pval" style="color:#ef4444">'+p.autoPromoPrice+'</span></div>'+
         '<div class="price-row2"><span class="plabel">제휴카드 적용 시</span><span class="pval blue">'+p.card+'</span></div>'+
         CARD_NOTE;
     } else {
-      // 프로모션 없음
       priceBox.innerHTML =
         '<div class="price-row2"><span class="plabel">'+baseLabel+'</span><span class="pval">'+p.autoPrice+'</span></div>'+
         '<div class="price-row2"><span class="plabel">제휴카드 적용 시</span><span class="pval blue">'+p.card+'</span></div>'+
         CARD_NOTE;
     }
   } else {
-    // autoPrice 없음 — 시트 가격 fallback
     priceBox.style.display = 'block';
     priceBox.innerHTML =
       '<div class="price-row2"><span class="plabel">월 렌탈료</span><span class="pval">'+p.price+'</span></div>'+
