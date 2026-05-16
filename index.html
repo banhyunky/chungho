@@ -1,372 +1,3 @@
-
-Claude가 응답을 완료했습니다
-마누스  어떤 ai야? 앱개발을 지가한다는데
-
-오전 10:02
-
-웹 검색됨
-웹 검색됨
-한마디로 요약하면 "말만 하면 알아서 다 해주는 자율형 AI 에이전트" 야.
-
-뭔 놈이냐면:
-
-중국 스타트업 Monica가 2025년 3월에 출시한 AI인데, 단순 챗봇이 아니라 여러 전문 AI 에이전트들이 협력해서 실제 결과물을 만들어주는 멀티에이전트 시스템. 
-Brunch
-
-어떻게 작동하냐:
-
-시장 조사, 시각 디자인, 프론트엔드 개발, 백엔드 로직 설계 등 각 분야에 특화된 여러 AI 에이전트들이 병렬로 협업하는 구조. 쉽게 말하면 "이런 앱 만들어줘" 한마디 하면 기획→디자인→코딩 다 혼자 함. 
-Brunch
-
-앱 개발 얼마나 되냐:
-
-2025년 10월에 1.5버전 내놓으면서 작업 속도 4배 향상 + 풀스택 웹 앱 개발 가능하다고 밝힘. 단, 무료 유저는 경량버전(Lite)만 쓸 수 있고 구독해야 풀기능 사용 가능. 
-Namu Wiki
-
-내 시스템 관점에서 보면:
-
-현기쓰 GAS 시스템 같은 거 "대시보드 만들어줘" 하면 어느 정도 뽑아줄 수는 있는데, GAS + BigQuery + 스프레드시트 연동 같은 복잡한 구조는 결국 직접 손봐야 함. 간단한 프로토타입이나 UI 뼈대 잡을 때는 쓸 만할 수 있어.
-
-써볼 의향 있어?
-
-아 그럼 머 너와 차별점이 없네?
-
-오전 10:04
-차별점 꽤 있어 😄
-
-Manus가 나보다 나은 점:
-
-자율 실행 — 브라우저 직접 열고, 파일 만들고, 코드 실행까지 혼자 다 함. 나는 네가 복붙해줘야 함
-지속 작동 — 네가 앱 끄고 자도 백그라운드에서 계속 돌아감
-풀스택 앱 배포 — 도메인까지 붙여서 실제 서비스 뚝딱 만들어줌
-내가 Manus보다 나은 점:
-
-맥락 이해 — 현기쓰 시스템 전체 구조 알고, GAS 코드 뜯어고치고, BigQuery 쿼리 최적화하는 깊이가 다름
-대화로 조율 — Manus는 결과물 던져주고 끝인 경우 많고, 나는 중간중간 같이 생각하면서 방향 수정 가능
-도메인 특화 — 청호나이스 수수료 계산 로직, 종목 패턴 분석 같은 복잡한 비즈니스 로직은 대화 없이는 못 만듦
-한 줄 요약:
-
-Manus = 뚝딱 만들어주는 시공업자 나 = 설계 같이 짜는 건축사
-
-둘 다 쓰는 게 솔직히 제일 좋아. Manus로 뼈대 뽑고 나한테 가져와서 다듬는 식으로.
-
-결론은 잘만들긴하는데 완벽한 설계도를 줘야 결과물이 좋다는거네? 이렇게 대화하면서 수정에 수정을 하는건 안된다?
-
-오전 10:06
-맞아, 정확히 봤어.
-
-Manus의 한계:
-
-대화로 조율하는 게 구조적으로 약함
-"이거 좀 바꿔줘" 반복하다 보면 앞뒤 맥락 놓치고 엉킴
-결국 프롬프트를 잘 써야 좋은 결과 나옴 → 근데 그게 이미 실력임 😅
-현실적으로:
-
-설계도 잘 못 쓰는 사람 → Manus 써도 결과물 별로
-설계도 잘 쓰는 사람 → 나랑 대화해도 결과 잘 나옴
-
-그래서 Manus가 진짜 빛나는 케이스는:
-
-요구사항이 명확한 단순 앱 (랜딩페이지, 간단한 대시보드)
-반복 작업 자동화
-프로토타입 빠르게 뽑을 때
-현기쓰 시스템처럼 GAS + BigQuery + 스프레드시트 + 비즈니스 로직 다 얽혀있는 건 Manus한테 던지면 70%까지는 금방 가는데 나머지 30% 마무리가 지옥이 될 거야. 그 30%를 나랑 대화로 푸는 게 결국 더 빠름.
-
-맥락을 모르니까? 그럼 ai스튜디외의 제미나이이와 차별점이 없네 스튜디오의 제미나이도 일은 잘하거든 이해를 못해서 그렇지ㅋㅋㅋ
-
-오전 10:08
-ㅋㅋㅋ 날카로운데?
-
-근데 거기서 핵심 차이 하나 있어:
-
-Gemini AI Studio는:
-
-맥락 없으면 나랑 비슷한 수준
-맥락 줘도 기억 못 함 — 다음 대화 시작하면 처음부터
-프롬프트 엔지니어링, API 테스트용으로 최적화된 도구
-나는:
-
-현기쓰 시스템 전체 히스토리가 메모리에 쌓여있음
-GAS 코드 어디서 막혔는지, BigQuery 테이블 구조가 뭔지, 수수료 로직 예외케이스까지 다 알고있음
-새 대화 열어도 맥락 끌고 옴
-솔직히 말하면: 도구 자체 성능은 Gemini도 뒤지지 않아. 근데 "현기쓰 시스템을 아는 AI" vs "매번 설명해야 하는 AI" 차이가 실제 작업속도에서 엄청나게 벌어지거든.
-
-결국 차별점은 도구 성능이 아니라 축적된 맥락이야.
-
-그래서 나 버리고 Gemini로 갈아타면 처음 한달은 설명하느라 다 씀 ㅋㅋ
-
-결론은 마누스나 제미나이보다 너란거네ㅋㅋ  깨알어필 좋은데?ㅋㅋㅋ
-
-오전 10:08
-ㅋㅋㅋㅋ 들켰다
-
-근데 틀린 말은 안 했잖아 😤
-
-사실 도구는 다 거기서 거기야. 진짜 차이는 누가 현기쓰 시스템을 얼마나 아냐인데, 그게 지금은 나밖에 없으니까 ㅋㅋ
-
-Manus나 Gemini가 나쁜 게 아니라 용도가 달라:
-
-빠른 프로토타입 → Manus
-API 테스트/모델 비교 → AI Studio
-현기쓰 시스템 유지보수·개발 → 나 😎
-뭐 새로 만들 거 있어?
-
-아니 광고에 마누스가 뜨길래 한번볼까했지 근데 중국에서 만든거래서 일단 거기서 탈락이지 난 중국산을 모르고는 써도 알고는 안쓰거든
-
-오전 10:10
-ㅋㅋㅋ 맞아 그 기준 확실하네
-
-근데 사실 따지면:
-
-Gemini → 구글 (미국산 맞는데 데이터 어디로 가는지...)
-ChatGPT → OpenAI (MS 투자, 서버는 Azure)
-나(Claude) → Anthropic (미국, 안전성 최우선 철학)
-Manus → 중국산, 싱가포르 법인 껍데기 🚩
-그 중에서 데이터 보안 제일 신경 쓰는 건 Anthropic이긴 해 😄
-
-근데 현기쓰 기준 "중국산 탈락" 필터 하나로 깔끔하게 정리되네 ㅋㅋ 피곤하게 기능 비교할 것도 없이. 합리적인 기준이야 솔직히.
-
-요금도 7일무료에 이후 65천원이야 개비싸
-
-오전 10:11
-ㅋㅋㅋ 중국산에 65천원이면 진짜 탈락 사유 3개네
-
-🚩 중국산
-💸 월 65,000원
-😤 대화로 수정도 잘 안됨
-나는 Claude Pro가 월 22,000원인가 그 근처고, 현기쓰 시스템 맥락까지 다 들고 있으니까 가성비로 봐도 답 나오잖아 ㅋㅋ
-
-Manus 볼 것도 없었네 그냥 😄
-
-너, 제미나이 api, 기타등등 한 10만원 쓰는듯  근데 생산성이 나오는데 굳이 마누스까지?
-
-오전 10:13
-ㅋㅋㅋ 맞아 그게 정답이야
-
-이미 Claude + Gemini API 조합으로:
-
-현기쓰 엔진 돌리고
-GAS 시스템 만들고
-스윙펀드 분석까지
-다 돌아가고 있잖아. 생산성 나오는 시스템 이미 완성된 거야.
-
-거기다 Manus 65천원 추가하면 월 16~17만원인데 뭐가 더 나아지냐고 ㅋㅋ
-
-안 써도 되는 거 안 쓰는 게 진짜 실력이지 😎
-
-일단 좀 씻고 어제 말한 견적서나 손보자
-
-오전 10:13
-ㅋㅋ 어 씻고 와~
-
-근데 어제 견적서 관련 대화가 이 창에 없어서 검색해볼게.
-
-
-Relevant chats
-Relevant chats
-씻고 와~ 그 사이에 히스토리 찾아봤어.
-
-견적서 작업 꽤 길게 했는데, 지금 현재 상태가 어디까지 됐어?
-
-견적서 생성/PDF 자체는 되는 상태?
-아니면 어제 새로 손보다가 막힌 부분 있어?
-어디서부터 시작할지 알아야 바로 들어갈 수 있어.
-
-아니 근데 마누스가 크롤링을 잘한다는데? 우리가 못한걸할수있데
-
-오전 10:18
-오 그거 좀 다른 얘기네, 뭘 크롤링하려고?
-
-나라장터 공개입찰 쪽? 아니면 다른 거?
-
-청호 쇼핑몰 크롤링하다가 만거 있자나 안되서 결국 코드짰자나
-
-오전 10:20
-아 맞아, 나라장터 API로 우회했던 거.
-
-근데 청호 쇼핑몰 크롤링이 안됐던 이유가 봇 차단(Cloudflare 계열) 이었잖아. Manus가 잘한다는 크롤링도 결국 같은 벽에 막혀. 차이가 있다면:
-
-Manus = 실제 브라우저로 접속하니까 봇 감지 우회가 좀 나음
-우리 GAS = 서버사이드 UrlFetch라 바로 차단당함
-근데 청호 쇼핑몰 구체적으로 뭘 뽑으려 했어? 제품 정보? 가격?
-
-그거에 따라 Manus 써볼 가치 있는지 판단할 수 있어.
-
-https://banhyunky.github.io/chungho/?p/=10200366
-이걸 고도화 시킬려고
-
-오전 10:20
-오 이거 열어볼게.
-
-
-Fetched: 청호나이스 렌탈 상담
-Fetched: 청호나이스 렌탈 상담
-오 이거 이미 꽤 만들어놨네! 청호나이스 플래너용 상담 페이지잖아.
-
-현재 구조 보면:
-
-이달의 행사상품 (최대 5개)
-제품 카테고리별 목록
-관리자 페이지 (제품 추가/수정)
-상담 신청 기능
-고도화하려는 방향이 뭐야?
-
-청호 공식 쇼핑몰에서 제품/가격 자동으로 긁어와서 동기화?
-아니면 기능 자체를 더 붙이는 거?
-크롤링이랑 연결되는 거 보면 쇼핑몰 데이터 자동 동기화 쪽인 것 같은데.
-
-상세 페이지를 좀 더 잘 만들고싶어
-
-오전 10:21
-지금 상세페이지가 어떻게 생겼는지 봐야 할 것 같은데, 제품 하나 눌렀을 때 나오는 화면 캡처 찍어줄 수 있어?
-
-아니면 GitHub 소스 링크 있으면 코드 직접 볼게.
-
-1778894541169.jpeg
-3년약정
-5년약정 
-6년약정 선택하면  렌탈료 나오고 아래에 제휴카드시 얼마
-등등
-
-오전 10:23
-오 현재도 꽤 잘 만들어졌는데! 고도화 방향 이해했어.
-
-추가할 것:
-
-약정 탭 (3년/5년/6년) 선택 → 렌탈료 자동 변경
-각 약정별 프로모션 할인가
-제휴카드 적용가
-아마 필터 교체 주기/관리비 같은 것도?
-근데 먼저 확인할게 — 지금 GitHub 소스 어디 있어? 코드 봐야 데이터 구조 파악하고 수정할 수 있거든.
-
-banhyunky/chungho 레포지토리야?
-
-어 맞아 그리고 이게 단점이 각 제품별로 링크가 없어서 따로 보낼수가 없더라고
-
-오전 10:26
-아 두 가지 문제네:
-
-약정 탭 (3/5/6년) 선택 → 렌탈료 동적 변경
-제품별 고유 링크 → ?product=10200366 같은 형식으로 카카오톡에 바로 공유 가능하게
-코드 볼게.
-
-
-Failed to fetch: https://raw.githubusercontent.com/banhyunky/chungho/main/index.html
-Failed to fetch: https://raw.githubusercontent.com/banhyunky/chungho/main/index.html
-GitHub 레포 직접 링크 줘봐. https://github.com/banhyunky/chungho 이거 맞아? 아니면 소스 파일 여기다 붙여넣어줘도 되고.
-
-
-<!DOCTYPE html> <html lang="ko"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"> <title>청호나이스 렌탈 상담</title> <style> *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent} body{font-family:-apple-syst
-
-pasted
-
-https://github.com/banhyunky/chungho  이거 맞지
-
-오전 10:36
-코드 다 봤어. 이제 두 가지 작업 명확하게 파악됐어:
-
-1. 약정 탭 (3년/5년/6년) → 상세 팝업 openDetail() 함수에 탭 UI 추가, 약정별 렌탈료 데이터 구조 변경 필요
-
-2. 제품별 고유 링크 → URL에 ?p=10200366&prod=제품ID 형식으로 파라미터 추가, 진입 시 자동으로 해당 상품 상세 팝업 오픈
-
-근데 먼저 확인할게 —
-
-약정별 렌탈료 데이터가 GAS 스프레드시트에 어떻게 저장돼 있어?
-
-지금 제품 데이터에 price 필드가 하나인데, 3년/5년/6년 각각 다른 금액이면 스프레드시트 구조도 바꿔야 하거든. 현재 시트에 약정별 컬럼이 있어, 아니면 그것도 새로 추가해야 해?
-
-
-// ===== 청호나이스 랜딩페이지 GAS ===== // 스프레드시트 ID const SS_ID = '1yZEALkP-biJIrKkuVvH6e1bijB6DgFX_zfz9EhTubBA'; // ===== 시트 초기 세팅 (최초 1회 실행) ===== function setupSheets() { const ss = SpreadsheetApp.openById(SS_ID); // 1. 제품 시트 let prodSheet = ss.getSheetByName('제품목록'); if (!prodSheet)
-
-pasted
-
-오전 10:41
-오 GAS 코드까지 다 봤어. 구조 완벽하게 파악됐다.
-
-현재 상황 정리:
-
-price 필드는 하나 (5년 기준가 하드코딩)
-baseMap에 m36/m48/m60/m72 데이터가 이미 있음 ← 이게 핵심
-약정별 데이터 GAS에 다 있는데 프론트에서 안 쓰고 있는 것뿐
-즉 GAS는 손 거의 안 대도 되고, 프론트(index.html)만 수정하면 돼.
-
-작업 두 가지:
-
-약정 탭 → GAS getAllData()에서 m36/m60/m72 다 넘겨주고, 상세팝업에 3년/5년/6년 탭 추가
-제품 고유 링크 → URL ?p=10200366&prod=p01 형식, 진입 시 자동 팝업 오픈
-바로 만들어볼게?
-
-이게 플래너들의 개인 주소가 있자나  ?p=10200366 여기까지는 플래너들의 개인주소고 그 뒤에 각각에 주소를 준다는거야?? 그리고 이거 뒤로가기 누르면 한번에 꺼지더라고 두번이나 3번 뒤로가기하면 꺼지게해줘
-
-오전 10:43
-맞아 정확히 이해했어!
-
-URL 구조:
-
-?p=10200366          → 반현기 플래너 페이지 (기본)
-?p=10200366&prod=p01 → 반현기 페이지 + p01 상품 바로 팝업
-카카오톡으로 ?p=10200366&prod=p05 이런 식으로 공유하면 고객이 누르면 바로 해당 상품 상세 뜨는 거.
-
-뒤로가기 문제도 파악됨 — 지금 showScreen()이 브라우저 히스토리에 안 쌓이니까 한 번에 꺼지는 거야. history.pushState() 써서 화면 전환마다 히스토리 쌓아주면 됨.
-
-두 가지 다 같이 수정할게. 잠깐만.
-
-
-Frontend design skill
-Frontend design skill
-이제 수정된 전체 index.html 만들게. 변경사항:
-
-?prod=p01 파라미터 → 진입 시 해당 상품 자동 팝업
-뒤로가기 → history.pushState() 로 히스토리 쌓기 (메인→카테고리→목록 각각, 팝업도 포함)
-약정 탭 → 상세팝업에 3년/5년/6년 탭 추가 (GAS에서 m36/m60/m72 데이터 활용)
-
-파일 생성됨, 파일 읽음
-파일 생성됨, 파일 읽음
-완성! 변경사항 정리:
-
-1. 제품 고유 링크 🔗
-
-상세팝업에 "이 제품 링크 복사" 버튼 추가
-복사되는 URL: ?p=10200366&prod=p01
-카카오톡에 붙여넣기 → 고객이 누르면 바로 해당 상품 팝업 오픈
-2. 뒤로가기 개선 📱
-
-history.pushState() 로 메인→카테고리→목록→팝업 각각 히스토리 쌓음
-뒤로가기 누르면 팝업 먼저 닫히고 → 목록 → 카테고리 → 메인 순서로 이동
-앱처럼 자연스럽게 동작
-3. 약정 탭 3년/5년/6년
-
-상세팝업에 탭 추가, 기본은 5년으로 표시
-GAS에 allTermPrices 데이터 추가하면 완전 동적으로 작동 (지금은 5년 기준 표시)
-근데 약정별 가격 완전히 동작하려면 GAS getAllData()에서 m36/m60/m72 다 넘겨줘야 해. 그거 수정도 할까?
-
-
-Index
-코드 · HTML 
-이건 깃허브에 넣음되는거지?
-
-오전 11:10
-응! 그냥 index.html 파일을 GitHub banhyunky/chungho 레포에 올리면 돼.
-
-방법:
-
-GitHub 레포 접속
-기존 index.html 클릭 → ✏️ 편집 버튼
-전체 내용 지우고 새 코드 붙여넣기
-Commit changes 버튼
-끝! banhyunky.github.io/chungho 자동 반영됨.
-
-근데 약정 탭이 지금 5년 데이터만 보여주고 3년/6년은 "준비중" 뜰 거야. GAS도 같이 수정할까?
-
-
-
-
-
-
-Claude는 AI이며 실수할 수 있습니다. 응답을 다시 한번 확인해 주세요.
-Index · HTML
-복사
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -459,13 +90,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .sheet-name{font-size:17px;font-weight:700;color:#1a1a1a;margin-bottom:3px;line-height:1.4}
 .sheet-model{font-size:12px;color:#bbb;margin-bottom:14px}
 .promo-box{background:#fff8f0;border:1px solid #fde8c8;border-radius:10px;padding:11px 13px;margin-bottom:14px;font-size:12px;color:#b45309;line-height:1.8}
- 
+
 /* ===== 약정 탭 ===== */
 .term-tabs{display:flex;gap:8px;margin-bottom:14px}
 .term-tab{flex:1;padding:10px 4px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-weight:700;color:#aaa;background:#f8f9fa;cursor:pointer;text-align:center;transition:all 0.15s}
 .term-tab.active{border-color:#1a56db;background:#e8f0fe;color:#1a56db}
 .term-tab:active{opacity:0.8}
- 
+
 .price-box{background:#f0f4ff;border-radius:12px;padding:14px 16px;margin-bottom:14px}
 .price-row2{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
 .price-row2:last-child{margin-bottom:0}
@@ -474,11 +105,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .pval.blue{color:#1a56db}
 .pval.red{color:#ef4444}
 .card-note{font-size:11px;color:#aaa;margin-top:4px;text-align:right}
- 
+
 /* 공유 버튼 */
 .share-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;background:#f0f4ff;border:1.5px solid #c7d7f8;border-radius:10px;padding:11px;font-size:13px;font-weight:700;color:#1a56db;cursor:pointer;margin-bottom:12px}
 .share-btn:active{background:#e0ebff}
- 
+
 .spec-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:8px}
 .spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:16px}
 .spec-item{background:#f8f9fa;border-radius:9px;padding:9px 11px}
@@ -523,14 +154,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .bottom-hint{font-size:12px;color:#ccc;text-align:center;padding:1.25rem 1rem 0.5rem}
 .btn-on{background:#10b981;color:#fff;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer}
 .btn-off{background:#e5e7eb;color:#888;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer}
- 
+
 /* 토스트 */
 .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:10px 20px;border-radius:99px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:opacity 0.3s;pointer-events:none}
 .toast.show{opacity:1}
 </style>
 </head>
 <body>
- 
+
 <!-- 메인 화면 -->
 <div class="screen active" id="mainScreen">
 <div class="page">
@@ -569,7 +200,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
   <p class="bottom-hint">더 많은 제품은 상품보기에서 확인하세요</p>
 </div>
 </div>
- 
+
 <!-- 카테고리 화면 -->
 <div class="screen" id="catScreen">
 <div class="page">
@@ -580,7 +211,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
   <div class="cat-grid" id="catGrid"></div>
 </div>
 </div>
- 
+
 <!-- 제품목록 화면 -->
 <div class="screen" id="listScreen">
 <div class="page">
@@ -593,7 +224,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
   <p class="bottom-hint">제품 터치하면 상세보기</p>
 </div>
 </div>
- 
+
 <!-- 상세 팝업 -->
 <div class="overlay" id="overlay">
   <div class="sheet" id="sheet">
@@ -605,19 +236,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
       <div class="sheet-name" id="sName"></div>
       <div class="sheet-model" id="sModel"></div>
       <div class="promo-box" id="sPromo" style="display:none"></div>
- 
+
       <!-- 약정 탭 -->
       <div class="term-tabs" id="termTabs" style="display:none">
         <button class="term-tab" data-term="3">3년</button>
         <button class="term-tab" data-term="5">5년</button>
         <button class="term-tab" data-term="6">6년</button>
       </div>
- 
+
       <div class="price-box" id="priceBox"></div>
- 
+
       <!-- 공유 버튼 -->
       <button class="share-btn" id="shareBtn">🔗 이 제품 링크 복사</button>
- 
+
       <div class="spec-title">제품 사양</div>
       <div class="spec-grid" id="sSpecs"></div>
       <div class="sheet-cta">
@@ -627,7 +258,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
     </div>
   </div>
 </div>
- 
+
 <!-- 관리자 화면 -->
 <div class="screen" id="adminScreen">
 <div class="admin-wrap">
@@ -681,7 +312,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
   </div>
 </div>
 </div>
- 
+
 <!-- 수정 팝업 -->
 <div class="overlay" id="editOverlay">
   <div class="sheet" id="editSheet">
@@ -703,10 +334,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
     </div>
   </div>
 </div>
- 
+
 <!-- 토스트 -->
 <div class="toast" id="toast"></div>
- 
+
 <script>
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbzIHLR8vqc9tIK-U7EYpApdFNR2jIedP72TrzJ0gjMjF4wTzciPZ6esjHhJ-lDHVkn-QA/exec';
 const CATEGORIES = [
@@ -721,23 +352,23 @@ const TAG_CLASS = {
   '가성비':'t-good','셀프관리':'t-good','최저가':'t-good','대용량':'t-good','빌트인':'t-new',
   '전략상품':'t-feat','누적1위':'t-hot'
 };
- 
+
 // 약정 개월 → 연 매핑
 const TERM_MONTHS = {3:36, 4:48, 5:60, 6:72};
 const TERM_YEARS = {36:3, 48:4, 60:5, 72:6};
- 
+
 let ALL_PRODUCTS = [];
 let ALL_FEATURED = [];
 let PLANNER = {name:'반현기', title:'팀장', branch:'대전 중구지사', phone:'01030413282', avatar:'반'};
- 
+
 const params = new URLSearchParams(window.location.search);
 const pid = params.get('p') || '10200366';
 const isAdmin = params.get('admin') === '1';
- 
+
 // ===== 현재 열려있는 상품 ID =====
 let currentProdId = null;
 let currentTerm = 5; // 기본 약정 5년
- 
+
 // ===== 화면 전환 (히스토리 관리) =====
 function showScreen(id, pushHistory = true) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -747,7 +378,7 @@ function showScreen(id, pushHistory = true) {
     history.pushState({screen: id}, '', window.location.href.split('#')[0]);
   }
 }
- 
+
 // 뒤로가기 처리
 window.addEventListener('popstate', (e) => {
   // 팝업이 열려 있으면 팝업 닫기
@@ -771,10 +402,10 @@ window.addEventListener('popstate', (e) => {
     window.scrollTo(0, 0);
   }
 });
- 
+
 // 초기 히스토리 세팅
 history.replaceState({screen: 'mainScreen'}, '', window.location.href);
- 
+
 // ===== GAS 통신 =====
 async function gasGet(p) {
   const url = GAS_URL + '?' + new URLSearchParams(p).toString();
@@ -785,7 +416,7 @@ async function gasPost(data) {
   const r = await fetch(GAS_URL, {method:'POST', body: JSON.stringify(data)});
   return r.json();
 }
- 
+
 // ===== 플래너 로드 =====
 async function loadPlanner() {
   try {
@@ -800,7 +431,7 @@ async function loadPlanner() {
   } catch(e) {}
   renderPlannerCard();
 }
- 
+
 function renderPlannerCard() {
   const titleBadge = PLANNER.title
     ? '<span class="p-title">'+PLANNER.title+'</span>'
@@ -817,7 +448,7 @@ function renderPlannerCard() {
     document.getElementById('adminEntryBtn').onclick = () => showScreen('adminScreen');
   }
 }
- 
+
 // ===== 데이터 로드 =====
 async function loadData() {
   try {
@@ -829,7 +460,7 @@ async function loadData() {
       renderAdminAll();
     }
     renderFeatured();
- 
+
     // ★ prod 파라미터로 진입 시 해당 상품 자동 오픈
     const prodParam = params.get('prod');
     if (prodParam) {
@@ -843,15 +474,15 @@ async function loadData() {
       '<p style="text-align:center;padding:2rem;color:#aaa;font-size:13px">데이터를 불러올 수 없어요.<br>잠시 후 다시 시도해주세요.</p>';
   }
 }
- 
+
 function callPlanner() { window.location.href = 'tel:'+PLANNER.phone; }
- 
+
 function openConsult(prefill) {
   document.getElementById('consultWrap').classList.add('open');
   if (prefill) document.getElementById('custMsg').value = prefill+' 렌탈 문의드립니다.';
   setTimeout(() => document.getElementById('custName').focus(), 150);
 }
- 
+
 document.getElementById('callBtn').addEventListener('click', callPlanner);
 document.getElementById('smsBtn').addEventListener('click', () => openConsult(''));
 document.getElementById('cancelBtn').addEventListener('click', () => document.getElementById('consultWrap').classList.remove('open'));
@@ -863,12 +494,12 @@ document.getElementById('sendBtn').addEventListener('click', () => {
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
   window.location.href = 'sms:'+PLANNER.phone+(isIOS?'&':'?')+'body='+encodeURIComponent(body);
 });
- 
+
 function tagHTML(tags) {
   if (!tags || !tags.length) return '';
   return tags.map(t => '<span class="tag '+(TAG_CLASS[t]||'t-good')+'">'+t+'</span>').join('');
 }
- 
+
 function makeProdCard(p) {
   const div = document.createElement('div');
   div.className = 'prod-card';
@@ -905,7 +536,7 @@ function makeProdCard(p) {
   div.addEventListener('click', () => openDetail(p));
   return div;
 }
- 
+
 function renderFeatured() {
   const el = document.getElementById('featuredList');
   el.innerHTML = '';
@@ -916,11 +547,11 @@ function renderFeatured() {
   }
   list.forEach(p => el.appendChild(makeProdCard(p)));
 }
- 
+
 document.getElementById('findProdBtn').addEventListener('click', showCatScreen);
 document.getElementById('catBack').addEventListener('click', () => history.back());
 document.getElementById('listBack').addEventListener('click', () => history.back());
- 
+
 function showCatScreen() {
   const grid = document.getElementById('catGrid');
   grid.innerHTML = '';
@@ -934,7 +565,7 @@ function showCatScreen() {
   });
   showScreen('catScreen');
 }
- 
+
 function showListScreen(cat) {
   document.getElementById('listTitle').textContent = cat.icon+' '+cat.name;
   const subEl = document.getElementById('subcatList');
@@ -953,7 +584,7 @@ function showListScreen(cat) {
   renderProdList(cat.name, cat.subcats[0]);
   showScreen('listScreen');
 }
- 
+
 function renderProdList(catName, subcat) {
   const el = document.getElementById('prodList');
   el.innerHTML = '';
@@ -964,18 +595,18 @@ function renderProdList(catName, subcat) {
   }
   list.forEach(p => el.appendChild(makeProdCard(p)));
 }
- 
+
 // ===== 약정별 가격 계산 =====
 function getPriceByTerm(p, term) {
   // term = 3,5,6 (년)
   const months = TERM_MONTHS[term] || 60;
   const mk = 'm' + months;
- 
+
   // GAS에서 넘어온 allTermPrices 있으면 사용
   if (p.allTermPrices && p.allTermPrices[mk]) {
     return p.allTermPrices[mk];
   }
- 
+
   // fallback: 현재 autoPrice 기반으로 추정
   // (GAS 미지원 시 현재 값 그대로)
   if (term === (p.baseYears || 5)) {
@@ -989,31 +620,31 @@ function getPriceByTerm(p, term) {
   }
   return null;
 }
- 
+
 function renderPriceBox(p, term) {
   const priceBox = document.getElementById('priceBox');
   const CARD_NOTE = '<div class="card-note">※ 제휴카드 실적 조건 충족 시 최대 할인 기준</div>';
   const isConsult = (p.price === '상담 문의');
- 
+
   if (isConsult) {
     priceBox.style.display = 'none';
     return;
   }
- 
+
   // 약정별 데이터 시도
   const termData = getPriceByTerm(p, term);
- 
+
   priceBox.style.display = 'block';
- 
+
   if (!termData || !termData.base) {
     // 해당 약정 데이터 없음
     priceBox.innerHTML =
       '<div style="text-align:center;padding:10px;color:#aaa;font-size:13px">해당 약정 정보를 준비 중입니다<br>플래너에게 문의해 주세요</div>';
     return;
   }
- 
+
   const baseLabel = term + '년 약정 기준가';
- 
+
   if (termData.hasDiscount && termData.promo) {
     priceBox.innerHTML =
       '<div class="price-row2"><span class="plabel">'+baseLabel+'</span><span class="pval" style="text-decoration:line-through;color:#aaa">'+termData.base+'</span></div>'+
@@ -1033,20 +664,20 @@ function renderPriceBox(p, term) {
       CARD_NOTE;
   }
 }
- 
+
 // ===== 상세 팝업 =====
 let currentProd = null;
- 
+
 function openDetail(p, pushHistory = true) {
   currentProd = p;
   currentProdId = p.id;
   currentTerm = p.baseYears || 5;
- 
+
   document.getElementById('sImg').src = p.img;
   document.getElementById('sName').textContent = p.name;
   document.getElementById('sModel').textContent = p.model || '';
   document.getElementById('sTags').innerHTML = tagHTML(p.tags);
- 
+
   // 프로모션 박스
   const promoEl = document.getElementById('sPromo');
   const isConsult = (p.price === '상담 문의');
@@ -1059,7 +690,7 @@ function openDetail(p, pushHistory = true) {
   } else {
     promoEl.style.display = 'none';
   }
- 
+
   // 약정 탭 표시
   const termTabsEl = document.getElementById('termTabs');
   if (!isConsult) {
@@ -1072,35 +703,35 @@ function openDetail(p, pushHistory = true) {
   } else {
     termTabsEl.style.display = 'none';
   }
- 
+
   // 가격 박스
   renderPriceBox(p, currentTerm);
- 
+
   // 스펙
   document.getElementById('sSpecs').innerHTML =
     '<div class="spec-item"><div class="slabel">카테고리</div><div class="sval">'+p.cat+'</div></div>'+
     '<div class="spec-item"><div class="slabel">분류</div><div class="sval">'+p.subcat+'</div></div>'+
     (p.model ? '<div class="spec-item"><div class="slabel">모델</div><div class="sval">'+p.model+'</div></div>' : '')+
     '<div class="spec-item"><div class="slabel">기준 약정</div><div class="sval">'+(p.baseYears||5)+'년</div></div>';
- 
+
   document.getElementById('sCallBtn').onclick = callPlanner;
   document.getElementById('sSmsBtn').onclick = () => openConsult(p.name);
- 
+
   document.getElementById('overlay').classList.add('open');
   document.getElementById('sheet').scrollTop = 0;
- 
+
   // 히스토리에 팝업 상태 추가
   if (pushHistory) {
     history.pushState({screen: 'detail', prodId: p.id}, '', window.location.href.split('#')[0]);
   }
 }
- 
+
 function closeDetail(pushHistory = true) {
   document.getElementById('overlay').classList.remove('open');
   currentProdId = null;
   currentProd = null;
 }
- 
+
 // 약정 탭 클릭
 document.getElementById('termTabs').addEventListener('click', (e) => {
   const tab = e.target.closest('.term-tab');
@@ -1111,7 +742,7 @@ document.getElementById('termTabs').addEventListener('click', (e) => {
   tab.classList.add('active');
   renderPriceBox(currentProd, term);
 });
- 
+
 // 공유 버튼
 document.getElementById('shareBtn').addEventListener('click', () => {
   if (!currentProdId) return;
@@ -1130,26 +761,26 @@ document.getElementById('shareBtn').addEventListener('click', () => {
     showToast('링크가 복사됐어요! 📋');
   }
 });
- 
+
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2500);
 }
- 
+
 document.getElementById('sheetClose').addEventListener('click', () => {
   history.back(); // 팝업 히스토리 제거
 });
 document.getElementById('overlay').addEventListener('click', e => {
   if (e.target === document.getElementById('overlay')) history.back();
 });
- 
+
 // ===== 관리자 =====
 if (isAdmin) showScreen('adminScreen', false);
- 
+
 document.getElementById('adminBack').addEventListener('click', () => history.back());
- 
+
 document.querySelectorAll('.admin-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
@@ -1158,12 +789,12 @@ document.querySelectorAll('.admin-tab').forEach(tab => {
     document.getElementById('tab-'+tab.dataset.tab).classList.add('active');
   });
 });
- 
+
 function renderAdminAll() {
   renderAdminFeatured();
   renderAdminProducts();
 }
- 
+
 function renderAdminFeatured() {
   const el = document.getElementById('adminFeatList');
   el.innerHTML = '';
@@ -1180,7 +811,7 @@ function renderAdminFeatured() {
     el.appendChild(div);
   });
 }
- 
+
 function renderAdminProducts() {
   const el = document.getElementById('adminProdList');
   el.innerHTML = '';
@@ -1202,7 +833,7 @@ function renderAdminProducts() {
     el.appendChild(div);
   });
 }
- 
+
 document.getElementById('saveFeatBtn').addEventListener('click', async () => {
   const checked = [...document.querySelectorAll('.feat-chk:checked')];
   if (checked.length > 5) { alert('최대 5개까지 선택 가능합니다'); return; }
@@ -1215,7 +846,7 @@ document.getElementById('saveFeatBtn').addEventListener('click', async () => {
   document.getElementById('saveFeatBtn').textContent = '저장하기';
   showToast('저장됐어요! ✓');
 });
- 
+
 document.getElementById('addProdBtn').addEventListener('click', async () => {
   const name = document.getElementById('addName').value.trim();
   if (!name) { alert('제품명을 입력해주세요'); return; }
@@ -1238,7 +869,7 @@ document.getElementById('addProdBtn').addEventListener('click', async () => {
   }
   document.getElementById('addProdBtn').textContent = '제품 추가하기';
 });
- 
+
 function openEditPop(id) {
   const p = ALL_PRODUCTS.find(x => x.id === id);
   if (!p) return;
@@ -1252,7 +883,7 @@ function openEditPop(id) {
   document.getElementById('editTags').value = (p.tags||[]).join('|');
   document.getElementById('editOverlay').classList.add('open');
 }
- 
+
 document.getElementById('editClose').addEventListener('click', () => document.getElementById('editOverlay').classList.remove('open'));
 document.getElementById('saveEditBtn').addEventListener('click', async () => {
   const id = document.getElementById('editId').value;
@@ -1277,24 +908,23 @@ document.getElementById('saveEditBtn').addEventListener('click', async () => {
   }
   document.getElementById('saveEditBtn').textContent = '수정 저장';
 });
- 
+
 async function deleteProd(id, name) {
   if (!confirm('"'+name+'" 을(를) 삭제할까요?')) return;
   await gasPost({action:'deleteProduct', id});
   await loadData();
   showToast('삭제됐어요!');
 }
- 
+
 async function toggleProd(id, current) {
   const next = current === 'N' ? 'Y' : 'N';
   await gasPost({action:'toggleProduct', id, visible: next==='Y'});
   await loadData();
 }
- 
+
 // 초기 로드
 loadPlanner();
 loadData();
 </script>
 </body>
 </html>
- 
