@@ -123,6 +123,32 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .pval.blue{color:#1a56db}
 .pval.red{color:#ef4444}
 .card-note{font-size:11px;color:#aaa;margin-top:4px;text-align:right}
+/* ===== 공식몰 스타일 가격/옵션 UI ===== */
+.ph-label{font-size:13px;color:#999;margin-bottom:4px}
+.ph-rate{font-size:22px;font-weight:800;color:#f05a3c;margin-right:8px}
+.ph-origin{font-size:14px;color:#aaa;text-decoration:line-through}
+.ph-main{font-size:30px;font-weight:800;margin:2px 0 6px;letter-spacing:-0.5px}
+.ph-main span{font-size:17px;font-weight:700}
+.ph-card{font-size:14px;color:#1a56db;font-weight:600}
+.ph-card b{font-weight:800}
+.half-banner{display:flex;align-items:center;justify-content:center;gap:8px;background:#eaf3fe;border-radius:10px;padding:13px;font-size:14px;font-weight:700;color:#1d6fe0;margin:14px 0 8px}
+.half-note{font-size:13px;color:#999;line-height:1.6;margin-bottom:6px}
+.op-label{font-size:14px;font-weight:700;margin:16px 0 8px}
+.op-label .req{color:#ef4444;font-size:12px;font-weight:600}
+.op-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.op-pill{display:flex;align-items:center;gap:8px;padding:13px 12px;border:1px solid #e5e7eb;border-radius:10px;background:#f8f9fa;cursor:pointer;font-size:14px;font-weight:600;color:#999}
+.op-pill .chk{width:22px;height:22px;border-radius:50%;background:#dde1e6;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.op-pill.active{background:#ecfafb;border-color:#5bc2ce;color:#1a1a1a;font-weight:700}
+.op-pill.active .chk{background:#3db8c7}
+.benefit-box{border:1px solid #eee;border-radius:12px;padding:14px 16px;margin-top:16px}
+.benefit-hd{display:flex;justify-content:space-between;align-items:baseline;font-size:15px;font-weight:800;padding-bottom:8px}
+.benefit-hd .amt{color:#f05a3c;font-size:17px}
+.benefit-row{display:flex;justify-content:space-between;font-size:13px;color:#666;padding:8px 0;border-top:1px solid #f5f5f5}
+.benefit-row.total{font-weight:800;color:#1a1a1a;font-size:14px}
+.d-rent{background:#5bc2ce;color:#fff;border:none;border-radius:11px;padding:14px 8px;font-size:15px;font-weight:800;cursor:pointer}
+.d-rent:active{opacity:0.9}
+.promo-bubble{position:absolute;top:-17px;right:14px;background:#f05a3c;color:#fff;font-size:12px;font-weight:700;padding:6px 13px;border-radius:99px;display:none}
+.promo-bubble:after{content:'';position:absolute;bottom:-5px;right:30px;border:6px solid transparent;border-top-color:#f05a3c;border-bottom:0}
 /* 시트(관리자 수정용) */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;flex-direction:column;justify-content:flex-end}
 .overlay.open{display:flex}
@@ -247,13 +273,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
   <div class="d-info">
     <div class="d-name" id="dName"></div>
     <div class="d-model" id="dModel"></div>
-    <div class="promo-box" id="dPromo" style="display:none"></div>
-    <div class="term-tabs" id="dTermTabs" style="display:none">
-      <button class="term-tab" data-term="3">3년</button>
-      <button class="term-tab" data-term="5">5년</button>
-      <button class="term-tab" data-term="6">6년</button>
+    <div id="dPriceHead"></div>
+    <div id="dHalfBanner"></div>
+    <div id="dTermWrap" style="display:none">
+      <div class="op-label">계약기간 <span class="req">(필수)</span></div>
+      <div class="op-grid" id="dTermOpts"></div>
     </div>
-    <div class="price-box" id="dPriceBox"></div>
+    <div id="dBenefit"></div>
   </div>
   <div class="d-section">
     <div class="d-sec-title">📋 제품 사양</div>
@@ -272,9 +298,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
       <div class="trust-item"><div class="trust-icon">🔧</div><div class="trust-txt">정기 방문<br>케어 서비스</div></div>
     </div>
   </div>
-  <div class="d-cta-bar">
-    <button class="d-call" id="dCallBtn">📞 전화 상담</button>
-    <button class="d-sms" id="dSmsBtn">💬 상담 신청</button>
+  <div class="d-cta-bar" style="grid-template-columns:1fr 1.5fr">
+    <div class="promo-bubble" id="dBubble">🏷️ 프로모션이 적용된 가격!</div>
+    <button class="d-sms" id="dSmsBtn">💬 주문 상담</button>
+    <button class="d-rent" id="dRentBtn">📞 렌탈 상담</button>
   </div>
 </div>
 </div>
@@ -586,30 +613,98 @@ function getPriceByTerm(p, term) {
   }
   return null;
 }
-function renderPriceBox(p, term) {
-  const priceBox = document.getElementById('dPriceBox');
-  const CARD_NOTE = '<div class="card-note">※ 제휴카드 실적 조건 충족 시 최대 할인 기준</div>';
-  if (p.price === '상담 문의') { priceBox.style.display = 'none'; return; }
-  const termData = getPriceByTerm(p, term);
-  priceBox.style.display = 'block';
-  if (!termData || !termData.base) {
-    priceBox.innerHTML =
-      '<div style="text-align:center;padding:10px;color:#aaa;font-size:13px">해당 약정 정보를 준비 중입니다<br>플래너에게 문의해 주세요</div>';
+function priceNum(s) { return s ? (parseInt(String(s).replace(/[^0-9]/g, '')) || 0) : 0; }
+function getTermList(p) {
+  const terms = [];
+  [[36,3],[60,5],[72,6]].forEach(function(pair){
+    if (p.allTermPrices && p.allTermPrices['m'+pair[0]]) terms.push(pair[1]);
+  });
+  if (!terms.length && p.baseYears) terms.push(p.baseYears);
+  return terms;
+}
+function pickDefaultTerm(p) {
+  const terms = getTermList(p);
+  if (!terms.length) return p.baseYears || 5;
+  for (let i = terms.length - 1; i >= 0; i--) {
+    const t = getPriceByTerm(p, terms[i]);
+    if (t && t.promo) return terms[i];
+  }
+  return terms[terms.length - 1];
+}
+function renderPriceArea(p, term) {
+  const head = document.getElementById('dPriceHead');
+  const banner = document.getElementById('dHalfBanner');
+  const benefit = document.getElementById('dBenefit');
+  const bubble = document.getElementById('dBubble');
+  const rentBtn = document.getElementById('dRentBtn');
+  if (p.price === '상담 문의') {
+    head.innerHTML = '<div class="ph-main" style="font-size:22px;color:#1a56db">💬 상담 문의</div>';
+    banner.innerHTML = '<div class="half-banner">✨ 프로모션 진행중! 플래너에게 문의해주세요</div>';
+    benefit.innerHTML = '';
+    bubble.style.display = 'none';
+    rentBtn.textContent = '📞 전화 상담';
     return;
   }
-  const baseLabel = term + '년 약정 기준가';
-  if (termData.promo) {
-    priceBox.innerHTML =
-      '<div class="price-row2"><span class="plabel">'+baseLabel+'</span><span class="pval"'+(termData.hasDiscount?' style="text-decoration:line-through;color:#aaa"':'')+'>'+termData.base+'</span></div>'+
-      '<div class="price-row2"><span class="plabel">프로모션 할인가 ('+termData.promoNote+')</span><span class="pval red">'+termData.promo+'</span></div>'+
-      '<div class="price-row2"><span class="plabel">제휴카드 적용 시</span><span class="pval blue">'+termData.card+'</span></div>'+
-      CARD_NOTE;
-  } else {
-    priceBox.innerHTML =
-      '<div class="price-row2"><span class="plabel">'+baseLabel+'</span><span class="pval">'+termData.base+'</span></div>'+
-      '<div class="price-row2"><span class="plabel">제휴카드 적용 시</span><span class="pval blue">'+termData.card+'</span></div>'+
-      CARD_NOTE;
+  const t = getPriceByTerm(p, term);
+  if (!t || !t.base) {
+    head.innerHTML = '<div class="half-note" style="text-align:center;padding:10px 0">해당 약정 정보를 준비 중입니다. 플래너에게 문의해주세요.</div>';
+    banner.innerHTML = ''; benefit.innerHTML = '';
+    bubble.style.display = 'none';
+    rentBtn.textContent = '📞 전화 상담';
+    return;
   }
+  const base = priceNum(t.base);
+  const promo = priceNum(t.promo);
+  const card = priceNum(t.card);
+  const monthly = promo || base;
+  const rate = (promo && base) ? Math.round((1 - promo / base) * 100) : 0;
+  head.innerHTML =
+    '<div class="ph-label">예상 혜택가 · ' + (TERM_MONTHS[term] || 60) + '개월 약정</div>' +
+    (promo ? '<div><span class="ph-rate">' + rate + '%</span><span class="ph-origin">월 ' + base.toLocaleString() + '원</span></div>' : '') +
+    '<div class="ph-main">월 ' + monthly.toLocaleString() + '<span>원</span></div>' +
+    (card ? '<div class="ph-card">제휴카드 혜택가 <b>월 ' + card.toLocaleString() + '원~</b></div>' : '');
+  let bHTML = '';
+  if (t.promoNote) {
+    const isHalf = t.promoNote.indexOf('반값') > -1;
+    bHTML += '<div class="half-banner">💙 ' + (isHalf ? '렌탈료 반값할인 적용 중' : t.promoNote) + '</div>';
+    bHTML += '<div class="half-note">' + t.promoNote + ' 프로모션 종료 후에는 월 ' + base.toLocaleString() + '원 렌탈료가 부과됩니다.</div>';
+  }
+  if (p.promo) bHTML += '<div class="half-note">🎁 ' + p.promo.replace(/\n/g, '<br>') + '</div>';
+  banner.innerHTML = bHTML;
+  const promoSave = promo ? base - promo : 0;
+  const cardSave = card ? monthly - card : 0;
+  benefit.innerHTML =
+    '<div class="benefit-box">' +
+      '<div class="benefit-hd"><span>최대 혜택 계산하기</span><span class="amt">월 -' + (promoSave + cardSave).toLocaleString() + '원</span></div>' +
+      (promoSave ? '<div class="benefit-row"><span>프로모션 할인</span><span>월 -' + promoSave.toLocaleString() + '원</span></div>' : '') +
+      (cardSave ? '<div class="benefit-row"><span>제휴카드 할인 (실적 충족 시)</span><span>월 -' + cardSave.toLocaleString() + '원</span></div>' : '') +
+      '<div class="benefit-row total"><span>최대 적용 시</span><span>월 ' + (card || monthly).toLocaleString() + '원</span></div>' +
+      '<div class="half-note" style="margin:8px 0 0">※ 제휴카드 실적 조건 충족 시 최대 할인 기준이며, 정확한 금액은 플래너 상담으로 확인해주세요.</div>' +
+    '</div>';
+  bubble.style.display = promo ? 'block' : 'none';
+  rentBtn.textContent = '월 ' + monthly.toLocaleString() + '원 렌탈';
+}
+function renderTermOpts(p) {
+  const wrap = document.getElementById('dTermWrap');
+  const grid = document.getElementById('dTermOpts');
+  if (p.price === '상담 문의') { wrap.style.display = 'none'; return; }
+  const terms = getTermList(p);
+  if (!terms.length) { wrap.style.display = 'none'; return; }
+  if (terms.indexOf(currentTerm) === -1) currentTerm = terms[terms.length - 1];
+  wrap.style.display = 'block';
+  grid.innerHTML = '';
+  terms.forEach(function (y) {
+    const div = document.createElement('div');
+    div.className = 'op-pill' + (y === currentTerm ? ' active' : '');
+    div.innerHTML = '<span class="chk">✓</span>' + TERM_MONTHS[y] + '개월';
+    div.addEventListener('click', function () {
+      currentTerm = y;
+      grid.querySelectorAll('.op-pill').forEach(function (el) { el.classList.remove('active'); });
+      div.classList.add('active');
+      renderPriceArea(p, y);
+    });
+    grid.appendChild(div);
+  });
 }
 // ===== 스펙 표 =====
 function renderSpecs(p) {
@@ -668,51 +763,21 @@ document.getElementById('dMoreBtn').addEventListener('click', () => {
 // ===== 상세 화면 열기 =====
 function openDetail(p, pushHistory = true) {
   currentProd = p;
-  currentTerm = p.baseYears || 5;
+  currentTerm = pickDefaultTerm(p);
   document.getElementById('dImg').src = p.img;
   document.getElementById('dTopName').textContent = p.name;
   document.getElementById('dName').textContent = p.name;
   document.getElementById('dModel').textContent = (p.model && p.model !== '상담 문의') ? '모델명 ' + p.model : '';
   document.getElementById('dTags').innerHTML = tagHTML(p.tags);
-  // 프로모션 박스
-  const promoEl = document.getElementById('dPromo');
-  const isConsult = (p.price === '상담 문의');
-  if (isConsult) {
-    promoEl.innerHTML = '✨ <strong>프로모션 진행중!</strong> 정확한 렌탈료는 플래너에게 문의해주세요.';
-    promoEl.style.cssText = 'display:block;background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8';
-  } else if (p.promo) {
-    promoEl.innerHTML = '<strong>🎁 특별혜택</strong> · '+p.promo.replace(/\n/g,'<br>');
-    promoEl.style.cssText = 'display:block;background:#fff8f0;border-color:#fde8c8;color:#b45309';
-  } else {
-    promoEl.style.display = 'none';
-  }
-  // 약정 탭
-  const termTabsEl = document.getElementById('dTermTabs');
-  if (!isConsult) {
-    termTabsEl.style.display = 'flex';
-    document.querySelectorAll('#dTermTabs .term-tab').forEach(tab => {
-      tab.classList.toggle('active', parseInt(tab.dataset.term) === currentTerm);
-    });
-  } else {
-    termTabsEl.style.display = 'none';
-  }
-  renderPriceBox(p, currentTerm);
+  renderTermOpts(p);
+  renderPriceArea(p, currentTerm);
   renderSpecs(p);
   renderDetailImgs(p);
-  document.getElementById('dCallBtn').onclick = callPlanner;
+  document.getElementById('dRentBtn').onclick = callPlanner;
   document.getElementById('dSmsBtn').onclick = () => smsConsult(p.name);
   showScreen('detailScreen', pushHistory);
 }
 document.getElementById('dBack').addEventListener('click', () => history.back());
-// 약정 탭 클릭
-document.getElementById('dTermTabs').addEventListener('click', (e) => {
-  const tab = e.target.closest('.term-tab');
-  if (!tab || !currentProd) return;
-  currentTerm = parseInt(tab.dataset.term);
-  document.querySelectorAll('#dTermTabs .term-tab').forEach(t => t.classList.remove('active'));
-  tab.classList.add('active');
-  renderPriceBox(currentProd, currentTerm);
-});
 // 공유 버튼
 document.getElementById('dShareBtn').addEventListener('click', () => {
   if (!currentProd) return;
