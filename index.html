@@ -77,27 +77,45 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .prod-promo-badge{font-size:11px;font-weight:700;color:#ef4444;margin-top:4px}
 .promo-pulse{animation:pulse 1.5s ease-in-out infinite;color:#1a56db}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
-.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;flex-direction:column;justify-content:flex-end}
-.overlay.open{display:flex}
-.sheet{background:#fff;border-radius:20px 20px 0 0;max-height:92vh;overflow-y:auto;animation:up 0.28s ease}
-@keyframes up{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.handle{width:38px;height:4px;background:#e5e7eb;border-radius:99px;margin:12px auto 0}
-.sheet-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;background:#f3f4f6;border:none;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#666}
-.sheet-img{width:100%;height:210px;background:#f8f9fa;display:flex;align-items:center;justify-content:center}
-.sheet-img img{max-width:100%;max-height:100%;object-fit:contain;padding:18px}
-.sheet-body{padding:18px}
-.sheet-tags{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
-.sheet-name{font-size:17px;font-weight:700;color:#1a1a1a;margin-bottom:3px;line-height:1.4}
-.sheet-model{font-size:12px;color:#bbb;margin-bottom:14px}
+/* ===== 상세 페이지 (풀스크린) ===== */
+#detailScreen .page{padding-bottom:90px;background:#f0f2f5}
+.d-topbar{position:sticky;top:0;z-index:20;background:#fff;padding:12px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #f0f2f5}
+.d-topbar .cat-title{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:15px}
+.d-share{background:#f0f4ff;border:none;border-radius:99px;width:34px;height:34px;font-size:15px;cursor:pointer;flex-shrink:0}
+.d-img{width:100%;height:300px;background:#f8f9fa;display:flex;align-items:center;justify-content:center;position:relative}
+.d-img img{max-width:100%;max-height:100%;object-fit:contain;padding:22px}
+.d-img .prod-tags{top:12px;left:12px}
+.d-info{background:#fff;padding:16px 18px 20px;margin-bottom:10px}
+.d-name{font-size:19px;font-weight:800;line-height:1.35;margin-top:6px}
+.d-model{font-size:12px;color:#bbb;margin-top:3px;margin-bottom:14px}
+.d-section{background:#fff;padding:18px;margin-bottom:10px}
+.d-sec-title{font-size:15px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.spec-table{width:100%;border-collapse:collapse;font-size:13px}
+.spec-table th{width:32%;text-align:left;color:#888;font-weight:600;padding:10px;background:#f8f9fa;border-bottom:1px solid #f0f2f5;vertical-align:top;font-size:12px}
+.spec-table td{padding:10px;color:#333;border-bottom:1px solid #f0f2f5;line-height:1.5}
+.spec-table tr:last-child th,.spec-table tr:last-child td{border-bottom:none}
+.detail-imgs{position:relative;overflow:hidden}
+.detail-imgs.collapsed{max-height:1300px}
+.detail-imgs img{width:100%;display:block}
+.d-fade{display:none;position:absolute;left:0;right:0;bottom:0;height:140px;background:linear-gradient(transparent,#fff)}
+.detail-imgs.collapsed .d-fade{display:block}
+.more-btn{width:100%;margin-top:12px;padding:14px;border:1.5px solid #1a56db;border-radius:10px;background:#fff;color:#1a56db;font-size:14px;font-weight:700;cursor:pointer}
+.more-btn:active{background:#f0f4ff}
+.d-empty{text-align:center;padding:2rem 1rem;color:#aaa;font-size:13px;line-height:1.7;background:#f8f9fa;border-radius:10px}
+.trust{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center}
+.trust-item{background:#f8f9fa;border-radius:10px;padding:14px 6px}
+.trust-icon{font-size:22px;margin-bottom:6px}
+.trust-txt{font-size:11px;font-weight:600;color:#555;line-height:1.4}
+.d-cta-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:440px;background:#fff;border-top:1px solid #eee;padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:grid;grid-template-columns:1fr 1fr;gap:10px;z-index:30}
+.d-call{background:#1a56db;color:#fff;border:none;border-radius:11px;padding:14px;font-size:14px;font-weight:700;cursor:pointer}
+.d-sms{background:#fff;color:#1a56db;border:1.5px solid #1a56db;border-radius:11px;padding:14px;font-size:14px;font-weight:700;cursor:pointer}
 .promo-box{background:#fff8f0;border:1px solid #fde8c8;border-radius:10px;padding:11px 13px;margin-bottom:14px;font-size:12px;color:#b45309;line-height:1.8}
-
 /* ===== 약정 탭 ===== */
 .term-tabs{display:flex;gap:8px;margin-bottom:14px}
 .term-tab{flex:1;padding:10px 4px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-weight:700;color:#aaa;background:#f8f9fa;cursor:pointer;text-align:center;transition:all 0.15s}
 .term-tab.active{border-color:#1a56db;background:#e8f0fe;color:#1a56db}
 .term-tab:active{opacity:0.8}
-
-.price-box{background:#f0f4ff;border-radius:12px;padding:14px 16px;margin-bottom:14px}
+.price-box{background:#f0f4ff;border-radius:12px;padding:14px 16px;margin-bottom:0}
 .price-row2{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
 .price-row2:last-child{margin-bottom:0}
 .plabel{font-size:13px;color:#666}
@@ -105,19 +123,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .pval.blue{color:#1a56db}
 .pval.red{color:#ef4444}
 .card-note{font-size:11px;color:#aaa;margin-top:4px;text-align:right}
-
-/* 공유 버튼 */
-.share-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;background:#f0f4ff;border:1.5px solid #c7d7f8;border-radius:10px;padding:11px;font-size:13px;font-weight:700;color:#1a56db;cursor:pointer;margin-bottom:12px}
-.share-btn:active{background:#e0ebff}
-
-.spec-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:8px}
-.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:16px}
-.spec-item{background:#f8f9fa;border-radius:9px;padding:9px 11px}
-.slabel{font-size:10px;color:#aaa;margin-bottom:2px}
-.sval{font-size:12px;font-weight:600;color:#333}
-.sheet-cta{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-bottom:4px}
-.s-call{background:#1a56db;color:#fff;border:none;border-radius:11px;padding:14px;font-size:14px;font-weight:700;cursor:pointer}
-.s-sms{background:#fff;color:#1a1a1a;border:1.5px solid #dde3f0;border-radius:11px;padding:14px;font-size:14px;font-weight:700;cursor:pointer}
+/* 시트(관리자 수정용) */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;flex-direction:column;justify-content:flex-end}
+.overlay.open{display:flex}
+.sheet{background:#fff;border-radius:20px 20px 0 0;max-height:92vh;overflow-y:auto;animation:up 0.28s ease;position:relative}
+@keyframes up{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.handle{width:38px;height:4px;background:#e5e7eb;border-radius:99px;margin:12px auto 0}
+.sheet-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;background:#f3f4f6;border:none;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#666}
+.sheet-body{padding:18px}
 .admin-wrap{background:#f0f2f5;min-height:100vh;padding-bottom:2rem}
 .admin-header{background:#1a56db;color:#fff;padding:16px 18px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:10}
 .admin-header h2{font-size:16px;font-weight:700;flex:1}
@@ -154,14 +167,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .bottom-hint{font-size:12px;color:#ccc;text-align:center;padding:1.25rem 1rem 0.5rem}
 .btn-on{background:#10b981;color:#fff;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer}
 .btn-off{background:#e5e7eb;color:#888;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer}
-
-/* 토스트 */
 .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:10px 20px;border-radius:99px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:opacity 0.3s;pointer-events:none}
 .toast.show{opacity:1}
 </style>
 </head>
 <body>
-
 <!-- 메인 화면 -->
 <div class="screen active" id="mainScreen">
 <div class="page">
@@ -200,7 +210,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
   <p class="bottom-hint">더 많은 제품은 상품보기에서 확인하세요</p>
 </div>
 </div>
-
 <!-- 카테고리 화면 -->
 <div class="screen" id="catScreen">
 <div class="page">
@@ -211,7 +220,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
   <div class="cat-grid" id="catGrid"></div>
 </div>
 </div>
-
 <!-- 제품목록 화면 -->
 <div class="screen" id="listScreen">
 <div class="page">
@@ -224,41 +232,52 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
   <p class="bottom-hint">제품 터치하면 상세보기</p>
 </div>
 </div>
-
-<!-- 상세 팝업 -->
-<div class="overlay" id="overlay">
-  <div class="sheet" id="sheet">
-    <div class="handle"></div>
-    <button class="sheet-close" id="sheetClose">✕</button>
-    <div class="sheet-img"><img id="sImg" src="" alt=""></div>
-    <div class="sheet-body">
-      <div class="sheet-tags" id="sTags"></div>
-      <div class="sheet-name" id="sName"></div>
-      <div class="sheet-model" id="sModel"></div>
-      <div class="promo-box" id="sPromo" style="display:none"></div>
-
-      <!-- 약정 탭 -->
-      <div class="term-tabs" id="termTabs" style="display:none">
-        <button class="term-tab" data-term="3">3년</button>
-        <button class="term-tab" data-term="5">5년</button>
-        <button class="term-tab" data-term="6">6년</button>
-      </div>
-
-      <div class="price-box" id="priceBox"></div>
-
-      <!-- 공유 버튼 -->
-      <button class="share-btn" id="shareBtn">🔗 이 제품 링크 복사</button>
-
-      <div class="spec-title">제품 사양</div>
-      <div class="spec-grid" id="sSpecs"></div>
-      <div class="sheet-cta">
-        <button class="s-call" id="sCallBtn">📞 전화 상담</button>
-        <button class="s-sms" id="sSmsBtn">💬 상담 신청</button>
-      </div>
+<!-- ★ 제품 상세 화면 (풀스크린) -->
+<div class="screen" id="detailScreen">
+<div class="page">
+  <div class="d-topbar">
+    <button class="back-btn" id="dBack">←</button>
+    <span class="cat-title" id="dTopName">제품 상세</span>
+    <button class="d-share" id="dShareBtn" title="링크 복사">🔗</button>
+  </div>
+  <div class="d-img">
+    <img id="dImg" src="" alt="">
+    <div class="prod-tags" id="dTags"></div>
+  </div>
+  <div class="d-info">
+    <div class="d-name" id="dName"></div>
+    <div class="d-model" id="dModel"></div>
+    <div class="promo-box" id="dPromo" style="display:none"></div>
+    <div class="term-tabs" id="dTermTabs" style="display:none">
+      <button class="term-tab" data-term="3">3년</button>
+      <button class="term-tab" data-term="5">5년</button>
+      <button class="term-tab" data-term="6">6년</button>
+    </div>
+    <div class="price-box" id="dPriceBox"></div>
+  </div>
+  <div class="d-section">
+    <div class="d-sec-title">📋 제품 사양</div>
+    <table class="spec-table" id="dSpecTable"></table>
+  </div>
+  <div class="d-section">
+    <div class="d-sec-title">📷 제품 상세정보</div>
+    <div class="detail-imgs collapsed" id="dDetailImgs"></div>
+    <button class="more-btn" id="dMoreBtn" style="display:none">제품 상세정보 더보기 ▼</button>
+  </div>
+  <div class="d-section">
+    <div class="d-sec-title">🤝 믿고 맡기세요</div>
+    <div class="trust">
+      <div class="trust-item"><div class="trust-icon">✅</div><div class="trust-txt">본사 정품<br>공식 플래너</div></div>
+      <div class="trust-item"><div class="trust-icon">🚚</div><div class="trust-txt">전문기사<br>무료 설치</div></div>
+      <div class="trust-item"><div class="trust-icon">🔧</div><div class="trust-txt">정기 방문<br>케어 서비스</div></div>
     </div>
   </div>
+  <div class="d-cta-bar">
+    <button class="d-call" id="dCallBtn">📞 전화 상담</button>
+    <button class="d-sms" id="dSmsBtn">💬 상담 신청</button>
+  </div>
 </div>
-
+</div>
 <!-- 관리자 화면 -->
 <div class="screen" id="adminScreen">
 <div class="admin-wrap">
@@ -312,7 +331,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
   </div>
 </div>
 </div>
-
 <!-- 수정 팝업 -->
 <div class="overlay" id="editOverlay">
   <div class="sheet" id="editSheet">
@@ -329,15 +347,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
       </div>
       <div class="form-row"><label>프로모션</label><textarea id="editPromo" style="min-height:60px;resize:none;width:100%;border:1.5px solid #e5e7eb;border-radius:8px;padding:9px 12px;font-size:13px;font-family:inherit;outline:none"></textarea></div>
       <div class="form-row"><label>이미지 URL</label><input type="text" id="editImg"></div>
+      <div class="form-row"><label>상세이미지 URL (줄바꿈 또는 |로 구분)</label><textarea id="editDetailImgs" style="min-height:90px" placeholder="https://...jpg&#10;https://...jpg"></textarea></div>
       <div class="form-row"><label>태그 (|로 구분)</label><input type="text" id="editTags"></div>
       <button class="btn-primary" style="width:100%;margin-top:6px" id="saveEditBtn">수정 저장</button>
     </div>
   </div>
 </div>
-
 <!-- 토스트 -->
 <div class="toast" id="toast"></div>
-
 <script>
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbzIHLR8vqc9tIK-U7EYpApdFNR2jIedP72TrzJ0gjMjF4wTzciPZ6esjHhJ-lDHVkn-QA/exec';
 const CATEGORIES = [
@@ -352,23 +369,15 @@ const TAG_CLASS = {
   '가성비':'t-good','셀프관리':'t-good','최저가':'t-good','대용량':'t-good','빌트인':'t-new',
   '전략상품':'t-feat','누적1위':'t-hot'
 };
-
-// 약정 개월 → 연 매핑
 const TERM_MONTHS = {3:36, 4:48, 5:60, 6:72};
-const TERM_YEARS = {36:3, 48:4, 60:5, 72:6};
-
 let ALL_PRODUCTS = [];
 let ALL_FEATURED = [];
 let PLANNER = {name:'반현기', title:'팀장', branch:'대전 중구지사', phone:'01030413282', avatar:'반'};
-
 const params = new URLSearchParams(window.location.search);
 const pid = params.get('p') || '10200366';
 const isAdmin = params.get('admin') === '1';
-
-// ===== 현재 열려있는 상품 ID =====
-let currentProdId = null;
-let currentTerm = 5; // 기본 약정 5년
-
+let currentProd = null;
+let currentTerm = 5;
 // ===== 화면 전환 (히스토리 관리) =====
 function showScreen(id, pushHistory = true) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -378,34 +387,18 @@ function showScreen(id, pushHistory = true) {
     history.pushState({screen: id}, '', window.location.href.split('#')[0]);
   }
 }
-
-// 뒤로가기 처리
 window.addEventListener('popstate', (e) => {
-  // 팝업이 열려 있으면 팝업 닫기
-  if (document.getElementById('overlay').classList.contains('open')) {
-    closeDetail(false);
-    return;
-  }
   if (document.getElementById('editOverlay').classList.contains('open')) {
     document.getElementById('editOverlay').classList.remove('open');
     return;
   }
-  // 화면 뒤로가기
   const state = e.state;
-  if (state && state.screen) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(state.screen).classList.add('active');
-    window.scrollTo(0, 0);
-  } else {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById('mainScreen').classList.add('active');
-    window.scrollTo(0, 0);
-  }
+  const target = (state && state.screen) ? state.screen : 'mainScreen';
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(target).classList.add('active');
+  window.scrollTo(0, 0);
 });
-
-// 초기 히스토리 세팅
 history.replaceState({screen: 'mainScreen'}, '', window.location.href);
-
 // ===== GAS 통신 =====
 async function gasGet(p) {
   const url = GAS_URL + '?' + new URLSearchParams(p).toString();
@@ -416,7 +409,6 @@ async function gasPost(data) {
   const r = await fetch(GAS_URL, {method:'POST', body: JSON.stringify(data)});
   return r.json();
 }
-
 // ===== 플래너 로드 =====
 async function loadPlanner() {
   try {
@@ -431,7 +423,6 @@ async function loadPlanner() {
   } catch(e) {}
   renderPlannerCard();
 }
-
 function renderPlannerCard() {
   const titleBadge = PLANNER.title
     ? '<span class="p-title">'+PLANNER.title+'</span>'
@@ -448,7 +439,6 @@ function renderPlannerCard() {
     document.getElementById('adminEntryBtn').onclick = () => showScreen('adminScreen');
   }
 }
-
 // ===== 데이터 로드 =====
 async function loadData() {
   try {
@@ -460,29 +450,27 @@ async function loadData() {
       renderAdminAll();
     }
     renderFeatured();
-
-    // ★ prod 파라미터로 진입 시 해당 상품 자동 오픈
     const prodParam = params.get('prod');
     if (prodParam) {
       const target = ALL_PRODUCTS.find(p => p.id === prodParam);
-      if (target) {
-        setTimeout(() => openDetail(target, false), 400);
-      }
+      if (target) setTimeout(() => openDetail(target), 300);
     }
   } catch(e) {
     document.getElementById('featuredList').innerHTML =
       '<p style="text-align:center;padding:2rem;color:#aaa;font-size:13px">데이터를 불러올 수 없어요.<br>잠시 후 다시 시도해주세요.</p>';
   }
 }
-
 function callPlanner() { window.location.href = 'tel:'+PLANNER.phone; }
-
+function smsConsult(prodName) {
+  const body = '[청호나이스 상담신청]\n관심제품: '+prodName+'\n상담 문의드립니다.';
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  window.location.href = 'sms:'+PLANNER.phone+(isIOS?'&':'?')+'body='+encodeURIComponent(body);
+}
 function openConsult(prefill) {
   document.getElementById('consultWrap').classList.add('open');
   if (prefill) document.getElementById('custMsg').value = prefill+' 렌탈 문의드립니다.';
   setTimeout(() => document.getElementById('custName').focus(), 150);
 }
-
 document.getElementById('callBtn').addEventListener('click', callPlanner);
 document.getElementById('smsBtn').addEventListener('click', () => openConsult(''));
 document.getElementById('cancelBtn').addEventListener('click', () => document.getElementById('consultWrap').classList.remove('open'));
@@ -494,12 +482,10 @@ document.getElementById('sendBtn').addEventListener('click', () => {
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
   window.location.href = 'sms:'+PLANNER.phone+(isIOS?'&':'?')+'body='+encodeURIComponent(body);
 });
-
 function tagHTML(tags) {
   if (!tags || !tags.length) return '';
   return tags.map(t => '<span class="tag '+(TAG_CLASS[t]||'t-good')+'">'+t+'</span>').join('');
 }
-
 function makeProdCard(p) {
   const div = document.createElement('div');
   div.className = 'prod-card';
@@ -536,7 +522,6 @@ function makeProdCard(p) {
   div.addEventListener('click', () => openDetail(p));
   return div;
 }
-
 function renderFeatured() {
   const el = document.getElementById('featuredList');
   el.innerHTML = '';
@@ -547,11 +532,9 @@ function renderFeatured() {
   }
   list.forEach(p => el.appendChild(makeProdCard(p)));
 }
-
 document.getElementById('findProdBtn').addEventListener('click', showCatScreen);
 document.getElementById('catBack').addEventListener('click', () => history.back());
 document.getElementById('listBack').addEventListener('click', () => history.back());
-
 function showCatScreen() {
   const grid = document.getElementById('catGrid');
   grid.innerHTML = '';
@@ -565,7 +548,6 @@ function showCatScreen() {
   });
   showScreen('catScreen');
 }
-
 function showListScreen(cat) {
   document.getElementById('listTitle').textContent = cat.icon+' '+cat.name;
   const subEl = document.getElementById('subcatList');
@@ -584,7 +566,6 @@ function showListScreen(cat) {
   renderProdList(cat.name, cat.subcats[0]);
   showScreen('listScreen');
 }
-
 function renderProdList(catName, subcat) {
   const el = document.getElementById('prodList');
   el.innerHTML = '';
@@ -595,65 +576,31 @@ function renderProdList(catName, subcat) {
   }
   list.forEach(p => el.appendChild(makeProdCard(p)));
 }
-
-// ===== 약정별 가격 계산 =====
+// ===== 약정별 가격 =====
 function getPriceByTerm(p, term) {
-  // term = 3,5,6 (년)
   const months = TERM_MONTHS[term] || 60;
   const mk = 'm' + months;
-
-  // GAS에서 넘어온 allTermPrices 있으면 사용
-  if (p.allTermPrices && p.allTermPrices[mk]) {
-    return p.allTermPrices[mk];
-  }
-
-  // fallback: 현재 autoPrice 기반으로 추정
-  // (GAS 미지원 시 현재 값 그대로)
+  if (p.allTermPrices && p.allTermPrices[mk]) return p.allTermPrices[mk];
   if (term === (p.baseYears || 5)) {
-    return {
-      base: p.autoPrice,
-      promo: p.autoPromoPrice,
-      promoNote: p.autoPromoNote,
-      card: p.card,
-      hasDiscount: p.hasDiscount
-    };
+    return { base: p.autoPrice, promo: p.autoPromoPrice, promoNote: p.autoPromoNote, card: p.card, hasDiscount: p.hasDiscount };
   }
   return null;
 }
-
 function renderPriceBox(p, term) {
-  const priceBox = document.getElementById('priceBox');
+  const priceBox = document.getElementById('dPriceBox');
   const CARD_NOTE = '<div class="card-note">※ 제휴카드 실적 조건 충족 시 최대 할인 기준</div>';
-  const isConsult = (p.price === '상담 문의');
-
-  if (isConsult) {
-    priceBox.style.display = 'none';
-    return;
-  }
-
-  // 약정별 데이터 시도
+  if (p.price === '상담 문의') { priceBox.style.display = 'none'; return; }
   const termData = getPriceByTerm(p, term);
-
   priceBox.style.display = 'block';
-
   if (!termData || !termData.base) {
-    // 해당 약정 데이터 없음
     priceBox.innerHTML =
       '<div style="text-align:center;padding:10px;color:#aaa;font-size:13px">해당 약정 정보를 준비 중입니다<br>플래너에게 문의해 주세요</div>';
     return;
   }
-
   const baseLabel = term + '년 약정 기준가';
-
-  if (termData.hasDiscount && termData.promo) {
+  if (termData.promo) {
     priceBox.innerHTML =
-      '<div class="price-row2"><span class="plabel">'+baseLabel+'</span><span class="pval" style="text-decoration:line-through;color:#aaa">'+termData.base+'</span></div>'+
-      '<div class="price-row2"><span class="plabel">프로모션 할인가 ('+termData.promoNote+')</span><span class="pval red">'+termData.promo+'</span></div>'+
-      '<div class="price-row2"><span class="plabel">제휴카드 적용 시</span><span class="pval blue">'+termData.card+'</span></div>'+
-      CARD_NOTE;
-  } else if (termData.promo) {
-    priceBox.innerHTML =
-      '<div class="price-row2"><span class="plabel">'+baseLabel+'</span><span class="pval">'+termData.base+'</span></div>'+
+      '<div class="price-row2"><span class="plabel">'+baseLabel+'</span><span class="pval"'+(termData.hasDiscount?' style="text-decoration:line-through;color:#aaa"':'')+'>'+termData.base+'</span></div>'+
       '<div class="price-row2"><span class="plabel">프로모션 할인가 ('+termData.promoNote+')</span><span class="pval red">'+termData.promo+'</span></div>'+
       '<div class="price-row2"><span class="plabel">제휴카드 적용 시</span><span class="pval blue">'+termData.card+'</span></div>'+
       CARD_NOTE;
@@ -664,22 +611,71 @@ function renderPriceBox(p, term) {
       CARD_NOTE;
   }
 }
-
-// ===== 상세 팝업 =====
-let currentProd = null;
-
+// ===== 스펙 표 =====
+function renderSpecs(p) {
+  const tbl = document.getElementById('dSpecTable');
+  let rows = '';
+  const specs = p.specs || {};
+  const keys = Object.keys(specs);
+  if (keys.length) {
+    keys.forEach(k => { rows += '<tr><th>'+k+'</th><td>'+specs[k]+'</td></tr>'; });
+  } else {
+    rows += '<tr><th>카테고리</th><td>'+p.cat+' · '+p.subcat+'</td></tr>';
+    if (p.model && p.model !== '상담 문의') rows += '<tr><th>모델</th><td>'+p.model+'</td></tr>';
+    rows += '<tr><th>할인 안내</th><td>약정별 할인 상이 · 플래너에게 문의해주세요</td></tr>';
+  }
+  tbl.innerHTML = rows;
+}
+// ===== 상세 이미지 =====
+function renderDetailImgs(p) {
+  const wrap = document.getElementById('dDetailImgs');
+  const moreBtn = document.getElementById('dMoreBtn');
+  wrap.innerHTML = '';
+  wrap.classList.add('collapsed');
+  const imgs = p.detailImgs || [];
+  if (!imgs.length) {
+    wrap.classList.remove('collapsed');
+    wrap.innerHTML = '<div class="d-empty">상세 이미지를 준비 중입니다 📦<br>궁금한 점은 플래너에게 문의해주세요!</div>';
+    moreBtn.style.display = 'none';
+    return;
+  }
+  imgs.forEach(src => {
+    const img = document.createElement('img');
+    img.src = src;
+    img.loading = 'lazy';
+    img.alt = p.name + ' 상세정보';
+    img.onerror = function(){ this.remove(); };
+    wrap.appendChild(img);
+  });
+  const fade = document.createElement('div');
+  fade.className = 'd-fade';
+  wrap.appendChild(fade);
+  moreBtn.style.display = 'block';
+  moreBtn.textContent = '제품 상세정보 더보기 ▼';
+}
+document.getElementById('dMoreBtn').addEventListener('click', () => {
+  const wrap = document.getElementById('dDetailImgs');
+  const btn = document.getElementById('dMoreBtn');
+  if (wrap.classList.contains('collapsed')) {
+    wrap.classList.remove('collapsed');
+    btn.textContent = '상세정보 접기 ▲';
+  } else {
+    wrap.classList.add('collapsed');
+    btn.textContent = '제품 상세정보 더보기 ▼';
+    document.getElementById('dDetailImgs').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+});
+// ===== 상세 화면 열기 =====
 function openDetail(p, pushHistory = true) {
   currentProd = p;
-  currentProdId = p.id;
   currentTerm = p.baseYears || 5;
-
-  document.getElementById('sImg').src = p.img;
-  document.getElementById('sName').textContent = p.name;
-  document.getElementById('sModel').textContent = p.model || '';
-  document.getElementById('sTags').innerHTML = tagHTML(p.tags);
-
+  document.getElementById('dImg').src = p.img;
+  document.getElementById('dTopName').textContent = p.name;
+  document.getElementById('dName').textContent = p.name;
+  document.getElementById('dModel').textContent = (p.model && p.model !== '상담 문의') ? '모델명 ' + p.model : '';
+  document.getElementById('dTags').innerHTML = tagHTML(p.tags);
   // 프로모션 박스
-  const promoEl = document.getElementById('sPromo');
+  const promoEl = document.getElementById('dPromo');
   const isConsult = (p.price === '상담 문의');
   if (isConsult) {
     promoEl.innerHTML = '✨ <strong>프로모션 진행중!</strong> 정확한 렌탈료는 플래너에게 문의해주세요.';
@@ -690,68 +686,41 @@ function openDetail(p, pushHistory = true) {
   } else {
     promoEl.style.display = 'none';
   }
-
-  // 약정 탭 표시
-  const termTabsEl = document.getElementById('termTabs');
+  // 약정 탭
+  const termTabsEl = document.getElementById('dTermTabs');
   if (!isConsult) {
     termTabsEl.style.display = 'flex';
-    // 탭 활성화
-    document.querySelectorAll('.term-tab').forEach(tab => {
-      const t = parseInt(tab.dataset.term);
-      tab.classList.toggle('active', t === currentTerm);
+    document.querySelectorAll('#dTermTabs .term-tab').forEach(tab => {
+      tab.classList.toggle('active', parseInt(tab.dataset.term) === currentTerm);
     });
   } else {
     termTabsEl.style.display = 'none';
   }
-
-  // 가격 박스
   renderPriceBox(p, currentTerm);
-
-  // 스펙
-  document.getElementById('sSpecs').innerHTML =
-    '<div class="spec-item"><div class="slabel">카테고리</div><div class="sval">'+p.cat+'</div></div>'+
-    '<div class="spec-item"><div class="slabel">분류</div><div class="sval">'+p.subcat+'</div></div>'+
-    (p.model ? '<div class="spec-item"><div class="slabel">모델</div><div class="sval">'+p.model+'</div></div>' : '')+
-    '<div class="spec-item" style="background:#fff8f0;border:1px solid #fde8c8"><div class="slabel" style="color:#b45309">할인 안내</div><div class="sval" style="color:#b45309;font-size:11px;line-height:1.5">약정별 할인 상이<br>플래너에게 문의</div></div>';
-
-  document.getElementById('sCallBtn').onclick = callPlanner;
-  document.getElementById('sSmsBtn').onclick = () => openConsult(p.name);
-
-  document.getElementById('overlay').classList.add('open');
-  document.getElementById('sheet').scrollTop = 0;
-
-  // 히스토리에 팝업 상태 추가
-  if (pushHistory) {
-    history.pushState({screen: 'detail', prodId: p.id}, '', window.location.href.split('#')[0]);
-  }
+  renderSpecs(p);
+  renderDetailImgs(p);
+  document.getElementById('dCallBtn').onclick = callPlanner;
+  document.getElementById('dSmsBtn').onclick = () => smsConsult(p.name);
+  showScreen('detailScreen', pushHistory);
 }
-
-function closeDetail(pushHistory = true) {
-  document.getElementById('overlay').classList.remove('open');
-  currentProdId = null;
-  currentProd = null;
-}
-
+document.getElementById('dBack').addEventListener('click', () => history.back());
 // 약정 탭 클릭
-document.getElementById('termTabs').addEventListener('click', (e) => {
+document.getElementById('dTermTabs').addEventListener('click', (e) => {
   const tab = e.target.closest('.term-tab');
   if (!tab || !currentProd) return;
-  const term = parseInt(tab.dataset.term);
-  currentTerm = term;
-  document.querySelectorAll('.term-tab').forEach(t => t.classList.remove('active'));
+  currentTerm = parseInt(tab.dataset.term);
+  document.querySelectorAll('#dTermTabs .term-tab').forEach(t => t.classList.remove('active'));
   tab.classList.add('active');
-  renderPriceBox(currentProd, term);
+  renderPriceBox(currentProd, currentTerm);
 });
-
 // 공유 버튼
-document.getElementById('shareBtn').addEventListener('click', () => {
-  if (!currentProdId) return;
+document.getElementById('dShareBtn').addEventListener('click', () => {
+  if (!currentProd) return;
   const baseUrl = window.location.origin + window.location.pathname;
-  const shareUrl = baseUrl + '?p=' + pid + '&prod=' + currentProdId;
+  const shareUrl = baseUrl + '?p=' + pid + '&prod=' + currentProd.id;
   if (navigator.clipboard) {
     navigator.clipboard.writeText(shareUrl).then(() => showToast('링크가 복사됐어요! 📋'));
   } else {
-    // fallback
     const ta = document.createElement('textarea');
     ta.value = shareUrl;
     document.body.appendChild(ta);
@@ -761,26 +730,15 @@ document.getElementById('shareBtn').addEventListener('click', () => {
     showToast('링크가 복사됐어요! 📋');
   }
 });
-
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2500);
 }
-
-document.getElementById('sheetClose').addEventListener('click', () => {
-  history.back(); // 팝업 히스토리 제거
-});
-document.getElementById('overlay').addEventListener('click', e => {
-  if (e.target === document.getElementById('overlay')) history.back();
-});
-
 // ===== 관리자 =====
 if (isAdmin) showScreen('adminScreen', false);
-
 document.getElementById('adminBack').addEventListener('click', () => history.back());
-
 document.querySelectorAll('.admin-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
@@ -789,12 +747,10 @@ document.querySelectorAll('.admin-tab').forEach(tab => {
     document.getElementById('tab-'+tab.dataset.tab).classList.add('active');
   });
 });
-
 function renderAdminAll() {
   renderAdminFeatured();
   renderAdminProducts();
 }
-
 function renderAdminFeatured() {
   const el = document.getElementById('adminFeatList');
   el.innerHTML = '';
@@ -811,18 +767,18 @@ function renderAdminFeatured() {
     el.appendChild(div);
   });
 }
-
 function renderAdminProducts() {
   const el = document.getElementById('adminProdList');
   el.innerHTML = '';
   ALL_PRODUCTS.forEach(p => {
+    const detailBadge = (p.detailImgs && p.detailImgs.length) ? ' · 📷'+p.detailImgs.length : ' · 상세X';
     const div = document.createElement('div');
     div.className = 'admin-prod-row';
     div.innerHTML =
       '<img class="admin-prod-img" src="'+p.img+'" alt="" onerror="this.src=\'\'">'+
       '<div class="admin-prod-info">'+
         '<div class="admin-prod-name">'+p.name+'</div>'+
-        '<div class="admin-prod-meta">'+p.cat+' · '+p.subcat+'</div>'+
+        '<div class="admin-prod-meta">'+p.cat+' · '+p.subcat+detailBadge+'</div>'+
         '<div class="admin-prod-price">'+p.price+'</div>'+
       '</div>'+
       '<div class="admin-prod-actions">'+
@@ -833,7 +789,6 @@ function renderAdminProducts() {
     el.appendChild(div);
   });
 }
-
 document.getElementById('saveFeatBtn').addEventListener('click', async () => {
   const checked = [...document.querySelectorAll('.feat-chk:checked')];
   if (checked.length > 5) { alert('최대 5개까지 선택 가능합니다'); return; }
@@ -846,7 +801,6 @@ document.getElementById('saveFeatBtn').addEventListener('click', async () => {
   document.getElementById('saveFeatBtn').textContent = '저장하기';
   showToast('저장됐어요! ✓');
 });
-
 document.getElementById('addProdBtn').addEventListener('click', async () => {
   const name = document.getElementById('addName').value.trim();
   if (!name) { alert('제품명을 입력해주세요'); return; }
@@ -869,7 +823,6 @@ document.getElementById('addProdBtn').addEventListener('click', async () => {
   }
   document.getElementById('addProdBtn').textContent = '제품 추가하기';
 });
-
 function openEditPop(id) {
   const p = ALL_PRODUCTS.find(x => x.id === id);
   if (!p) return;
@@ -880,14 +833,16 @@ function openEditPop(id) {
   document.getElementById('editCard').value = p.card;
   document.getElementById('editPromo').value = p.promo||'';
   document.getElementById('editImg').value = p.img;
+  document.getElementById('editDetailImgs').value = (p.detailImgs||[]).join('\n');
   document.getElementById('editTags').value = (p.tags||[]).join('|');
   document.getElementById('editOverlay').classList.add('open');
 }
-
 document.getElementById('editClose').addEventListener('click', () => document.getElementById('editOverlay').classList.remove('open'));
 document.getElementById('saveEditBtn').addEventListener('click', async () => {
   const id = document.getElementById('editId').value;
   const p = ALL_PRODUCTS.find(x => x.id === id);
+  const detailImgsRaw = document.getElementById('editDetailImgs').value.trim();
+  const detailImgs = detailImgsRaw.split(/[\n|]/).map(s => s.trim()).filter(Boolean).join('|');
   const product = {
     cat: p.cat, subcat: p.subcat,
     name: document.getElementById('editName').value.trim(),
@@ -897,6 +852,7 @@ document.getElementById('saveEditBtn').addEventListener('click', async () => {
     promo: document.getElementById('editPromo').value.trim(),
     img: document.getElementById('editImg').value.trim(),
     tags: document.getElementById('editTags').value.trim(),
+    detailImgs: detailImgs,
     visible: 'Y'
   };
   document.getElementById('saveEditBtn').textContent = '저장 중...';
@@ -908,20 +864,17 @@ document.getElementById('saveEditBtn').addEventListener('click', async () => {
   }
   document.getElementById('saveEditBtn').textContent = '수정 저장';
 });
-
 async function deleteProd(id, name) {
   if (!confirm('"'+name+'" 을(를) 삭제할까요?')) return;
   await gasPost({action:'deleteProduct', id});
   await loadData();
   showToast('삭제됐어요!');
 }
-
 async function toggleProd(id, current) {
   const next = current === 'N' ? 'Y' : 'N';
   await gasPost({action:'toggleProduct', id, visible: next==='Y'});
   await loadData();
 }
-
 // 초기 로드
 loadPlanner();
 loadData();
