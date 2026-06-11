@@ -285,10 +285,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
     </div>
     <div id="dPriceHead"></div>
     <div id="dHalfBanner"></div>
-    <div id="dTermWrap" style="display:none">
-      <div class="op-label">계약기간 <span class="req">(필수)</span></div>
-      <div class="op-grid" id="dTermOpts"></div>
-    </div>
+    <div id="dTermWrap" style="display:none"></div>
     <div id="dBenefit"></div>
     <div id="dCardList"></div>
   </div>
@@ -693,31 +690,31 @@ function renderPriceArea(p, term) {
       '<div class="half-note" style="margin:8px 0 0">※ 제휴카드 실적 조건 충족 시 최대 할인 기준이며, 정확한 금액은 플래너 상담으로 확인해주세요.</div>' +
     '</div>';
   bubble.style.display = promo ? 'block' : 'none';
-  rentBtn.textContent = '월 ' + monthly.toLocaleString() + '원 렌탈';
+  rentBtn.textContent = '📞 전화 상담';
 }
 let currentSale = 'rental';
+function getBuyPrice(p) {
+  if (p.buyManual) return { price: p.buyManual, manual: true };
+  if (p.official && p.official.buyEst) return { price: p.official.buyEst, manual: false };
+  return null;
+}
 function renderBuyArea(p) {
   const head = document.getElementById('dPriceHead');
   const banner = document.getElementById('dHalfBanner');
   const benefit = document.getElementById('dBenefit');
   const bubble = document.getElementById('dBubble');
   const rentBtn = document.getElementById('dRentBtn');
-  const b = p.official.buy;
-  const rate = (b.normal && b.normal > b.sale) ? Math.round((1 - b.sale / b.normal) * 100) : 0;
+  const b = getBuyPrice(p);
+  document.getElementById('dTermWrap').style.display = 'none';
   head.innerHTML =
     '<div class="ph-label">구매가 (일시불)</div>' +
-    (rate ? '<div><span class="ph-rate">' + rate + '%</span><span class="ph-origin">' + b.normal.toLocaleString() + '원</span></div>' : '') +
-    '<div class="ph-main">' + b.sale.toLocaleString() + '<span>원</span></div>';
-  banner.innerHTML = '<div class="half-note">렌탈 없이 한 번에 구매하는 일시불 가격이에요. 설치·배송은 동일하게 본사에서 진행됩니다.</div>';
-  benefit.innerHTML = rate ?
-    '<div class="benefit-box">' +
-      '<div class="benefit-hd"><span>구매 혜택</span><span class="amt">-' + (b.normal - b.sale).toLocaleString() + '원</span></div>' +
-      '<div class="benefit-row"><span>정가</span><span>' + b.normal.toLocaleString() + '원</span></div>' +
-      '<div class="benefit-row total"><span>할인 적용가</span><span>' + b.sale.toLocaleString() + '원</span></div>' +
-      '<div class="half-note" style="margin:8px 0 0">※ 카드 무이자 할부 등 자세한 조건은 플래너 상담으로 확인해주세요.</div>' +
-    '</div>' : '';
+    '<div class="ph-main">' + b.price.toLocaleString() + '<span>원</span></div>';
+  banner.innerHTML =
+    '<div class="half-note">렌탈 없이 한 번에 구매하는 일시불 가격이에요. 설치·배송은 동일하게 본사에서 진행됩니다.' +
+    (b.manual ? '' : '<br>※ 옵션·쿠폰에 따라 달라질 수 있어요. 정확한 금액은 플래너 상담으로 확인해주세요.') + '</div>';
+  benefit.innerHTML = '';
   bubble.style.display = 'none';
-  rentBtn.textContent = b.sale.toLocaleString() + '원 구매 상담';
+  rentBtn.textContent = '📞 전화 상담';
 }
 function renderCardList(p) {
   const el = document.getElementById('dCardList');
@@ -731,10 +728,11 @@ function renderCardList(p) {
   el.innerHTML = html;
 }
 function renderDetailPriceUI(p) {
-  const termWrap = document.getElementById('dTermWrap');
-  if (currentSale === 'buy' && p.official && p.official.buy) {
-    termWrap.style.display = 'none';
+  if (currentSale === 'buy' && getBuyPrice(p)) {
     renderBuyArea(p);
+  } else if (hasOfficialCombos(p) && p.price !== '상담 문의') {
+    renderOfficialOpts(p);
+    renderOfficialPrice(p);
   } else {
     renderTermOpts(p);
     renderPriceArea(p, currentTerm);
@@ -743,8 +741,7 @@ function renderDetailPriceUI(p) {
 }
 function renderSaleTabs(p) {
   const tabs = document.getElementById('dSaleTabs');
-  const hasBuy = p.official && p.official.buy;
-  tabs.style.display = hasBuy ? 'grid' : 'none';
+  tabs.style.display = getBuyPrice(p) ? 'grid' : 'none';
   tabs.querySelectorAll('.sale-tab').forEach(function (t) {
     t.classList.toggle('active', t.dataset.st === currentSale);
   });
@@ -759,13 +756,13 @@ document.getElementById('dSaleTabs').addEventListener('click', function (e) {
 });
 function renderTermOpts(p) {
   const wrap = document.getElementById('dTermWrap');
-  const grid = document.getElementById('dTermOpts');
   if (p.price === '상담 문의') { wrap.style.display = 'none'; return; }
   const terms = getTermList(p);
   if (!terms.length) { wrap.style.display = 'none'; return; }
   if (terms.indexOf(currentTerm) === -1) currentTerm = terms[terms.length - 1];
   wrap.style.display = 'block';
-  grid.innerHTML = '';
+  wrap.innerHTML = '<div class="op-label">계약기간 <span class="req">(필수)</span></div><div class="op-grid" id="dTermOpts"></div>';
+  const grid = document.getElementById('dTermOpts');
   terms.forEach(function (y) {
     const div = document.createElement('div');
     div.className = 'op-pill' + (y === currentTerm ? ' active' : '');
@@ -778,6 +775,89 @@ function renderTermOpts(p) {
     });
     grid.appendChild(div);
   });
+}
+/* ===== 공식몰 옵션조합 (계약기간 × 관리유형/점검주기) ===== */
+let selCombo = null;
+function hasOfficialCombos(p) {
+  return p.official && p.official.combos && p.official.combos.length > 0;
+}
+function findCombo(p, termKey, manage) {
+  const combos = p.official.combos;
+  return combos.find(function (c) { return (c.term + '|' + c.duty) === termKey && c.manage === manage; })
+    || combos.find(function (c) { return (c.term + '|' + c.duty) === termKey; })
+    || combos[combos.length - 1];
+}
+function renderOfficialOpts(p) {
+  const wrap = document.getElementById('dTermWrap');
+  const combos = p.official.combos;
+  if (!selCombo) selCombo = combos[combos.length - 1];
+  const termKeys = [];
+  combos.forEach(function (c) { const k = c.term + '|' + c.duty; if (termKeys.indexOf(k) === -1) termKeys.push(k); });
+  const manages = [];
+  combos.forEach(function (c) { if (c.manage && manages.indexOf(c.manage) === -1) manages.push(c.manage); });
+  let html = '<div class="op-label">계약기간 <span class="req">(필수)</span></div><div class="op-grid">';
+  termKeys.forEach(function (k) {
+    const parts = k.split('|');
+    const lbl = parts[0] + '개월' + (parts[0] !== parts[1] ? ' · 의무 ' + parts[1] : '');
+    const on = (selCombo.term + '|' + selCombo.duty) === k;
+    html += '<div class="op-pill' + (on ? ' active' : '') + '" data-tk="' + k + '"><span class="chk">✓</span>' + lbl + '</div>';
+  });
+  html += '</div>';
+  if (manages.length > 1) {
+    html += '<div class="op-label">관리유형 · 방문점검주기 <span class="req">(필수)</span></div><div class="op-grid">';
+    manages.forEach(function (m) {
+      const c = combos.find(function (x) { return x.manage === m; });
+      const on = selCombo.manage === m;
+      html += '<div class="op-pill' + (on ? ' active' : '') + '" data-mg="' + m + '"><span class="chk">✓</span>' + m + ' · ' + c.cycle + '개월 점검</div>';
+    });
+    html += '</div>';
+  }
+  wrap.style.display = 'block';
+  wrap.innerHTML = html;
+}
+document.getElementById('dTermWrap').addEventListener('click', function (e) {
+  const pill = e.target.closest('.op-pill');
+  if (!pill || !currentProd || !hasOfficialCombos(currentProd)) return;
+  if (pill.dataset.tk) selCombo = findCombo(currentProd, pill.dataset.tk, selCombo ? selCombo.manage : '');
+  else if (pill.dataset.mg) selCombo = findCombo(currentProd, selCombo.term + '|' + selCombo.duty, pill.dataset.mg);
+  else return;
+  renderOfficialOpts(currentProd);
+  renderOfficialPrice(currentProd);
+});
+function renderOfficialPrice(p) {
+  const head = document.getElementById('dPriceHead');
+  const banner = document.getElementById('dHalfBanner');
+  const benefit = document.getElementById('dBenefit');
+  const bubble = document.getElementById('dBubble');
+  const rentBtn = document.getElementById('dRentBtn');
+  const fee = selCombo.fee;
+  const rep = p.official.rep || {};
+  const isPromoCombo = rep.sale && rep.normal && fee === rep.normal && rep.sale < fee;
+  const topCard = (p.official.cards && p.official.cards[0]) || null;
+  const monthly = isPromoCombo ? rep.sale : fee;
+  let html = '<div class="ph-label">월 렌탈료 · ' + selCombo.term + '개월 약정 · ' + selCombo.manage + '</div>';
+  if (isPromoCombo) {
+    html += '<div><span class="ph-rate">' + (rep.rate || Math.round((1 - rep.sale / fee) * 100)) + '%</span><span class="ph-origin">월 ' + fee.toLocaleString() + '원</span></div>';
+  }
+  html += '<div class="ph-main">월 ' + monthly.toLocaleString() + '<span>원</span></div>';
+  if (topCard) html += '<div class="ph-card">제휴카드 최대 적용 시 <b>월 ' + Math.max(monthly - topCard.amt, 0).toLocaleString() + '원~</b></div>';
+  head.innerHTML = html;
+  let bHTML = '';
+  if (isPromoCombo) bHTML += '<div class="half-banner">💙 프로모션 할인 적용 중</div>';
+  if (p.promo) bHTML += '<div class="half-note">🎁 ' + p.promo.replace(/\n/g, '<br>') + '</div>';
+  banner.innerHTML = bHTML;
+  const promoSave = isPromoCombo ? fee - rep.sale : 0;
+  const cardSave = topCard ? topCard.amt : 0;
+  benefit.innerHTML =
+    '<div class="benefit-box">' +
+      '<div class="benefit-hd"><span>최대 혜택 계산하기</span><span class="amt">월 -' + (promoSave + cardSave).toLocaleString() + '원</span></div>' +
+      (promoSave ? '<div class="benefit-row"><span>프로모션 할인</span><span>월 -' + promoSave.toLocaleString() + '원</span></div>' : '') +
+      (cardSave ? '<div class="benefit-row"><span>제휴카드 할인 (실적 충족 시)</span><span>월 -' + cardSave.toLocaleString() + '원</span></div>' : '') +
+      '<div class="benefit-row total"><span>최대 적용 시</span><span>월 ' + Math.max(monthly - cardSave, 0).toLocaleString() + '원</span></div>' +
+      (selCombo.regFee ? '<div class="half-note" style="margin:8px 0 0">※ 렌탈 등록비 ' + selCombo.regFee.toLocaleString() + '원 별도 (프로모션으로 면제되는 경우가 많아요 — 플래너에게 확인!)</div>' : '') +
+    '</div>';
+  bubble.style.display = isPromoCombo ? 'block' : 'none';
+  rentBtn.textContent = '📞 전화 상담';
 }
 // ===== 스펙 표 =====
 function renderSpecs(p) {
@@ -843,6 +923,7 @@ function openDetail(p, pushHistory = true) {
   document.getElementById('dModel').textContent = (p.model && p.model !== '상담 문의') ? '모델명 ' + p.model : '';
   document.getElementById('dTags').innerHTML = tagHTML(p.tags);
   currentSale = 'rental';
+  selCombo = null;
   renderSaleTabs(p);
   renderDetailPriceUI(p);
   renderSpecs(p);
