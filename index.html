@@ -124,6 +124,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .pval.red{color:#ef4444}
 .card-note{font-size:11px;color:#aaa;margin-top:4px;text-align:right}
 /* ===== 공식몰 스타일 가격/옵션 UI ===== */
+.sale-tabs{display:grid;grid-template-columns:1fr 1fr;margin-bottom:16px;border-radius:12px;overflow:hidden;border:1px solid #eee}
+.sale-tab{padding:13px;text-align:center;font-size:15px;font-weight:700;background:#f1f3f5;color:#aaa;cursor:pointer}
+.sale-tab.active{background:#fff;color:#1a1a1a}
+.card-hd{font-size:15px;font-weight:800;color:#1a56db;margin:18px 0 4px}
+.card-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:9px 0;border-bottom:1px solid #f5f5f5;color:#444}
+.card-row b{color:#1a56db;font-weight:800}
 .ph-label{font-size:13px;color:#999;margin-bottom:4px}
 .ph-rate{font-size:22px;font-weight:800;color:#f05a3c;margin-right:8px}
 .ph-origin{font-size:14px;color:#aaa;text-decoration:line-through}
@@ -273,6 +279,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
   <div class="d-info">
     <div class="d-name" id="dName"></div>
     <div class="d-model" id="dModel"></div>
+    <div class="sale-tabs" id="dSaleTabs" style="display:none">
+      <div class="sale-tab active" data-st="rental">렌탈</div>
+      <div class="sale-tab" data-st="buy">구매</div>
+    </div>
     <div id="dPriceHead"></div>
     <div id="dHalfBanner"></div>
     <div id="dTermWrap" style="display:none">
@@ -280,6 +290,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
       <div class="op-grid" id="dTermOpts"></div>
     </div>
     <div id="dBenefit"></div>
+    <div id="dCardList"></div>
   </div>
   <div class="d-section">
     <div class="d-sec-title">📋 제품 사양</div>
@@ -684,6 +695,68 @@ function renderPriceArea(p, term) {
   bubble.style.display = promo ? 'block' : 'none';
   rentBtn.textContent = '월 ' + monthly.toLocaleString() + '원 렌탈';
 }
+let currentSale = 'rental';
+function renderBuyArea(p) {
+  const head = document.getElementById('dPriceHead');
+  const banner = document.getElementById('dHalfBanner');
+  const benefit = document.getElementById('dBenefit');
+  const bubble = document.getElementById('dBubble');
+  const rentBtn = document.getElementById('dRentBtn');
+  const b = p.official.buy;
+  const rate = (b.normal && b.normal > b.sale) ? Math.round((1 - b.sale / b.normal) * 100) : 0;
+  head.innerHTML =
+    '<div class="ph-label">구매가 (일시불)</div>' +
+    (rate ? '<div><span class="ph-rate">' + rate + '%</span><span class="ph-origin">' + b.normal.toLocaleString() + '원</span></div>' : '') +
+    '<div class="ph-main">' + b.sale.toLocaleString() + '<span>원</span></div>';
+  banner.innerHTML = '<div class="half-note">렌탈 없이 한 번에 구매하는 일시불 가격이에요. 설치·배송은 동일하게 본사에서 진행됩니다.</div>';
+  benefit.innerHTML = rate ?
+    '<div class="benefit-box">' +
+      '<div class="benefit-hd"><span>구매 혜택</span><span class="amt">-' + (b.normal - b.sale).toLocaleString() + '원</span></div>' +
+      '<div class="benefit-row"><span>정가</span><span>' + b.normal.toLocaleString() + '원</span></div>' +
+      '<div class="benefit-row total"><span>할인 적용가</span><span>' + b.sale.toLocaleString() + '원</span></div>' +
+      '<div class="half-note" style="margin:8px 0 0">※ 카드 무이자 할부 등 자세한 조건은 플래너 상담으로 확인해주세요.</div>' +
+    '</div>' : '';
+  bubble.style.display = 'none';
+  rentBtn.textContent = b.sale.toLocaleString() + '원 구매 상담';
+}
+function renderCardList(p) {
+  const el = document.getElementById('dCardList');
+  const cards = (p.official && p.official.cards) || [];
+  if (!cards.length) { el.innerHTML = ''; return; }
+  let html = '<div class="card-hd">청호나이스 제휴카드 혜택</div>';
+  cards.slice(0, 4).forEach(function (c) {
+    html += '<div class="card-row"><span>' + c.name + '</span><span>월 최대 <b>' + c.amt.toLocaleString() + '원</b> 할인</span></div>';
+  });
+  html += '<div class="half-note" style="margin-top:8px">※ 카드 실적 조건 등 자세한 내용은 플래너에게 문의해주세요.</div>';
+  el.innerHTML = html;
+}
+function renderDetailPriceUI(p) {
+  const termWrap = document.getElementById('dTermWrap');
+  if (currentSale === 'buy' && p.official && p.official.buy) {
+    termWrap.style.display = 'none';
+    renderBuyArea(p);
+  } else {
+    renderTermOpts(p);
+    renderPriceArea(p, currentTerm);
+  }
+  renderCardList(p);
+}
+function renderSaleTabs(p) {
+  const tabs = document.getElementById('dSaleTabs');
+  const hasBuy = p.official && p.official.buy;
+  tabs.style.display = hasBuy ? 'grid' : 'none';
+  tabs.querySelectorAll('.sale-tab').forEach(function (t) {
+    t.classList.toggle('active', t.dataset.st === currentSale);
+  });
+}
+document.getElementById('dSaleTabs').addEventListener('click', function (e) {
+  const tab = e.target.closest('.sale-tab');
+  if (!tab || !currentProd) return;
+  currentSale = tab.dataset.st;
+  document.querySelectorAll('#dSaleTabs .sale-tab').forEach(function (t) { t.classList.remove('active'); });
+  tab.classList.add('active');
+  renderDetailPriceUI(currentProd);
+});
 function renderTermOpts(p) {
   const wrap = document.getElementById('dTermWrap');
   const grid = document.getElementById('dTermOpts');
@@ -769,8 +842,9 @@ function openDetail(p, pushHistory = true) {
   document.getElementById('dName').textContent = p.name;
   document.getElementById('dModel').textContent = (p.model && p.model !== '상담 문의') ? '모델명 ' + p.model : '';
   document.getElementById('dTags').innerHTML = tagHTML(p.tags);
-  renderTermOpts(p);
-  renderPriceArea(p, currentTerm);
+  currentSale = 'rental';
+  renderSaleTabs(p);
+  renderDetailPriceUI(p);
   renderSpecs(p);
   renderDetailImgs(p);
   document.getElementById('dRentBtn').onclick = callPlanner;
