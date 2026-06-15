@@ -823,7 +823,10 @@ function renderOfficialOpts(p) {
     manages.forEach(function (m) {
       const c = combos.find(function (x) { return x.manage === m; });
       const on = selCombo.manage === m;
-      html += '<div class="op-pill' + (on ? ' active' : '') + '" data-mg="' + m + '"><span class="chk">✓</span>' + m + ' · ' + c.cycle + '개월 점검</div>';
+      // ★ cycle=0이면 점검주기 표시 안함
+      const cycleNum = parseInt(c.cycle || '0');
+      const cycleLabel = cycleNum > 0 ? ' · ' + c.cycle + '개월 점검' : '';
+      html += '<div class="op-pill' + (on ? ' active' : '') + '" data-mg="' + m + '"><span class="chk">✓</span>' + m + cycleLabel + '</div>';
     });
     html += '</div>';
   }
