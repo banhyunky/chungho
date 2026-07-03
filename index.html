@@ -4,94 +4,120 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>청호나이스 렌탈 상담</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<meta property="og:title" content="청호나이스 렌탈 상담 | 공식 플래너">
+<meta property="og:description" content="정수기 · 공기청정기 · 비데 · 매트리스 렌탈, 공식 인증 플래너가 상담해드립니다.">
+<meta property="og:image" content="https://image.chungho.com/fe/common/og_common.png">
 <style>
+/* ===== 청호나이스 공식몰 스타일 v2 ===== */
+:root{
+  --ch-teal:#3db8c7; --ch-teal-dark:#12a5b4; --ch-teal-bg:#ecfafb; --ch-teal-line:#5bc2ce;
+  --ch-orange:#f05a3c; --ch-navy:#0e2b49;
+  --txt:#111; --txt2:#666; --txt3:#999; --line:#ececec; --bg:#f7f8fa;
+}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif;background:#f0f2f5;color:#1a1a1a;font-size:16px}
+body{font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;background:var(--bg);color:var(--txt);font-size:16px;letter-spacing:-0.2px}
 .page{max-width:440px;margin:0 auto;min-height:100vh;padding-bottom:2rem}
 .screen{display:none}.screen.active{display:block}
 .loading{text-align:center;padding:3rem 1rem;color:#aaa;font-size:14px}
-.spin{display:inline-block;width:28px;height:28px;border:3px solid #e5e7eb;border-top-color:#1a56db;border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:10px}
+.spin{display:inline-block;width:28px;height:28px;border:3px solid #e5e7eb;border-top-color:var(--ch-teal);border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:10px}
 @keyframes spin{to{transform:rotate(360deg)}}
-.hero{background:#fff;padding:1.5rem 1.25rem 1.25rem;text-align:center;margin-bottom:10px}
-.badge{display:inline-block;background:#e8f0fe;color:#1a56db;font-size:11px;font-weight:600;padding:4px 12px;border-radius:99px;margin-bottom:10px}
-.hero h1{font-size:21px;font-weight:700;color:#1a1a1a;margin-bottom:4px}
-.hero p{font-size:13px;color:#777}
-.planner-card{background:#fff;margin:0 0 10px;padding:14px 18px;display:flex;align-items:center;gap:12px}
-.avatar{width:46px;height:46px;border-radius:50%;background:#e8f0fe;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;color:#1a56db;flex-shrink:0}
-.p-name{font-size:15px;font-weight:700;color:#1a1a1a}
-.p-title{display:inline-block;font-size:11px;font-weight:600;color:#1a56db;background:#e8f0fe;padding:2px 7px;border-radius:99px;margin-left:5px;vertical-align:middle}
-.p-sub{font-size:12px;color:#999;margin-top:2px}
-.v-badge{background:#ecfdf5;color:#166534;font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;margin-top:4px;display:inline-block}
+/* ===== 헤더 (공식몰 GNB) ===== */
+.gnb{background:#fff;position:sticky;top:0;z-index:50;border-bottom:1px solid var(--line)}
+.gnb-top{display:flex;justify-content:space-between;align-items:center;padding:7px 16px;background:#f7f8fa;font-size:11px;color:var(--txt3);border-bottom:1px solid #f0f0f0}
+.gnb-top a{color:var(--txt3);text-decoration:none}
+.gnb-main{display:flex;align-items:center;justify-content:space-between;padding:12px 16px}
+.logo{font-size:20px;font-weight:800;color:var(--txt);letter-spacing:-0.5px}
+.logo span{color:var(--ch-teal-dark)}
+.gnb-call{background:var(--ch-teal);color:#fff;border:none;border-radius:99px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
+/* ===== 히어로 배너 (공식몰 메인배너) ===== */
+.hero{position:relative;background:linear-gradient(135deg,rgba(10,60,80,0.72),rgba(18,165,180,0.55)),url('https://brand.chungho.com/assets/img_main_product-bg_01-D6RikqWR.png') center/cover no-repeat;padding:2.2rem 1.4rem 2rem;text-align:left;margin-bottom:10px;color:#fff}
+.badge{display:inline-block;background:rgba(255,255,255,0.18);color:#fff;font-size:11px;font-weight:600;padding:4px 12px;border-radius:99px;margin-bottom:10px;backdrop-filter:blur(2px);border:1px solid rgba(255,255,255,0.35)}
+.hero h1{font-size:22px;font-weight:800;color:#fff;margin-bottom:5px;letter-spacing:-0.5px;line-height:1.3}
+.hero p{font-size:13px;color:rgba(255,255,255,0.85)}
+/* ===== 플래너 카드 ===== */
+.planner-card{background:#fff;margin:0 0 10px;padding:16px 18px;display:flex;align-items:center;gap:12px}
+.avatar{width:48px;height:48px;border-radius:50%;background:var(--ch-teal-bg);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;color:var(--ch-teal-dark);flex-shrink:0;border:1.5px solid #d5f0f3}
+.p-name{font-size:15px;font-weight:700;color:var(--txt)}
+.p-title{display:inline-block;font-size:11px;font-weight:600;color:var(--ch-teal-dark);background:var(--ch-teal-bg);padding:2px 7px;border-radius:99px;margin-left:5px;vertical-align:middle}
+.p-sub{font-size:12px;color:var(--txt3);margin-top:2px}
+.v-badge{background:var(--ch-teal-bg);color:var(--ch-teal-dark);font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;margin-top:4px;display:inline-block}
+/* ===== CTA ===== */
 .cta-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 14px 14px;background:#fff;margin-bottom:10px}
-.btn-call{background:#1a56db;color:#fff;border:none;border-radius:12px;padding:15px 8px;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer}
+.btn-call{background:var(--ch-teal);color:#fff;border:none;border-radius:12px;padding:15px 8px;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;font-family:inherit}
 .btn-call:active{opacity:0.88}
-.btn-sms{background:#fff;color:#1a1a1a;border:1.5px solid #dde3f0;border-radius:12px;padding:15px 8px;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer}
-.btn-sms:active{background:#f5f7ff}
+.btn-sms{background:#fff;color:var(--ch-teal-dark);border:1.5px solid var(--ch-teal-line);border-radius:12px;padding:15px 8px;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;font-family:inherit}
+.btn-sms:active{background:var(--ch-teal-bg)}
 .consult-wrap{display:none;margin:0 0 10px}.consult-wrap.open{display:block}
 .consult-card{background:#fff;padding:1.25rem}
 .field{margin-bottom:12px}
 .field label{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px}
-.field input,.field textarea{width:100%;border:1.5px solid #e5e7eb;border-radius:10px;padding:11px 13px;font-size:14px;font-family:inherit;color:#1a1a1a;background:#fff;outline:none;-webkit-appearance:none}
-.field input:focus,.field textarea:focus{border-color:#1a56db}
+.field input,.field textarea{width:100%;border:1.5px solid #e5e7eb;border-radius:10px;padding:11px 13px;font-size:14px;font-family:inherit;color:var(--txt);background:#fff;outline:none;-webkit-appearance:none}
+.field input:focus,.field textarea:focus{border-color:var(--ch-teal)}
 .field textarea{min-height:80px;resize:none;line-height:1.6}
-.btn-send{width:100%;background:#1a56db;color:#fff;border:none;border-radius:10px;padding:14px;font-size:14px;font-weight:700;cursor:pointer;margin-top:4px}
-.btn-x{width:100%;background:none;border:none;color:#aaa;font-size:13px;cursor:pointer;padding:10px}
-.sec-hd{padding:14px 16px 10px;display:flex;align-items:center;justify-content:space-between}
-.sec-title{font-size:15px;font-weight:700;color:#1a1a1a}
-.sec-sub{font-size:12px;color:#aaa}
-.find-btn{margin:0 14px 10px;background:#fff;border:1.5px solid #1a56db;border-radius:14px;padding:16px;text-align:center;cursor:pointer;color:#1a56db;font-size:15px;font-weight:700}
-.find-btn:active{background:#f0f4ff}
-.cat-header{background:#fff;padding:14px 16px;display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.back-btn{background:none;border:none;font-size:22px;cursor:pointer;color:#1a1a1a;padding:0;line-height:1}
-.cat-title{font-size:16px;font-weight:700;color:#1a1a1a}
+.btn-send{width:100%;background:var(--ch-teal);color:#fff;border:none;border-radius:10px;padding:14px;font-size:14px;font-weight:700;cursor:pointer;margin-top:4px;font-family:inherit}
+.btn-x{width:100%;background:none;border:none;color:#aaa;font-size:13px;cursor:pointer;padding:10px;font-family:inherit}
+.sec-hd{padding:16px 16px 10px;display:flex;align-items:center;justify-content:space-between;background:#fff}
+.sec-title{font-size:17px;font-weight:800;color:var(--txt);letter-spacing:-0.4px}
+.sec-sub{font-size:12px;color:var(--txt3)}
+.find-btn{margin:0 14px 10px;background:#fff;border:1.5px solid var(--ch-teal);border-radius:14px;padding:16px;text-align:center;cursor:pointer;color:var(--ch-teal-dark);font-size:15px;font-weight:700}
+.find-btn:active{background:var(--ch-teal-bg)}
+/* ===== 카테고리 ===== */
+.cat-header{background:#fff;padding:14px 16px;display:flex;align-items:center;gap:10px;margin-bottom:10px;position:sticky;top:0;z-index:20;border-bottom:1px solid var(--line)}
+.back-btn{background:none;border:none;font-size:22px;cursor:pointer;color:var(--txt);padding:0;line-height:1}
+.cat-title{font-size:16px;font-weight:700;color:var(--txt)}
 .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 14px 14px}
-.cat-card{background:#fff;border-radius:14px;padding:20px 14px;text-align:center;cursor:pointer;border:1.5px solid #eee}
-.cat-card:active{background:#f5f7ff;border-color:#1a56db}
+.cat-card{background:#fff;border-radius:16px;padding:18px 14px 16px;text-align:center;cursor:pointer;border:1px solid var(--line)}
+.cat-card:active{background:var(--ch-teal-bg);border-color:var(--ch-teal)}
+.cat-visual{position:relative;height:70px;margin-bottom:10px;display:flex;align-items:center;justify-content:center}
+.cat-img{position:relative;z-index:1;max-height:70px;max-width:100%;object-fit:contain}
+.cat-icon-fb{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:30px;z-index:0}
 .cat-icon{font-size:28px;margin-bottom:8px}
-.cat-name{font-size:14px;font-weight:700;color:#1a1a1a}
-.cat-count{font-size:11px;color:#aaa;margin-top:3px}
+.cat-name{font-size:14px;font-weight:700;color:var(--txt)}
+.cat-count{font-size:11px;color:var(--txt3);margin-top:3px}
 .subcat-list{display:flex;flex-wrap:wrap;gap:8px;padding:0 14px 14px}
-.subcat-btn{background:#fff;border:1.5px solid #eee;border-radius:99px;padding:8px 16px;font-size:13px;font-weight:600;color:#444;cursor:pointer}
-.subcat-btn.active{background:#1a56db;border-color:#1a56db;color:#fff}
+.subcat-btn{background:#fff;border:1px solid #ddd;border-radius:99px;padding:8px 16px;font-size:13px;font-weight:600;color:#444;cursor:pointer;font-family:inherit}
+.subcat-btn.active{background:var(--ch-navy);border-color:var(--ch-navy);color:#fff}
+/* ===== 제품 카드 (공식몰 상품목록) ===== */
 .prod-list{display:flex;flex-direction:column;gap:10px}
 .prod-card{background:#fff;overflow:hidden;cursor:pointer}
 .prod-card:active{opacity:0.95}
-.prod-img-wrap{width:100%;background:#f8f9fa;position:relative;display:flex;align-items:center;justify-content:center;height:190px}
+.prod-img-wrap{width:100%;background:#f7f9fa;position:relative;display:flex;align-items:center;justify-content:center;height:200px}
 .prod-img-wrap img{max-width:100%;max-height:100%;object-fit:contain;padding:14px}
-.prod-tags{position:absolute;top:8px;left:8px;display:flex;gap:5px;flex-wrap:wrap}
-.tag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:99px}
-.t-hot{background:#1a56db;color:#fff}
-.t-new{background:#f59e0b;color:#fff}
-.t-promo{background:#ef4444;color:#fff}
-.t-good{background:#10b981;color:#fff}
+.prod-tags{position:absolute;top:10px;left:10px;display:flex;gap:5px;flex-wrap:wrap}
+.tag{font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px}
+.t-hot{background:var(--ch-teal);color:#fff}
+.t-new{background:var(--ch-navy);color:#fff}
+.t-promo{background:var(--ch-orange);color:#fff}
+.t-good{background:#eef4f5;color:#3a7d87}
 .t-feat{background:#8b5cf6;color:#fff}
-.prod-body{padding:12px 14px 14px}
-.prod-name{font-size:14px;font-weight:700;color:#1a1a1a;margin-bottom:2px;line-height:1.4}
-.prod-model{font-size:11px;color:#ccc;margin-bottom:8px}
-.prod-price{font-size:20px;font-weight:800;color:#1a1a1a;line-height:1}
-.prod-price span{font-size:12px;font-weight:400;color:#999}
-.prod-card-p{font-size:13px;color:#1a56db;font-weight:600;margin-top:3px;margin-bottom:6px}
-.prod-hint{font-size:11px;color:#ccc}
-.prod-price-origin{font-size:13px;color:#aaa;text-decoration:line-through;margin-bottom:2px}
-.promo-price{color:#ef4444 !important}
-.prod-promo-badge{font-size:11px;font-weight:700;color:#ef4444;margin-top:4px}
-.promo-pulse{animation:pulse 1.5s ease-in-out infinite;color:#1a56db}
+.prod-body{padding:13px 16px 16px}
+.prod-name{font-size:15px;font-weight:700;color:var(--txt);margin-bottom:2px;line-height:1.4;letter-spacing:-0.3px}
+.prod-model{font-size:11px;color:#c5c5c5;margin-bottom:9px}
+.prod-price{font-size:20px;font-weight:800;color:var(--txt);line-height:1;letter-spacing:-0.3px}
+.prod-price span{font-size:12px;font-weight:500;color:var(--txt3)}
+.prod-card-p{font-size:13px;color:var(--ch-teal-dark);font-weight:600;margin-top:4px;margin-bottom:6px}
+.prod-hint{font-size:11px;color:#d0d0d0;margin-top:2px}
+.prod-price-origin{font-size:13px;color:#b5b5b5;text-decoration:line-through;margin-bottom:2px}
+.promo-price{color:var(--ch-orange) !important}
+.prod-promo-badge{font-size:11px;font-weight:700;color:var(--ch-orange);margin-top:4px}
+.promo-pulse{animation:pulse 1.5s ease-in-out infinite;color:var(--ch-teal-dark)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
 /* ===== 상세 페이지 (풀스크린) ===== */
-#detailScreen .page{padding-bottom:90px;background:#f0f2f5}
-.d-topbar{position:sticky;top:0;z-index:20;background:#fff;padding:12px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #f0f2f5}
+#detailScreen .page{padding-bottom:90px;background:var(--bg)}
+.d-topbar{position:sticky;top:0;z-index:20;background:#fff;padding:12px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line)}
 .d-topbar .cat-title{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:15px}
-.d-share{background:#f0f4ff;border:none;border-radius:99px;width:34px;height:34px;font-size:15px;cursor:pointer;flex-shrink:0}
-.d-img{width:100%;height:300px;background:#f8f9fa;display:flex;align-items:center;justify-content:center;position:relative}
+.d-share{background:var(--ch-teal-bg);border:none;border-radius:99px;width:34px;height:34px;font-size:15px;cursor:pointer;flex-shrink:0}
+.d-img{width:100%;height:300px;background:#f7f9fa;display:flex;align-items:center;justify-content:center;position:relative}
 .d-img img{max-width:100%;max-height:100%;object-fit:contain;padding:22px}
 .d-img .prod-tags{top:12px;left:12px}
 .d-info{background:#fff;padding:16px 18px 20px;margin-bottom:10px}
-.d-name{font-size:19px;font-weight:800;line-height:1.35;margin-top:6px}
+.d-name{font-size:19px;font-weight:800;line-height:1.35;margin-top:6px;letter-spacing:-0.4px}
 .d-model{font-size:12px;color:#bbb;margin-top:3px;margin-bottom:14px}
 .d-section{background:#fff;padding:18px;margin-bottom:10px}
 .d-sec-title{font-size:15px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px}
 .spec-table{width:100%;border-collapse:collapse;font-size:13px}
-.spec-table th{width:32%;text-align:left;color:#888;font-weight:600;padding:10px;background:#f8f9fa;border-bottom:1px solid #f0f2f5;vertical-align:top;font-size:12px}
+.spec-table th{width:32%;text-align:left;color:#888;font-weight:600;padding:10px;background:#f7f9fa;border-bottom:1px solid #f0f2f5;vertical-align:top;font-size:12px}
 .spec-table td{padding:10px;color:#333;border-bottom:1px solid #f0f2f5;line-height:1.5}
 .spec-table tr:last-child th,.spec-table tr:last-child td{border-bottom:none}
 .detail-imgs{position:relative;overflow:hidden}
@@ -99,63 +125,72 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .detail-imgs img{width:100%;display:block}
 .d-fade{display:none;position:absolute;left:0;right:0;bottom:0;height:140px;background:linear-gradient(transparent,#fff)}
 .detail-imgs.collapsed .d-fade{display:block}
-.more-btn{width:100%;margin-top:12px;padding:14px;border:1.5px solid #1a56db;border-radius:10px;background:#fff;color:#1a56db;font-size:14px;font-weight:700;cursor:pointer}
-.more-btn:active{background:#f0f4ff}
-.d-empty{text-align:center;padding:2rem 1rem;color:#aaa;font-size:13px;line-height:1.7;background:#f8f9fa;border-radius:10px}
+.more-btn{width:100%;margin-top:12px;padding:14px;border:1.5px solid var(--ch-teal);border-radius:10px;background:#fff;color:var(--ch-teal-dark);font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.more-btn:active{background:var(--ch-teal-bg)}
+.d-empty{text-align:center;padding:2rem 1rem;color:#aaa;font-size:13px;line-height:1.7;background:#f7f9fa;border-radius:10px}
 .trust{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center}
-.trust-item{background:#f8f9fa;border-radius:10px;padding:14px 6px}
+.trust-item{background:#f7f9fa;border-radius:10px;padding:14px 6px}
 .trust-icon{font-size:22px;margin-bottom:6px}
 .trust-txt{font-size:11px;font-weight:600;color:#555;line-height:1.4}
 .d-cta-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:440px;background:#fff;border-top:1px solid #eee;padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:grid;grid-template-columns:1fr 1fr;gap:10px;z-index:30}
-.d-call{background:#1a56db;color:#fff;border:none;border-radius:11px;padding:14px;font-size:14px;font-weight:700;cursor:pointer}
-.d-sms{background:#fff;color:#1a56db;border:1.5px solid #1a56db;border-radius:11px;padding:14px;font-size:14px;font-weight:700;cursor:pointer}
+.d-call{background:var(--ch-teal);color:#fff;border:none;border-radius:11px;padding:14px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.d-sms{background:#fff;color:var(--ch-teal-dark);border:1.5px solid var(--ch-teal);border-radius:11px;padding:14px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
 .promo-box{background:#fff8f0;border:1px solid #fde8c8;border-radius:10px;padding:11px 13px;margin-bottom:14px;font-size:12px;color:#b45309;line-height:1.8}
 /* ===== 약정 탭 ===== */
 .term-tabs{display:flex;gap:8px;margin-bottom:14px}
-.term-tab{flex:1;padding:10px 4px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-weight:700;color:#aaa;background:#f8f9fa;cursor:pointer;text-align:center;transition:all 0.15s}
-.term-tab.active{border-color:#1a56db;background:#e8f0fe;color:#1a56db}
+.term-tab{flex:1;padding:10px 4px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:13px;font-weight:700;color:#aaa;background:#f7f9fa;cursor:pointer;text-align:center;transition:all 0.15s}
+.term-tab.active{border-color:var(--ch-teal);background:var(--ch-teal-bg);color:var(--ch-teal-dark)}
 .term-tab:active{opacity:0.8}
-.price-box{background:#f0f4ff;border-radius:12px;padding:14px 16px;margin-bottom:0}
+.price-box{background:var(--ch-teal-bg);border-radius:12px;padding:14px 16px;margin-bottom:0}
 .price-row2{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
 .price-row2:last-child{margin-bottom:0}
 .plabel{font-size:13px;color:#666}
-.pval{font-size:16px;font-weight:700;color:#1a1a1a}
-.pval.blue{color:#1a56db}
-.pval.red{color:#ef4444}
+.pval{font-size:16px;font-weight:700;color:var(--txt)}
+.pval.blue{color:var(--ch-teal-dark)}
+.pval.red{color:var(--ch-orange)}
 .card-note{font-size:11px;color:#aaa;margin-top:4px;text-align:right}
 /* ===== 공식몰 스타일 가격/옵션 UI ===== */
-.sale-tabs{display:grid;grid-template-columns:1fr 1fr;margin-bottom:16px;border-radius:12px 12px 0 0;overflow:hidden;border-bottom:2.5px solid #3db8c7}
+.sale-tabs{display:grid;grid-template-columns:1fr 1fr;margin-bottom:16px;border-radius:12px 12px 0 0;overflow:hidden;border-bottom:2.5px solid var(--ch-teal)}
 .sale-tab{padding:15px;text-align:center;font-size:16px;font-weight:800;background:#f1f3f5;color:#b5b5b5;cursor:pointer;border-radius:12px 12px 0 0}
-.sale-tab.active{background:#3db8c7;color:#fff}
-.card-hd{font-size:15px;font-weight:800;color:#1a56db;margin:18px 0 4px}
+.sale-tab.active{background:var(--ch-teal);color:#fff}
+.card-hd{font-size:15px;font-weight:800;color:var(--ch-teal-dark);margin:18px 0 4px}
 .card-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:9px 0;border-bottom:1px solid #f5f5f5;color:#444}
-.card-row b{color:#1a56db;font-weight:800}
+.card-row b{color:var(--ch-teal-dark);font-weight:800}
 .ph-label{font-size:13px;color:#999;margin-bottom:4px}
-.ph-rate{font-size:22px;font-weight:800;color:#f05a3c;margin-right:8px}
+.ph-rate{font-size:22px;font-weight:800;color:var(--ch-orange);margin-right:8px}
 .ph-origin{font-size:14px;color:#aaa;text-decoration:line-through}
 .ph-main{font-size:30px;font-weight:800;margin:2px 0 6px;letter-spacing:-0.5px}
 .ph-main span{font-size:17px;font-weight:700}
-.ph-card{font-size:14px;color:#1a56db;font-weight:600}
+.ph-card{font-size:14px;color:var(--ch-teal-dark);font-weight:600}
 .ph-card b{font-weight:800}
-.half-banner{display:flex;align-items:center;justify-content:center;gap:8px;background:#eaf3fe;border-radius:10px;padding:13px;font-size:14px;font-weight:700;color:#1d6fe0;margin:14px 0 8px}
+.half-banner{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--ch-teal-bg);border-radius:10px;padding:13px;font-size:14px;font-weight:700;color:var(--ch-teal-dark);margin:14px 0 8px}
 .half-note{font-size:13px;color:#999;line-height:1.6;margin-bottom:6px}
 .op-label{font-size:14px;font-weight:700;margin:16px 0 8px}
-.op-label .req{color:#ef4444;font-size:12px;font-weight:600}
+.op-label .req{color:var(--ch-orange);font-size:12px;font-weight:600}
 .op-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.op-pill{display:flex;align-items:center;gap:8px;padding:13px 12px;border:1px solid #e5e7eb;border-radius:10px;background:#f8f9fa;cursor:pointer;font-size:14px;font-weight:600;color:#999}
+.op-pill{display:flex;align-items:center;gap:8px;padding:13px 12px;border:1px solid #e5e7eb;border-radius:10px;background:#f7f9fa;cursor:pointer;font-size:14px;font-weight:600;color:#999}
 .op-pill .chk{width:22px;height:22px;border-radius:50%;background:#dde1e6;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
-.op-pill.active{background:#ecfafb;border-color:#5bc2ce;color:#1a1a1a;font-weight:700}
-.op-pill.active .chk{background:#3db8c7}
+.op-pill.active{background:var(--ch-teal-bg);border-color:var(--ch-teal-line);color:var(--txt);font-weight:700}
+.op-pill.active .chk{background:var(--ch-teal)}
 .benefit-box{border:1px solid #eee;border-radius:12px;padding:14px 16px;margin-top:16px}
 .benefit-hd{display:flex;justify-content:space-between;align-items:baseline;font-size:15px;font-weight:800;padding-bottom:8px}
-.benefit-hd .amt{color:#f05a3c;font-size:17px}
+.benefit-hd .amt{color:var(--ch-orange);font-size:17px}
 .benefit-row{display:flex;justify-content:space-between;font-size:13px;color:#666;padding:8px 0;border-top:1px solid #f5f5f5}
-.benefit-row.total{font-weight:800;color:#1a1a1a;font-size:14px}
-.d-rent{background:#5bc2ce;color:#fff;border:none;border-radius:11px;padding:14px 8px;font-size:15px;font-weight:800;cursor:pointer}
+.benefit-row.total{font-weight:800;color:var(--txt);font-size:14px}
+.d-rent{background:var(--ch-teal);color:#fff;border:none;border-radius:11px;padding:14px 8px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit}
 .d-rent:active{opacity:0.9}
-.promo-bubble{position:absolute;top:-17px;right:14px;background:#f05a3c;color:#fff;font-size:12px;font-weight:700;padding:6px 13px;border-radius:99px;display:none}
-.promo-bubble:after{content:'';position:absolute;bottom:-5px;right:30px;border:6px solid transparent;border-top-color:#f05a3c;border-bottom:0}
-/* 시트(관리자 수정용) */
+.promo-bubble{position:absolute;top:-17px;right:14px;background:var(--ch-orange);color:#fff;font-size:12px;font-weight:700;padding:6px 13px;border-radius:99px;display:none}
+.promo-bubble:after{content:'';position:absolute;bottom:-5px;right:30px;border:6px solid transparent;border-top-color:var(--ch-orange);border-bottom:0}
+/* ===== 푸터 (공식몰) ===== */
+.foot{background:#f7f8fa;border-top:1px solid var(--line);padding:22px 18px 26px;margin-top:14px}
+.foot-logo{font-size:15px;font-weight:800;color:#8a8a8a;margin-bottom:10px}
+.foot-logo span{color:#9fcfd6}
+.foot p{font-size:11px;color:#aaa;line-height:1.7;margin-bottom:10px}
+.foot-info{color:#999}
+.foot-links{display:flex;gap:14px;margin-bottom:10px}
+.foot-links a{font-size:11px;color:#888;text-decoration:none;font-weight:600}
+.foot-copy{font-size:10px;color:#c0c0c0}
+/* ===== 시트(관리자 수정용) ===== */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;flex-direction:column;justify-content:flex-end}
 .overlay.open{display:flex}
 .sheet{background:#fff;border-radius:20px 20px 0 0;max-height:92vh;overflow-y:auto;animation:up 0.28s ease;position:relative}
@@ -163,43 +198,43 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 .handle{width:38px;height:4px;background:#e5e7eb;border-radius:99px;margin:12px auto 0}
 .sheet-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;background:#f3f4f6;border:none;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#666}
 .sheet-body{padding:18px}
-.admin-wrap{background:#f0f2f5;min-height:100vh;padding-bottom:2rem}
-.admin-header{background:#1a56db;color:#fff;padding:16px 18px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:10}
+.admin-wrap{background:var(--bg);min-height:100vh;padding-bottom:2rem}
+.admin-header{background:var(--ch-navy);color:#fff;padding:16px 18px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:10}
 .admin-header h2{font-size:16px;font-weight:700;flex:1}
 .admin-tabs{display:flex;background:#fff;border-bottom:1px solid #eee;position:sticky;top:52px;z-index:9}
 .admin-tab{flex:1;padding:13px;text-align:center;font-size:13px;font-weight:600;color:#aaa;cursor:pointer;border-bottom:2px solid transparent}
-.admin-tab.active{color:#1a56db;border-bottom-color:#1a56db}
+.admin-tab.active{color:var(--ch-teal-dark);border-bottom-color:var(--ch-teal)}
 .admin-panel{display:none;padding:14px}.admin-panel.active{display:block}
 .admin-section{background:#fff;border-radius:12px;padding:16px;margin-bottom:12px}
-.admin-section h3{font-size:14px;font-weight:700;color:#1a1a1a;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #f0f2f5}
-.admin-note{font-size:12px;color:#1a56db;margin-top:8px;padding:8px 10px;background:#e8f0fe;border-radius:8px}
-.btn-primary{background:#1a56db;color:#fff;border:none;border-radius:10px;padding:13px 20px;font-size:14px;font-weight:700;cursor:pointer}
-.btn-danger{background:#ef4444;color:#fff;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer}
-.btn-edit{background:#f3f4f6;color:#444;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:600;cursor:pointer;margin-right:4px}
+.admin-section h3{font-size:14px;font-weight:700;color:var(--txt);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #f0f2f5}
+.admin-note{font-size:12px;color:var(--ch-teal-dark);margin-top:8px;padding:8px 10px;background:var(--ch-teal-bg);border-radius:8px}
+.btn-primary{background:var(--ch-teal);color:#fff;border:none;border-radius:10px;padding:13px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-danger{background:#ef4444;color:#fff;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-edit{background:#f3f4f6;color:#444;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:600;cursor:pointer;margin-right:4px;font-family:inherit}
 .admin-prod-row{background:#fff;border-radius:10px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:10px}
-.admin-prod-img{width:44px;height:44px;object-fit:contain;border-radius:6px;background:#f8f9fa;flex-shrink:0}
+.admin-prod-img{width:44px;height:44px;object-fit:contain;border-radius:6px;background:#f7f9fa;flex-shrink:0}
 .admin-prod-info{flex:1;min-width:0}
-.admin-prod-name{font-size:13px;font-weight:700;color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.admin-prod-name{font-size:13px;font-weight:700;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .admin-prod-meta{font-size:11px;color:#aaa;margin-top:2px}
-.admin-prod-price{font-size:12px;color:#1a56db;font-weight:600;margin-top:2px}
+.admin-prod-price{font-size:12px;color:var(--ch-teal-dark);font-weight:600;margin-top:2px}
 .admin-prod-actions{display:flex;flex-direction:column;gap:4px;flex-shrink:0}
 .feat-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #f9f9f9}
 .feat-row:last-child{border-bottom:none}
-.feat-chk{width:20px;height:20px;accent-color:#1a56db;cursor:pointer;flex-shrink:0}
-.feat-name{font-size:13px;color:#1a1a1a;flex:1}
+.feat-chk{width:20px;height:20px;accent-color:var(--ch-teal);cursor:pointer;flex-shrink:0}
+.feat-name{font-size:13px;color:var(--txt);flex:1}
 .feat-sub{font-size:11px;color:#aaa}
 .add-form{background:#fff;border-radius:12px;padding:16px;margin-bottom:12px}
 .add-form h3{font-size:14px;font-weight:700;margin-bottom:14px}
 .form-row{margin-bottom:10px}
 .form-row label{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:4px}
-.form-row input,.form-row select,.form-row textarea{width:100%;border:1.5px solid #e5e7eb;border-radius:8px;padding:9px 12px;font-size:13px;font-family:inherit;color:#1a1a1a;background:#fff;outline:none}
-.form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:#1a56db}
+.form-row input,.form-row select,.form-row textarea{width:100%;border:1.5px solid #e5e7eb;border-radius:8px;padding:9px 12px;font-size:13px;font-family:inherit;color:var(--txt);background:#fff;outline:none}
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:var(--ch-teal)}
 .form-row textarea{min-height:60px;resize:none}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .bottom-hint{font-size:12px;color:#ccc;text-align:center;padding:1.25rem 1rem 0.5rem}
-.btn-on{background:#10b981;color:#fff;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer}
-.btn-off{background:#e5e7eb;color:#888;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer}
-.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:10px 20px;border-radius:99px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:opacity 0.3s;pointer-events:none}
+.btn-on{background:#10b981;color:#fff;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-off{background:#e5e7eb;color:#888;border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:10px 20px;border-radius:99px;font-size:13px;font-weight:600;z-index:999;opacity:0;transition:opacity 0.3s;pointer-events:none}
 .toast.show{opacity:1}
 </style>
 </head>
@@ -207,10 +242,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
 <!-- 메인 화면 -->
 <div class="screen active" id="mainScreen">
 <div class="page">
+  <header class="gnb">
+    <div class="gnb-top"><span>청호나이스 공식 플래너</span><a href="https://www.chungho.com" target="_blank" rel="noopener">청호나이스몰 &rsaquo;</a></div>
+    <div class="gnb-main">
+      <div class="logo">청호<span>나이스</span></div>
+      <button class="gnb-call" onclick="callPlanner()">전화 상담</button>
+    </div>
+  </header>
   <div class="hero">
-    <div class="badge">청호나이스 공식 플래너</div>
-    <h1>깨끗한 물, 건강한 일상</h1>
-    <p>정수기 · 비데 · 공기청정기 렌탈 상담</p>
+    <div class="badge">공식 인증 플래너 상담 페이지</div>
+    <h1>깨끗한 물, 건강한 일상<br>청호나이스가 함께합니다</h1>
+    <p>정수기 · 공기청정기 · 비데 · 매트리스 렌탈 상담</p>
   </div>
   <div class="planner-card" id="plannerCard">
     <div class="loading"><div class="spin"></div></div>
@@ -240,6 +282,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans
   </div>
   <div class="find-btn" id="findProdBtn">🔍 찾으시는 상품보기</div>
   <p class="bottom-hint">더 많은 제품은 상품보기에서 확인하세요</p>
+  <footer class="foot">
+    <div class="foot-logo">청호<span>나이스</span></div>
+    <p>본 페이지는 청호나이스 공식 인증 플래너의 상담 페이지입니다.<br>제품 가격 및 프로모션은 본사 정책에 따라 변경될 수 있습니다.</p>
+    <p class="foot-info">청호나이스(주) · 대표이사 지기원<br>(서초사옥) 서울 서초구 사임당로 28 1층 · (제조본부) 충청북도 진천군 이월면 진광로 486<br>사업자등록번호 1308149813 · 통신판매업번호 2008-충북진천-0001</p>
+    <div class="foot-links"><a href="https://www.chungho.com/terms/use" target="_blank" rel="noopener">이용약관</a><a href="https://www.chungho.com/terms/privacy" target="_blank" rel="noopener">개인정보 처리방침</a><a href="https://www.chungho.com" target="_blank" rel="noopener">청호나이스몰</a></div>
+    <p class="foot-copy">Copyright &copy; 2026 CHUNGHO. All rights reserved.</p>
+  </footer>
 </div>
 </div>
 <!-- 카테고리 화면 -->
@@ -399,6 +448,13 @@ const CATEGORIES = [
   {name:'매트리스', icon:'🛏️', subcats:['매트리스','프레임','파운데이션']},
   {name:'기타', icon:'✨', subcats:['안마의자','소파']},
 ];
+const CAT_IMGS = {
+  '정수기':'https://brand.chungho.com/assets/img_main_product_01-C1kIJwdR.png',
+  '공기청정기':'https://brand.chungho.com/assets/img_main_product_02-DU_9iDYc.png',
+  '비데':'https://brand.chungho.com/assets/img_main_product_03-CZC7mEVW.png',
+  '매트리스':'https://brand.chungho.com/assets/img_main_product_04-B6B4Uzbz.png',
+  '기타':'https://brand.chungho.com/assets/img_main_product_05-fbbeuoRg.png'
+};
 const TAG_CLASS = {
   '인기':'t-hot','베스트':'t-hot','신제품':'t-new','반값':'t-promo','커피+얼음':'t-hot',
   '가성비':'t-good','셀프관리':'t-good','최저가':'t-good','대용량':'t-good','빌트인':'t-new',
@@ -528,7 +584,7 @@ function makeProdCard(p) {
   const isConsult = displayPrice === '상담 문의';
   let priceHTML = '';
   if (isConsult) {
-    priceHTML = '<div class="prod-price" style="font-size:16px;color:#1a56db">💬 상담 문의</div>';
+    priceHTML = '<div class="prod-price" style="font-size:16px;color:#12a5b4">💬 상담 문의</div>';
   } else if (p.hasDiscount && p.autoPromoPrice) {
     priceHTML =
       '<div class="prod-price-origin">'+displayPrice+'</div>'+
@@ -577,7 +633,7 @@ function showCatScreen() {
     const count = ALL_PRODUCTS.filter(p => p.cat === c.name).length;
     const div = document.createElement('div');
     div.className = 'cat-card';
-    div.innerHTML = '<div class="cat-icon">'+c.icon+'</div><div class="cat-name">'+c.name+'</div><div class="cat-count">'+count+'개 제품</div>';
+    div.innerHTML = '<div class="cat-visual">'+(CAT_IMGS[c.name]?'<img class="cat-img" src="'+CAT_IMGS[c.name]+'" alt="" loading="lazy" onerror="this.style.display=\'none\'">':'')+'<span class="cat-icon-fb">'+c.icon+'</span></div><div class="cat-name">'+c.name+'</div><div class="cat-count">'+count+'개 제품</div>';
     div.addEventListener('click', () => showListScreen(c));
     grid.appendChild(div);
   });
@@ -646,7 +702,7 @@ function renderPriceArea(p, term) {
   const bubble = document.getElementById('dBubble');
   const rentBtn = document.getElementById('dRentBtn');
   if (p.price === '상담 문의') {
-    head.innerHTML = '<div class="ph-main" style="font-size:22px;color:#1a56db">💬 상담 문의</div>';
+    head.innerHTML = '<div class="ph-main" style="font-size:22px;color:#12a5b4">💬 상담 문의</div>';
     banner.innerHTML = '<div class="half-banner">✨ 프로모션 진행중! 플래너에게 문의해주세요</div>';
     benefit.innerHTML = '';
     bubble.style.display = 'none';
