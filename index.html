@@ -463,6 +463,7 @@ const TAG_CLASS = {
 const TERM_MONTHS = {3:36, 4:48, 5:60, 6:72};
 let ALL_PRODUCTS = [];
 let ALL_FEATURED = [];
+let ADMIN_PRODUCTS = [];
 // ===== 공식몰 제품 스펙(제원) 데이터 =====
 const SPEC_DATA={
 "p01":{"사이즈":"W 195 X D 430 X H 435","무게":"13.6kg","에너지효율등급":"최저소비효율 만족","안전인증기관":"KTR","안전인증번호":"JJ07053-26003","전자파인증번호":"R-R-486-WI-37C90720N","소비전력":"최대 2,850 W, 온수 2,700 W, 냉수 0.6A, 제빙 0.6","정격전압":"AC 220 V/60 Hz","설치방법":"청호설치","출시년월":"20260316","판매사":"청호나이스(주)","제조사":"청호나이스","제조국가":"대한민국","정수방식":"직수","필터구성":"W PREMIUM 2 (8개월), NANO PRO 2 PLUS (8개월)","탱크용량":"직수, 얼음 0.6kg","추출방식":"터치"},
@@ -612,7 +613,7 @@ function renderPlannerCard() {
     '</div>';
   if (pid === '10200366') {
     document.getElementById('adminBtnWrap').style.display = 'block';
-    document.getElementById('adminEntryBtn').onclick = () => showScreen('adminScreen');
+    document.getElementById('adminEntryBtn').onclick = () => { showScreen('adminScreen'); renderAdminAll(); };
   }
 }
 // ===== 데이터 로드 =====
@@ -621,8 +622,11 @@ async function loadData() {
     const data = await gasGet({action:'getData'});
     ALL_PRODUCTS = data.products || [];
     ALL_FEATURED = data.featured || [];
+    ADMIN_PRODUCTS = data.allProducts || data.products || [];
     if (isAdmin) {
       ALL_PRODUCTS = data.allProducts || ALL_PRODUCTS;
+    }
+    if (isAdmin || document.getElementById('adminScreen').classList.contains('active')) {
       renderAdminAll();
     }
     renderFeatured();
@@ -1147,10 +1151,11 @@ function renderAdminAll() {
   renderAdminFeatured();
   renderAdminProducts();
 }
+function adminList() { return ADMIN_PRODUCTS.length ? ADMIN_PRODUCTS : ALL_PRODUCTS; }
 function renderAdminFeatured() {
   const el = document.getElementById('adminFeatList');
   el.innerHTML = '';
-  ALL_PRODUCTS.forEach(p => {
+  adminList().forEach(p => {
     const checked = ALL_FEATURED.includes(p.id);
     const div = document.createElement('div');
     div.className = 'feat-row';
@@ -1166,7 +1171,7 @@ function renderAdminFeatured() {
 function renderAdminProducts() {
   const el = document.getElementById('adminProdList');
   el.innerHTML = '';
-  ALL_PRODUCTS.forEach(p => {
+  adminList().forEach(p => {
     const detailBadge = (p.detailImgs && p.detailImgs.length) ? ' · 📷'+p.detailImgs.length : ' · 상세X';
     const div = document.createElement('div');
     div.className = 'admin-prod-row';
@@ -1220,7 +1225,7 @@ document.getElementById('addProdBtn').addEventListener('click', async () => {
   document.getElementById('addProdBtn').textContent = '제품 추가하기';
 });
 function openEditPop(id) {
-  const p = ALL_PRODUCTS.find(x => x.id === id);
+  const p = adminList().find(x => x.id === id) || ALL_PRODUCTS.find(x => x.id === id);
   if (!p) return;
   document.getElementById('editId').value = id;
   document.getElementById('editName').value = p.name;
@@ -1236,7 +1241,7 @@ function openEditPop(id) {
 document.getElementById('editClose').addEventListener('click', () => document.getElementById('editOverlay').classList.remove('open'));
 document.getElementById('saveEditBtn').addEventListener('click', async () => {
   const id = document.getElementById('editId').value;
-  const p = ALL_PRODUCTS.find(x => x.id === id);
+  const p = adminList().find(x => x.id === id) || ALL_PRODUCTS.find(x => x.id === id);
   const detailImgsRaw = document.getElementById('editDetailImgs').value.trim();
   const detailImgs = detailImgsRaw.split(/[\n|]/).map(s => s.trim()).filter(Boolean).join('|');
   const product = {
