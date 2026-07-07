@@ -592,7 +592,7 @@ async function loadPlanner() {
     const data = await gasGet({action:'getPlanner', pid});
     if (data) PLANNER = {
       name: data.name || PLANNER.name,
-      title: data.title || '',
+      title: data.title || PLANNER.title,
       branch: data.branch || PLANNER.branch,
       phone: data.phone || PLANNER.phone,
       avatar: (data.name || PLANNER.name)[0]
