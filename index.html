@@ -609,7 +609,7 @@ function renderPlannerCard() {
     '<div style="flex:1">'+
       '<div class="p-name">'+PLANNER.name+titleBadge+'</div>'+
       '<div class="p-sub">사번 '+pid+' · '+PLANNER.branch+'</div>'+
-      '<span class="v-badge">✓ 공식 인증 플래너</span>'+
+      '<span class="v-badge">✓ '+(pid === '10200366' ? '청호나이스 직영 팀장' : '공식 인증 플래너')+'</span>'+
     '</div>';
   if (pid === '10200366') {
     document.getElementById('adminBtnWrap').style.display = 'block';
