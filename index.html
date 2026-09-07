@@ -1053,42 +1053,74 @@ function renderTermOpts(p) {
     grid.appendChild(div);
   });
 }
-/* ===== 공식몰 옵션조합 (계약기간 × 관리유형/점검주기) ===== */
+/* ===== 옵션조합 (규정 × 계약기간 × 관리유형/점검주기) =====
+   공식몰 크롤링 데이터(rule 없음)와 수수료표 rental_fee 변환 데이터(rule: A/S/H/P/J) 둘 다 지원 */
 let selCombo = null;
+const RULE_ORDER = ['A', 'S', 'H', 'P', 'J'];
+const RULE_LABEL = {A:'기본 (A규정)', S:'S규정', H:'🎁 프로모션 (H규정)', P:'P규정', J:'J규정'};
 function hasOfficialCombos(p) {
   return p.official && p.official.combos && p.official.combos.length > 0;
 }
-function findCombo(p, termKey, manage) {
+function comboRule(c) { return c.rule || ''; }
+function comboTermKey(c) { return c.term + '|' + c.duty; }
+function comboManageKey(c) { return (c.manage || '') + '|' + (parseInt(c.cycle || '0') || 0); }
+function ruleList(p) {
+  const rules = [];
+  p.official.combos.forEach(function (c) { const r = comboRule(c); if (rules.indexOf(r) === -1) rules.push(r); });
+  rules.sort(function (a, b) { return (RULE_ORDER.indexOf(a) + 1 || 99) - (RULE_ORDER.indexOf(b) + 1 || 99); });
+  return rules;
+}
+function defaultCombo(p) {
   const combos = p.official.combos;
-  return combos.find(function (c) { return (c.term + '|' + c.duty) === termKey && c.manage === manage; })
-    || combos.find(function (c) { return (c.term + '|' + c.duty) === termKey; })
-    || combos[combos.length - 1];
+  const r0 = ruleList(p)[0];
+  const cand = combos.filter(function (c) { return comboRule(c) === r0; });
+  return cand.find(function (c) { return c.term === '60' && c.duty === '60'; })
+      || cand.find(function (c) { return c.term === '60'; })
+      || cand[cand.length - 1];
+}
+function findCombo(p, rule, termKey, manageKey) {
+  const combos = p.official.combos.filter(function (c) { return comboRule(c) === rule; });
+  const pool = combos.length ? combos : p.official.combos;
+  return pool.find(function (c) { return comboTermKey(c) === termKey && comboManageKey(c) === manageKey; })
+    || pool.find(function (c) { return comboTermKey(c) === termKey; })
+    || pool.find(function (c) { return comboManageKey(c) === manageKey; })
+    || pool[pool.length - 1];
 }
 function renderOfficialOpts(p) {
   const wrap = document.getElementById('dTermWrap');
   const combos = p.official.combos;
-  if (!selCombo) selCombo = combos[combos.length - 1];
+  if (!selCombo || combos.indexOf(selCombo) === -1) selCombo = defaultCombo(p);
+  const curRule = comboRule(selCombo);
+  const rules = ruleList(p);
+  const same = combos.filter(function (c) { return comboRule(c) === curRule; });
   const termKeys = [];
-  combos.forEach(function (c) { const k = c.term + '|' + c.duty; if (termKeys.indexOf(k) === -1) termKeys.push(k); });
-  const manages = [];
-  combos.forEach(function (c) { if (c.manage && manages.indexOf(c.manage) === -1) manages.push(c.manage); });
-  let html = '<div class="op-label">계약기간 <span class="req">(필수)</span></div><div class="op-grid">';
+  same.forEach(function (c) { const k = comboTermKey(c); if (termKeys.indexOf(k) === -1) termKeys.push(k); });
+  const manageKeys = [];
+  same.forEach(function (c) { const k = comboManageKey(c); if (manageKeys.indexOf(k) === -1) manageKeys.push(k); });
+  let html = '';
+  if (rules.length > 1) {
+    html += '<div class="op-label">요금 규정 <span class="req">(필수)</span></div><div class="op-grid">';
+    rules.forEach(function (r) {
+      html += '<div class="op-pill' + (r === curRule ? ' active' : '') + '" data-rule="' + r + '"><span class="chk">✓</span>' + (RULE_LABEL[r] || r) + '</div>';
+    });
+    html += '</div>';
+  }
+  html += '<div class="op-label">계약기간 <span class="req">(필수)</span></div><div class="op-grid">';
   termKeys.forEach(function (k) {
     const parts = k.split('|');
     const lbl = parts[0] + '개월' + (parts[0] !== parts[1] ? ' · 의무 ' + parts[1] : '');
-    const on = (selCombo.term + '|' + selCombo.duty) === k;
+    const on = comboTermKey(selCombo) === k;
     html += '<div class="op-pill' + (on ? ' active' : '') + '" data-tk="' + k + '"><span class="chk">✓</span>' + lbl + '</div>';
   });
   html += '</div>';
-  if (manages.length > 1) {
+  if (manageKeys.length > 1) {
     html += '<div class="op-label">관리유형 · 방문점검주기 <span class="req">(필수)</span></div><div class="op-grid">';
-    manages.forEach(function (m) {
-      const c = combos.find(function (x) { return x.manage === m; });
-      const on = selCombo.manage === m;
-      // ★ cycle=0이면 점검주기 표시 안함
-      const cycleNum = parseInt(c.cycle || '0');
-      const cycleLabel = cycleNum > 0 ? ' · ' + c.cycle + '개월 점검' : '';
-      html += '<div class="op-pill' + (on ? ' active' : '') + '" data-mg="' + m + '"><span class="chk">✓</span>' + m + cycleLabel + '</div>';
+    manageKeys.forEach(function (k) {
+      const parts = k.split('|');
+      const cycleNum = parseInt(parts[1]) || 0;
+      const lbl = parts[0] + (cycleNum > 0 ? ' · ' + cycleNum + '개월 점검' : '');
+      const on = comboManageKey(selCombo) === k;
+      html += '<div class="op-pill' + (on ? ' active' : '') + '" data-mg="' + k + '"><span class="chk">✓</span>' + lbl + '</div>';
     });
     html += '</div>';
   }
@@ -1104,8 +1136,10 @@ document.getElementById('dTermWrap').addEventListener('click', function (e) {
     return;
   }
   if (!hasOfficialCombos(currentProd)) return;
-  if (pill.dataset.tk) selCombo = findCombo(currentProd, pill.dataset.tk, selCombo ? selCombo.manage : '');
-  else if (pill.dataset.mg) selCombo = findCombo(currentProd, selCombo.term + '|' + selCombo.duty, pill.dataset.mg);
+  const rule = comboRule(selCombo), tk = comboTermKey(selCombo), mg = comboManageKey(selCombo);
+  if (pill.dataset.rule !== undefined) selCombo = findCombo(currentProd, pill.dataset.rule, tk, mg);
+  else if (pill.dataset.tk) selCombo = findCombo(currentProd, rule, pill.dataset.tk, mg);
+  else if (pill.dataset.mg) selCombo = findCombo(currentProd, rule, tk, pill.dataset.mg);
   else return;
   renderOfficialOpts(currentProd);
   renderOfficialPrice(currentProd);
@@ -1121,19 +1155,20 @@ function renderOfficialPrice(p) {
   const isPromoCombo = rep.sale && rep.normal && fee === rep.normal && rep.sale < fee;
   const topCard = (p.official.cards && p.official.cards[0]) || null;
   const monthly = isPromoCombo ? rep.sale : fee;
-  let html = '<div class="ph-label">월 렌탈료 · ' + selCombo.term + '개월 약정 · ' + selCombo.manage + '</div>';
+  const cyc = parseInt(selCombo.cycle || '0') || 0;
+  let html = '<div class="ph-label">월 렌탈료 · ' + selCombo.term + '개월 약정 · ' + selCombo.manage + (cyc ? ' ' + cyc + '개월 점검' : '') + (selCombo.rule ? ' · ' + (RULE_LABEL[selCombo.rule] || selCombo.rule).replace('🎁 ', '') : '') + '</div>';
   if (isPromoCombo) {
     html += '<div><span class="ph-rate">' + (rep.rate || Math.round((1 - rep.sale / fee) * 100)) + '%</span><span class="ph-origin">월 ' + fee.toLocaleString() + '원</span></div>';
   }
   html += '<div class="ph-main">월 ' + monthly.toLocaleString() + '<span>원</span></div>';
-  if (topCard) html += '<div class="ph-card">제휴카드 최대 적용 시 <b>월 ' + Math.max(monthly - topCard.amt, 0).toLocaleString() + '원~</b></div>';
+  if (topCard) { const cardMin = monthly - topCard.amt; html += cardMin > 0 ? '<div class="ph-card">제휴카드 최대 적용 시 <b>월 ' + cardMin.toLocaleString() + '원~</b></div>' : '<div class="ph-card">제휴카드 실적 충족 시 <b>렌탈료 대부분 할인</b> (플래너 상담)</div>'; }
   head.innerHTML = html;
   let bHTML = '';
   if (isPromoCombo) bHTML += '<div class="half-banner">💙 프로모션 할인 적용 중</div>';
   if (p.promo) bHTML += '<div class="half-note">🎁 ' + p.promo.replace(/\n/g, '<br>') + '</div>';
   banner.innerHTML = bHTML;
   const promoSave = isPromoCombo ? fee - rep.sale : 0;
-  const cardSave = topCard ? topCard.amt : 0;
+  const cardSave = topCard ? Math.min(topCard.amt, monthly) : 0;
   benefit.innerHTML =
     '<div class="benefit-box">' +
       '<div class="benefit-hd"><span>최대 혜택 계산하기</span><span class="amt">월 -' + (promoSave + cardSave).toLocaleString() + '원</span></div>' +
