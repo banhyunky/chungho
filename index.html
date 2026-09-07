@@ -901,13 +901,21 @@ function pickDefaultTerm(p) {
   }
   return terms[terms.length - 1];
 }
+// '상담 문의'라도 GAS가 계산한 약정별 가격(allTermPrices)이나 공식가격(official)이 있으면 가격 UI를 그린다
+function isConsultOnly(p) {
+  if (p.price !== '상담 문의') return false;
+  if (p.autoPrice && p.autoPrice !== '상담 문의') return false;
+  if (p.allTermPrices && Object.keys(p.allTermPrices).length) return false;
+  if (hasOfficialCombos(p)) return false;
+  return true;
+}
 function renderPriceArea(p, term) {
   const head = document.getElementById('dPriceHead');
   const banner = document.getElementById('dHalfBanner');
   const benefit = document.getElementById('dBenefit');
   const bubble = document.getElementById('dBubble');
   const rentBtn = document.getElementById('dRentBtn');
-  if (p.price === '상담 문의') {
+  if (isConsultOnly(p)) {
     head.innerHTML = '<div class="ph-main" style="font-size:22px;color:#12a5b4">💬 상담 문의</div>';
     banner.innerHTML = '<div class="half-banner">✨ 프로모션 진행중! 플래너에게 문의해주세요</div>';
     benefit.innerHTML = '';
@@ -1007,7 +1015,7 @@ function renderCardList(p) {
 function renderDetailPriceUI(p) {
   if (currentSale === 'buy' && getBuyPrice(p)) {
     renderBuyArea(p);
-  } else if (hasOfficialCombos(p) && p.price !== '상담 문의') {
+  } else if (hasOfficialCombos(p)) {
     renderOfficialOpts(p);
     renderOfficialPrice(p);
   } else {
@@ -1033,7 +1041,7 @@ document.getElementById('dSaleTabs').addEventListener('click', function (e) {
 });
 function renderTermOpts(p) {
   const wrap = document.getElementById('dTermWrap');
-  if (p.price === '상담 문의') { wrap.style.display = 'none'; return; }
+  if (isConsultOnly(p)) { wrap.style.display = 'none'; return; }
   const terms = getTermList(p);
   if (!terms.length) { wrap.style.display = 'none'; return; }
   if (terms.indexOf(currentTerm) === -1) currentTerm = terms[terms.length - 1];
