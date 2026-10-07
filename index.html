@@ -663,6 +663,21 @@ async function gasPost(data) {
 // ===== 플래너 로드 =====
 async function loadPlanner() {
   try {
+    const r0 = await fetch('https://banhyunky.github.io/planners-businesscard/planners.json');
+    const d0 = r0.ok ? (await r0.json())[pid] : null;
+    if (d0) {
+      PLANNER = {
+        name: d0.name,
+        title: d0.role === '플래너' ? '' : (d0.role || ''),
+        branch: (d0.branch || '').replace(/^대전/, '') || PLANNER.branch,
+        phone: String(d0.tel || '').replace(/[^0-9]/g, '') || PLANNER.phone,
+        avatar: d0.name[0]
+      };
+      renderPlannerCard();
+      return;
+    }
+  } catch(e) {}
+  try {
     const data = await gasGet({action:'getPlanner', pid});
     if (data) PLANNER = {
       name: data.name || PLANNER.name,
@@ -691,29 +706,41 @@ function renderPlannerCard() {
   }
 }
 // ===== 데이터 로드 =====
-async function loadData() {
-  try {
-    const data = await gasGet({action:'getData'});
-    ALL_PRODUCTS = data.products || [];
-    ALL_FEATURED = data.featured || [];
-    ADMIN_PRODUCTS = data.allProducts || data.products || [];
-    if (isAdmin) {
-      ALL_PRODUCTS = data.allProducts || ALL_PRODUCTS;
-    }
-    if (isAdmin || document.getElementById('adminScreen').classList.contains('active')) {
-      renderAdminAll();
-    }
-    renderFeatured();
-    const prodParam = params.get('prod');
-    if (prodParam) {
-      const target = ALL_PRODUCTS.find(p => p.id === prodParam);
-      if (target) setTimeout(() => openDetail(target), 300);
-    }
-  } catch(e) {
-    document.getElementById('featuredList').innerHTML =
-      '<p style="text-align:center;padding:2rem;color:#aaa;font-size:13px">데이터를 불러올 수 없어요.<br>잠시 후 다시 시도해주세요.</p>';
+function applyShopData(data) {
+  ALL_PRODUCTS = data.products || [];
+  ALL_FEATURED = data.featured || [];
+  ADMIN_PRODUCTS = data.allProducts || data.products || [];
+  if (isAdmin) {
+    ALL_PRODUCTS = data.allProducts || ALL_PRODUCTS;
+  }
+  if (isAdmin || document.getElementById('adminScreen').classList.contains('active')) {
+    renderAdminAll();
+  }
+  renderFeatured();
+  const prodParam = params.get('prod');
+  if (prodParam && !window.__prodOpened) {
+    const target = ALL_PRODUCTS.find(p => p.id === prodParam);
+    if (target) { window.__prodOpened = true; setTimeout(() => openDetail(target), 300); }
   }
 }
+async function loadData() {
+  let shown = false;
+  if (!window.__dataLoaded) {
+    try {
+      const c = JSON.parse(localStorage.getItem('shopDataCache') || 'null');
+      if (c && c.data && Date.now() - c.t < 6048e5) { applyShopData(c.data); shown = true; }
+    } catch(e) {}
+  }
+  try {
+    const data = await gasGet({action:'getData'});
+    window.__dataLoaded = true;
+    try { localStorage.setItem('shopDataCache', JSON.stringify({t: Date.now(), data: data})); } catch(e) {}
+    applyShopData(data);
+  } catch(e) {
+    if (!shown) document.getElementById('featuredList').innerHTML =
+      '<p style="text-align:center;padding:2rem;color:#aaa;font-size:13px">데이터를 불러올 수 없어요.<br>잠시 후 다시 시도해주세요.</p>';
+  }
+  }
 function callPlanner() { window.location.href = 'tel:'+PLANNER.phone; }
 function smsConsult(prodName) {
   const body = '[청호나이스 상담신청]\n관심제품: '+prodName+'\n상담 문의드립니다.';
